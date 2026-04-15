@@ -40,7 +40,7 @@ body::after {
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    padding:20px 0;
+    padding:30px 0;
     box-shadow:3px 0 10px rgba(0,0,0,0.1);
     width: 240px;
     height: 100vh;        /* full height */
@@ -51,19 +51,21 @@ body::after {
 
 /* LOGO */
 
-.logo{
-text-align:center;
-margin-bottom:30px;
+.logo {
+    text-align: center;
+    margin-bottom: 40px;   /* more space below logo */
+    margin-top: 5px;       /* move it closer to top */
 }
 
-.logo img{
-width:65px;
-margin-bottom:10px;
+.logo img {
+    width: 90px;           /* bigger logo (was 65px) */
+    margin-bottom: 12px;
 }
 
-.logo h2{
-font-size:20px;
-letter-spacing:2px;
+.logo h2 {
+    font-size: 26px;       /* bigger text */
+    letter-spacing: 3px;
+    font-weight: 700;
 }
 
 /* MENU */
