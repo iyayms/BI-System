@@ -1,0 +1,100 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, sans-serif;
+}
+
+body{
+background:#f5f5f5;
+}
+
+.container{
+display:flex;
+height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:240px;
+background:linear-gradient(#d18a2c,#d99a3a);
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+padding:20px 0;
+}
+
+/* LOGO */
+
+.logo{
+text-align:center;
+margin-bottom:30px;
+}
+
+.logo img{
+width:60px;
+margin-bottom:10px;
+}
+
+.logo h2{
+font-size:20px;
+letter-spacing:2px;
+}
+
+/* MENU */
+
+.menu{
+list-style:none;
+}
+
+.menu li{
+padding:14px 25px;
+display:flex;
+align-items:center;
+gap:12px;
+cursor:pointer;
+transition:.2s;
+font-size:15px;
+}
+
+.menu li:hover{
+background:rgba(0,0,0,0.1);
+}
+
+.menu li.active{
+background:#6b2d1a;
+border-radius:20px;
+margin:5px 10px;
+}
+
+/* LOGOUT */
+
+.logout{
+padding:15px 25px;
+cursor:pointer;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+/* MAIN AREA */
+
+.main{
+flex:1;
+background-image:url("background.jpg");
+background-size:cover;
+background-position:center;
+padding:40px;
+}
+
+/* TABS */
+
+.tab{
+display:none;
+}
+
+.activeTab{
+display:block;
+}
