@@ -130,52 +130,52 @@
                 </div>
             </div>
 
-            <!-- PURCHASE HISTORY -->
-            <div class="purchase-history">
-                <div class="box-header">
-                    <h3>Purchase History</h3>
-                    <select>
-                        <option>This Day</option>
-                        <option>This Week</option>
-                        <option>This Month</option>
-                    </select>
+                    <!-- PURCHASE HISTORY -->
+                    <div class="purchase-history">
+                        <div class="box-header">
+                            <h3>Purchase History</h3>
+                            <select>
+                                <option>This Day</option>
+                                <option>This Week</option>
+                                <option>This Month</option>
+                            </select>
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Transaction ID</th>
+                                    <th>Date</th>
+                                    <th>Quantity</th>
+                                    <th>Total Amount</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>#TRX001</td>
+                                    <td>04/16/2026</td>
+                                    <td>3</td>
+                                    <td>₱150</td>
+                                    <td><button class="view-btn">View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Transaction ID</th>
-                            <th>Date</th>
-                            <th>Quantity</th>
-                            <th>Total Amount</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>#TRX001</td>
-                            <td>04/16/2026</td>
-                            <td>3</td>
-                            <td>₱150</td>
-                            <td><button class="view-btn">View</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
+                <!-- MODAL -->
+                <div id="restockModal" class="modal">
+                    <div class="modal-content">
+                        <h3>Restock Item</h3>
+                        <input type="number" placeholder="Enter quantity">
+                        <button id="confirmRestock" class="confirm-btn">Confirm</button>
+                    </div>
+                </div>
         </div>
-
-        <!-- MODAL -->
-        <div id="restockModal" class="modal">
-            <div class="modal-content">
-                <h3>Restock Item</h3>
-                <input type="number" placeholder="Enter quantity">
-                <button id="confirmRestock" class="confirm-btn">Confirm</button>
-            </div>
-        </div>
-</div>
 
 </body>
 </html>
