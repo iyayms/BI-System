@@ -25,7 +25,7 @@ body {
 /* CARDS */
 .dashboard .cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(180px, 250px));
     gap: 15px;
 }
 
@@ -62,40 +62,47 @@ body {
 /* MIDDLE SECTION */
 .dashboard .middle-section {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 15px;
     margin-top: 20px;
-    align-items: stretch;
+    min-height: 400px;
+}
+
+.dashboard .middle-section > * {
+    min-width: 0;
 }
 
 /* RIGHT SIDE STACK */
 .dashboard .side-widgets {
     display: flex;
     flex-direction: column;
+    grid-template-rows: 1fr 1fr; /* 🔥 perfect 50/50 split */
+    gap: 10px;
     height: 100%;
-    gap: 15px;
 }
 
 /* BOXES */
 .dashboard .chart-box {
     background: #fff;
     border-radius: 12px;
-    height: 350px;
     padding: 15px;
     border: 1px solid #e5e5e5;
     box-shadow: 0 4px 0 #2c2c2c;
     display: flex;
     flex-direction: column;
+    max-width: 700px;
+    justify-self: start;
     height: 100%;
 }
 
 .dashboard .chart-container {
-    flex: 1;              /* take remaining space */
+    flex: 1;
     position: relative;
-    min-height: 0;
+    margin-top: 5px;
 }
 
 .dashboard .chart-container canvas {
+    display: block;      
     width: 100% !important;
     height: 100% !important;
 }
@@ -109,13 +116,18 @@ body {
     border: 1px solid #e5e5e5;
     box-shadow: 0 4px 0 #2c2c2c;
     flex: 1;
+    height: 100%;
+    flex-direction: column;
 }
 
 /* HEADER INSIDE */
 .dashboard .box-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
+    align-items: center; /* 🔥 vertical alignment */
+    margin-bottom: 10px;
+    height: 40px;
+
 }
 
 .dashboard .report-btn {
@@ -129,12 +141,14 @@ body {
 /* LIST */
 .dashboard ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .dashboard li {
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
+    padding: 10px 0;
     border-bottom: 1px solid #eee;
 }
 
@@ -254,11 +268,8 @@ body {
 /* RESPONSIVE */
 @media (max-width: 1024px) {
     .dashboard .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .dashboard .middle-section {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
+        justify-content: center;
     }
 }
 
