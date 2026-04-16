@@ -1,45 +1,48 @@
-// Sidebar Loading Logic
+// Sidebar Loading Logic (Restore from your original setup)
 fetch("../components/sidebar.html")
     .then(res => res.text())
     .then(data => {
-        document.getElementById("sidebar-container").innerHTML = data;
-        
-        // Highlight active link
-        const links = document.querySelectorAll(".menu a");
-        links.forEach(link => {
-            if (link.getAttribute("href").includes("products.html")) {
-                link.classList.add("active");
-            }
-        });
+        const container = document.getElementById("sidebar-container");
+        if (container) {
+            container.innerHTML = data;
+            const links = document.querySelectorAll(".menu a");
+            links.forEach(link => {
+                if (link.getAttribute("href").includes("products.html")) {
+                    link.classList.add("active");
+                }
+            });
+        }
     })
     .catch(err => console.error("Error loading sidebar:", err));
 
-// Initial Product Data
+// Your full Product Data
 const products = [
-    { id: "12345", name: "Special Halo-halo", category: "Special", margin: 80, price: 150, ingredients: 10, status: "Low in Ingredients" },
-    { id: "12345", name: "Saba De Leche", category: "Special", margin: 80, price: 120, ingredients: 7, status: "Available" },
-    { id: "12345", name: "Mais De Leche", category: "Special", margin: 70, price: 120, ingredients: 8, status: "Not Available" },
-    { id: "1234", name: "Mango Graham Shake", category: "Shake", margin: 70, price: 80, ingredients: 8, status: "No ingredients" },
-    { id: "12345", name: "Halo-halo", category: "Iced", margin: 50, price: 80, ingredients: 10, status: "Available" },
-    { id: "12345", name: "Mango Shake", category: "Shake", margin: 30, price: 60, ingredients: 5, status: "Available" },
-    { id: "112345", name: "Melon Shake", category: "Shake", margin: 30, price: 60, ingredients: 5, status: "Available" }
+    { id: "SP-001", name: "Special Halo-halo", category: "Special", margin: 40, price: 100, ingredients: 10, status: "Available" },
+    { id: "SP-002", name: "Saba De Leche", category: "Special", margin: 40, price: 100, ingredients: 7, status: "Available" },
+    { id: "SP-003", name: "Mais De Leche", category: "Special", margin: 40, price: 100, ingredients: 8, status: "Not Available" },
+    { id: "SH-001", name: "Mango Graham Shake", category: "Shake", margin: 30, price: 100, ingredients: 8, status: "Available" },
+    { id: "SH-002", name: "Mango Shake", category: "Shake", margin: 25, price: 80, ingredients: 5, status: "Available" },
+    { id: "SH-003", name: "Melon Shake", category: "Shake", margin: 25, price: 80, ingredients: 5, status: "No Ingredients" },
+    { id: "SH-004", name: "Oreo Cheese Shake", category: "Shake", margin: 25, price: 80, ingredients: 6, status: "Available" },
+    { id: "IC-001", name: "Halo-halo", category: "Iced", margin: 20, price: 80, ingredients: 10, status: "Available" },
+    { id: "IC-002", name: "Mango Con Yelo", category: "Iced", margin: 15, price: 50, ingredients: 4, status: "Available" },
+    { id: "IC-003", name: "Mais Con Yelo", category: "Iced", margin: 15, price: 50, ingredients: 4, status: "Available" },
+    { id: "IC-004", name: "Saba Con Yelo", category: "Iced", margin: 15, price: 50, ingredients: 4, status: "Available" },
+    { id: "IC-005", name: "Milo Con Yelo", category: "Iced", margin: 15, price: 50, ingredients: 4, status: "Available" }
 ];
 
-// Table Rendering Function
 function renderProductTable(data) {
     const tbody = document.getElementById('productTableBody');
-    
+    if (!tbody) return;
     tbody.innerHTML = data.map(item => {
-        // Create CSS-friendly class names from the status string
-        const statusClass = item.status.toLowerCase().trim().replace(/\s+/g, '_');
-        
+        const statusClass = item.status.toLowerCase().replace(/\s+/g, '_');
         return `
             <tr>
                 <td>${item.id}</td>
                 <td><strong>${item.name}</strong></td>
                 <td>${item.category}</td>
-                <td>${item.margin}</td>
-                <td>${item.price}</td>
+                <td>${item.margin}%</td>
+                <td>₱${item.price}</td>
                 <td>${item.ingredients}</td>
                 <td><span class="status-text status-${statusClass}">${item.status}</span></td>
                 <td>
@@ -53,45 +56,41 @@ function renderProductTable(data) {
     }).join('');
 }
 
-// Search Logic
-document.getElementById('productSearch').addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
-    const filtered = products.filter(p => 
-        p.name.toLowerCase().includes(term) || 
-        p.id.toLowerCase().includes(term)
-    );
-    renderProductTable(filtered);
+// Modal Interactivity
+const addModal = document.getElementById('addModal');
+const addBtn = document.querySelector('.add-btn');
+const closeModal = document.getElementById('closeModal');
+
+if (addBtn) {
+    addBtn.onclick = () => addModal.classList.add('active');
+}
+
+if (closeModal) {
+    closeModal.onclick = () => {
+        addModal.classList.remove('active');
+        document.getElementById('ingredientBody').innerHTML = ''; // Reset ingredients
+    };
+}
+
+// Add Ingredient Row Function
+function addIngredientRow() {
+    const tbody = document.getElementById('ingredientBody');
+    if (!tbody) return;
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td>${tbody.children.length + 1}</td>
+        <td><input type="text" placeholder="NAME" class="ing-input"></td>
+        <td><input type="number" placeholder="0" class="ing-input"></td>
+        <td><input type="number" placeholder="0.00" class="ing-input"></td>
+        <td><i class="ph ph-trash" onclick="this.closest('tr').remove()" style="cursor:pointer"></i></td>
+    `;
+    tbody.appendChild(row);
+}
+
+const addIngBtn = document.querySelector('.add-ing-btn');
+if (addIngBtn) addIngBtn.onclick = addIngredientRow;
+
+// Initialization
+document.addEventListener("DOMContentLoaded", () => {
+    renderProductTable(products);
 });
-
-// Category Filter Logic
-const categoryFilter = document.getElementById('categoryFilter');
-
-categoryFilter.addEventListener('change', (e) => {
-    const selectedCategory = e.target.value;
-    
-    if (selectedCategory === "All Categories") {
-        renderProductTable(products);
-    } else {
-        const filteredData = products.filter(p => p.category === selectedCategory);
-        renderProductTable(filteredData);
-    }
-});
-
-// Price Sorting Logic (Low to High / High to Low)
-const priceFilter = document.querySelector('.table-filters .filter-select:last-child');
-
-priceFilter.addEventListener('change', (e) => {
-    const sortOrder = e.target.value;
-    let sortedData = [...products];
-
-    if (sortOrder === "Low to High") {
-        sortedData.sort((a, b) => a.price - b.price);
-    } else if (sortOrder === "High to Low") {
-        sortedData.sort((a, b) => b.price - a.price);
-    }
-    
-    renderProductTable(sortedData);
-});
-
-// Run render on load
-document.addEventListener("DOMContentLoaded", () => renderProductTable(products));

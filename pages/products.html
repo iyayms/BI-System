@@ -59,10 +59,87 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="productTableBody">
-                            </tbody>
+                        <tbody id="productTableBody"></tbody>
                     </table>
                 </div>
-            </section> </main> </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addModal">
+        <div class="modal-container wide-modal">
+            <header class="modal-header">
+                <h2>ADD PRODUCT</h2>
+            </header>
+
+            <div class="modal-body">
+                <div class="modal-column">
+                    <h3>Product Details</h3>
+                    <div class="form-group-row">
+                        <label>PRODUCT NAME</label>
+                        <input type="text" id="newProductName" placeholder="ENTER PRODUCT NAME">
+                    </div>
+                    <div class="form-group-row">
+                        <label>CATEGORY</label>
+                        <select id="newProductCategory">
+                            <option>SELECT CATEGORY</option>
+                            <option>Special</option>
+                            <option>Shake</option>
+                            <option>Iced</option>
+                        </select>
+                    </div>
+                    <div class="form-group-row">
+                        <label>PRICE</label>
+                        <input type="number" id="newProductPrice" placeholder="SELLING PRICE">
+                    </div>
+                    <div class="form-group-row">
+                        <label>IMAGE</label>
+                        <input type="file">
+                    </div>
+
+                    <div class="financial-section">
+                        <h3>Financial Breakdown</h3>
+                        <p>CONTRIBUTION MARGIN (ESTIMATED):</p>
+                        <div class="margin-highlight" id="estimatedMargin">PHP 0.00 (0.0%)</div>
+                        <div class="form-group-row">
+                            <label>MATERIALS COST:</label>
+                            <input type="text" id="materialsCostDisplay" value="PHP 0.00" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-column">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3>Ingredients Needed</h3>
+                        <button class="add-ing-btn">+ ADD INGREDIENT</button>
+                    </div>
+                    
+                    <div class="ingredient-table-container">
+                        <table class="ingredient-table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Ingredient</th>
+                                    <th>Grams</th>
+                                    <th>Price/g</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ingredientBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="form-group-row" style="margin-top: 20px;">
+                        <label>TOTAL MATERIAL COST:</label>
+                        <input type="text" id="totalMaterialCost" value="PHP 0.00" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="modal-footer">
+                <button class="btn-cancel" id="closeModal">CANCEL</button>
+                <button class="btn-save">SAVE PRODUCT</button>
+            </footer>
+        </div>
+    </div>
 </body>
 </html>
