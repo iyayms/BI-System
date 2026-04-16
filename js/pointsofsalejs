@@ -24,11 +24,11 @@ const products = [
     { id: 5, name: "Mango Shake", price: 80, category: "Shake", status: "Available" },
     { id: 6, name: "Melon Shake", price: 80, category: "Shake", status: "Unavailable" },
     { id: 7, name: "Oreo Cheese Shake", price: 80, category: "Shake", status: "Available" },
-    { id: 8, name: "Halo-halo", price: 50, category: "Iced", status: "Available" },
-    { id: 9, name: "Mango Con Yelo", price: 35, category: "Iced", status: "Available" },
-    { id: 10, name: "Mais Con Yelo", price: 35, category: "Iced", status: "Available" },
-    { id: 11, name: "Saging Con Yelo", price: 35, category: "Iced", status: "Available" },
-    { id: 12, name: "Milo Con Yelo", price: 35, category: "Iced", status: "Available" }
+    { id: 8, name: "Halo-halo", price: 80, category: "Iced", status: "Available" },
+    { id: 9, name: "Mango Con Yelo", price: 50, category: "Iced", status: "Available" },
+    { id: 10, name: "Mais Con Yelo", price: 50, category: "Iced", status: "Available" },
+    { id: 11, name: "Saging Con Yelo", price: 50, category: "Iced", status: "Available" },
+    { id: 12, name: "Milo Con Yelo", price: 50, category: "Iced", status: "Available" }
 ];
 
 let cart = [];
@@ -82,21 +82,25 @@ function addToCart(id) {
 function updateCartUI() {
     const cartBody = document.getElementById('cartItems');
     let total = 0;
+
     cartBody.innerHTML = cart.map(item => {
-        total += item.price * item.qty;
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
         return `
             <tr>
                 <td>${item.name}</td>
                 <td>${item.qty}</td>
                 <td>
                     <div class="qty-ctrl">
-                        <i class="ph ph-plus-circle" onclick="changeQty(${item.id}, 1)"></i>
-                        <i class="ph ph-minus-circle" onclick="changeQty(${item.id}, -1)"></i>
+                        <i class="ph-fill ph-plus-circle" onclick="changeQty(${item.id}, 1)"></i>
+                        <i class="ph-fill ph-minus-circle" onclick="changeQty(${item.id}, -1)"></i>
                     </div>
                 </td>
-                <td>${item.price * item.qty}</td>
-            </tr>`;
+                <td>₱${itemTotal}</td>
+            </tr>
+        `;
     }).join('');
+
     document.getElementById('grandTotal').innerText = total;
 }
 
@@ -108,5 +112,107 @@ function changeQty(id, delta) {
         updateCartUI();
     }
 }
+
+// Payment method selection logic
+let selectedPayment = "Cash";
+
+document.querySelectorAll('.pay-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.pay-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedPayment = btn.innerText;
+    };
+});
+
+// Triggering the Modal
+document.querySelector('.checkout-btn').onclick = () => {
+    if (cart.length === 0) return alert("Cart is empty!");
+
+    const modal = document.getElementById('checkoutModal');
+    const confirmItems = document.getElementById('confirmItems');
+    let total = 0;
+
+    confirmItems.innerHTML = cart.map(item => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+        return `
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.qty}</td>
+                <td>${item.price}</td>
+                <td>${itemTotal}</td>
+            </tr>
+        `;
+    }).join('');
+
+    document.getElementById('confirmTotal').innerText = `PHP ${total}.00`;
+    document.getElementById('confirmMethod').innerText = selectedPayment;
+    modal.style.display = "flex";
+};
+
+// Closing the Modal
+document.getElementById('orderMore').onclick = () => {
+    document.getElementById('checkoutModal').style.display = "none";
+};
+
+document.getElementById('finalCheckOut').onclick = () => {
+    // 1. Close Confirmation Modal
+    document.getElementById('checkoutModal').style.display = "none";
+    
+    // 2. Populate Receipt Details
+    const now = new Date();
+    document.getElementById('receiptDate').innerText = now.toLocaleString();
+    document.getElementById('receiptID').innerText = Math.floor(10000 + Math.random() * 90000);
+    document.getElementById('receiptPayment').innerText = selectedPayment.toUpperCase();
+    
+    let total = 0;
+    const receiptList = document.getElementById('receiptProducts');
+    receiptList.innerHTML = cart.map(item => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+        return `
+            <div class="receipt-item">
+                <span>${item.name}</span>
+                <span>${item.qty}</span>
+                <span>${itemTotal}</span>
+            </div>
+        `;
+    }).join('');
+    
+    document.getElementById('receiptTotal').innerText = `PHP ${total}`;
+    
+    // 3. Show Receipt Modal
+    document.getElementById('receiptModal').style.display = "flex";
+    
+    // 4. Reset POS state
+    cart = [];
+    updateCartUI();
+};
+
+// Interaction for Receipt Modal Buttons
+document.getElementById('printReceipt').addEventListener('mouseover', () => {
+    console.log("Preparing to print..."); // Visual feedback logic
+});
+
+document.getElementById('printReceipt').onclick = () => {
+    window.print(); // Native print dialog
+};
+
+document.getElementById('closeReceipt').onclick = () => {
+    // 1. Hide the Receipt Modal
+    document.getElementById('receiptModal').style.display = "none";
+    
+    // 2. Show the Thank You Modal
+    document.getElementById('thankYouModal').style.display = "flex";
+};
+
+// Final closure to return to the POS screen
+document.getElementById('finishOrder').onclick = () => {
+    // Hide modal and refresh the app state
+    document.getElementById('thankYouModal').style.display = "none";
+    
+    // Resetting the page to be ready for the next customer
+    location.reload(); 
+};
 
 document.addEventListener("DOMContentLoaded", () => renderProducts());

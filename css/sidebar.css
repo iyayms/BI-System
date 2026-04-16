@@ -7,12 +7,10 @@ body {
 /* Background layer */
 body::before {
     content: "";
-    position: fixed;
+    position: fixed; /* Keep the banig image locked */
     inset: 0;
-
     background: url("../images/background.jpg") center/cover no-repeat;
-
-    filter: blur(2px);   /* blur the actual image */
+    filter: blur(2px); 
     z-index: -1;
 }
 

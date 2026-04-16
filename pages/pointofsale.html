@@ -13,33 +13,35 @@
 </head>
 
 <body>
-    
+
     <div class="layout">
         <div id="sidebar-container"></div>
 
         <main class="pos-container">
             <section class="products-section">
-                <header class="pos-header">
-                    <div class="header-text">
-                        <h1>Point of Sale</h1>
-                        <p>Make an order</p>
-                    </div>
-                    <div class="search-bar">
-                        <i class="ph ph-magnifying-glass"></i>
-                        <input type="text" placeholder="Search products" id="productSearch">
-                    </div>
-                </header>
+                <div class="sticky-nav">
+                    <header class="pos-header">
+                        <div class="header-text">
+                            <h1>Point of Sale</h1>
+                            <p>Make an order</p>
+                        </div>
+                        <div class="search-bar">
+                            <i class="ph ph-magnifying-glass"></i>
+                            <input type="text" placeholder="Search products" id="productSearch">
+                        </div>
+                    </header>
 
-                <nav class="categories">
-                    <button class="cat-btn active">All Products</button>
-                    <button class="cat-btn">Iced</button>
-                    <button class="cat-btn">Shake</button>
-                    <button class="cat-btn">Special</button>
-                </nav>
+                    <nav class="categories">
+                                <button class="cat-btn active">All Products</button>
+                                <button class="cat-btn">Iced</button>
+                                <button class="cat-btn">Shake</button>
+                                 <button class="cat-btn">Special</button>
+                            </nav>
+                        </div>
 
                 <div class="product-grid" id="productGrid">
-                    </div>
-            </section>
+                                </div>
+                    </section>
 
             <aside class="order-summary">
                 <div class="order-header">
@@ -75,6 +77,113 @@
                         </div>
                     </div>
                     <button class="checkout-btn">CHECK OUT</button>
+                </div>
+
+                <div id="checkoutModal" class="pos-modal">
+                    <div class="modal-content">
+                        <header class="modal-header">
+                            <h2>CHECK OUT</h2>
+                        </header>
+                        
+                        <div class="modal-body scrollable-confirm">
+                            <table class="confirm-table">
+                                <thead>
+                                    <tr>
+                                        <th>PRODUCTS</th>
+                                        <th>QTY</th>
+                                        <th>AMOUNT</th>
+                                        <th>TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="confirmItems">
+                                    </tbody>
+                            </table>
+                        </div>
+
+                        <footer class="modal-footer checkout-footer-fixed">
+                            <div class="confirm-summary-fixed">
+                                <div class="summary-row">
+                                    <strong>TOTAL AMOUNT</strong>
+                                    <span id="confirmTotal" class="total-text">PHP 0.00</span>
+                                </div>
+                                <div class="summary-row">
+                                    <strong>PAYMENT METHOD</strong>
+                                    <span id="confirmMethod" class="method-text">Cash</span>
+                                </div>
+                            </div>
+                            <div class="modal-actions">
+                                <button id="finalCheckOut" class="btn-primary">CHECK OUT</button>
+                                <button id="orderMore" class="btn-secondary">ORDER MORE</button>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+
+                <div id="receiptModal" class="pos-modal">
+                    <div class="modal-content receipt-content">
+                        <header class="modal-header">
+                            <h2>RECEIPT</h2>
+                        </header>
+                        
+                        <div class="modal-body scrollable-receipt">
+                            <div class="receipt-row">
+                                <strong>CASHIER</strong>
+                                <span class="receipt-val">Juan Miguel D. Campomanes</span>
+                            </div>
+                            <div class="receipt-row">
+                                <strong>TRANSACTION ID</strong>
+                                <div class="receipt-input" id="receiptID">-----</div>
+                            </div>
+                            <div class="receipt-row">
+                                <strong>DATE</strong>
+                                <div class="receipt-input" id="receiptDate">--/--/---- --:--:-- --</div>
+                            </div>
+
+                            <div class="purchased-section">
+                                <div class="purchased-header">
+                                    <span>PURCHASED PRODUCTS</span>
+                                    <span>QTY</span>
+                                    <span>AMOUNT</span>
+                                </div>
+                                <div id="receiptProducts" class="purchased-list">
+                                    </div>
+                            </div>
+                        </div>
+
+                        <footer class="modal-footer receipt-footer">
+                            <div class="receipt-summary-fixed">
+                                <div class="receipt-row">
+                                    <strong>TOTAL AMOUNT</strong>
+                                    <div class="receipt-input total-highlight" id="receiptTotal">PHP 0</div>
+                                </div>
+                                <div class="receipt-row">
+                                    <strong>PAYMENT METHOD</strong>
+                                    <div class="receipt-input" id="receiptPayment">----</div>
+                                </div>
+                            </div>
+                            <div class="receipt-actions">
+                                <button id="printReceipt" class="btn-secondary">PRINT RECEIPT</button>
+                                <button id="closeReceipt" class="btn-secondary">CLOSE</button>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+
+                <div id="thankYouModal" class="pos-modal">
+                    <div class="modal-content thank-you-content">
+                        <div class="modal-body text-center">
+                            <div class="shop-branding">
+                                <img src="../images/meryenda-icon.png" alt="Meryenda Logo" class="thank-you-logo">
+                                <h3>MERYENDA</h3>
+                            </div>
+
+                            <i class="ph-fill ph-check-circle success-icon"></i>
+                            <h2>Thank You!</h2>
+                            <p>Transaction successful.<br>Have a great day!</p>
+                            
+                            <button id="finishOrder" class="btn-primary">DONE</button>
+                        </div>
+                    </div>
                 </div>
             </aside>
         </main>
