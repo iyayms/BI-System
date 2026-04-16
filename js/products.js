@@ -34,8 +34,11 @@ const products = [
 function renderProductTable(data) {
     const tbody = document.getElementById('productTableBody');
     if (!tbody) return;
+
     tbody.innerHTML = data.map(item => {
+        // Formats status for CSS (e.g., "Not Available" -> "status-not_available")
         const statusClass = item.status.toLowerCase().replace(/\s+/g, '_');
+        
         return `
             <tr>
                 <td>${item.id}</td>
@@ -89,6 +92,31 @@ function addIngredientRow() {
 
 const addIngBtn = document.querySelector('.add-ing-btn');
 if (addIngBtn) addIngBtn.onclick = addIngredientRow;
+
+document.addEventListener('change', (e) => {
+    // 1. Category Filter logic
+    if (e.target && e.target.id === 'categoryFilter') {
+        const selected = e.target.value;
+        if (selected === "All Categories") {
+            renderProductTable(products);
+        } else {
+            const filtered = products.filter(p => p.category === selected);
+            renderProductTable(filtered);
+        }
+    }
+
+    if (e.target && e.target.id === 'priceFilter') {
+        const order = e.target.value;
+        let sorted = [...products];
+
+        if (order === "Low to High") {
+            sorted.sort((a, b) => a.price - b.price);
+        } else if (order === "High to Low") {
+            sorted.sort((a, b) => b.price - a.price);
+        }
+        renderProductTable(sorted);
+    }
+});
 
 // Initialization
 document.addEventListener("DOMContentLoaded", () => {
