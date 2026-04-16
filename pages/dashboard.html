@@ -1,26 +1,164 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard</title>
 
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/layout.css">
 <link rel="stylesheet" href="../css/sidebar.css">
+<link rel="stylesheet" href="../css/dashboard.css">
 
-<link href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script defer src="../js/layout.js"></script>
+<script defer src="../js/dashboard.js"></script>
 </head>
 
 <body>
 
-<!-- SIDEBAR LOADS HERE -->
-<div id="sidebar-container"></div>
+<div class="layout">
 
-<div class="main">
-<h1>Dashboard</h1>
+    <div id="sidebar-container"></div>
+
+    <div class="dashboard">
+        <div class="main-content">
+
+            <!-- HEADER -->
+            <div class="header">
+                <h1>Dashboard</h1>
+                <p>Track your sales, revenue, and growth metrics in real time.</p>
+            </div>
+
+            <!-- FILTERS -->
+            <div class="filters">
+                <input type="date">
+                <input type="date">
+                <select>
+                    <option>All Categories</option>
+                    <option>Shake</option>
+                    <option>Fruit</option>
+                    <option>Dairy</option>
+                </select>
+            </div>
+
+            <!-- CARDS -->
+            <div class="cards">
+                <div class="card">
+                    <h3>Total Revenue</h3>
+                    <h2 class="count" data-target="12500">0</h2>
+                    <p>Gross Sales</p>
+                </div>
+
+                <div class="card">
+                    <h3>Transactions</h3>
+                    <h2 class="count" data-target="86">0</h2>
+                    <p>Purchase History</p>
+                </div>
+
+                <div class="card">
+                    <h3>Products</h3>
+                    <h2 class="count" data-target="24">0</h2>
+                    <p>All products</p>
+                </div>
+
+                <div class="card">
+                    <h3>Stocks</h3>
+                    <h2 class="count" data-target="6">0</h2>
+                    <p>Low Stock Items</p>
+                </div>
+            </div>
+
+            <!-- MIDDLE SECTION -->
+            <div class="middle-section">
+
+                <!-- CHART -->
+                <div class="chart-box">
+                    <div class="box-header">
+                        <h3>Sales Performance Over Time</h3>
+                        <select class="report-dropdown">
+                            <option>Daily</option>
+                            <option>Weekly</option>
+                            <option>Monthly</option>
+                        </select>
+                    </div>
+                    <canvas id="salesChart"></canvas>
+                </div>
+
+                <!-- RIGHT SIDE -->
+                <div class="side-widgets">
+
+                    <div class="top-products">
+                        <h3>Top Selling Products</h3>
+                        <ul>
+                            <li><span>Special Halo-halo <small>(Special)</small></span><span>⭐ 4.8</span></li>
+                            <li><span>Mango Graham Shake <small>(Shake)</small></span><span>⭐ 4.5</span></li>
+                            <li><span>Mais De Leche <small>(Special)</small></span><span>⭐ 4.9</span></li>
+                            <li><span>Milo Con Yelo <small>(Drink)</small></span><span>⭐ 4.7</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="stocks">
+                        <h3>Stocks</h3>
+                        <ul>
+                            <li>Mango <small>(Fruit)</small> <button class="restock-btn">Restock</button></li>
+                            <li>Cups <small>(Material)</small> <button class="restock-btn">Restock</button></li>
+                            <li>Condensed Milk <small>(Dairy)</small> <button class="restock-btn">Restock</button></li>
+                            <li>Ice <small>(Material)</small> <button class="restock-btn">Restock</button></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- PURCHASE HISTORY -->
+            <div class="purchase-history">
+                <div class="box-header">
+                    <h3>Purchase History</h3>
+                    <select>
+                        <option>This Day</option>
+                        <option>This Week</option>
+                        <option>This Month</option>
+                    </select>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Transaction ID</th>
+                            <th>Date</th>
+                            <th>Quantity</th>
+                            <th>Total Amount</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>#TRX001</td>
+                            <td>04/16/2026</td>
+                            <td>3</td>
+                            <td>₱150</td>
+                            <td><button class="view-btn">View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- MODAL -->
+        <div id="restockModal" class="modal">
+            <div class="modal-content">
+                <h3>Restock Item</h3>
+                <input type="number" placeholder="Enter quantity">
+                <button id="confirmRestock" class="confirm-btn">Confirm</button>
+            </div>
+        </div>
 </div>
-
-<script src="../js/sidebar.js"></script>
 
 </body>
 </html>
