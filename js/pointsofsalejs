@@ -1,0 +1,112 @@
+fetch("../components/sidebar.html")
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("sidebar-container").innerHTML = data;
+
+        // Logic to highlight the 'Point of Sale' link as active
+        const links = document.querySelectorAll(".menu a");
+        const currentPage = window.location.pathname.split("/").pop();
+
+        links.forEach(link => {
+            const linkPage = link.getAttribute("href");
+            if (linkPage.includes(currentPage)) {
+                link.classList.add("active");
+            }
+        });
+    })
+    .catch(err => console.error("Error loading sidebar:", err));
+    
+const products = [
+    { id: 1, name: "Special Halo-halo.png", price: 80, category: "Special", status: "Available" },
+    { id: 2, name: "Saba De Leche.png", price: 80, category: "Special", status: "Available" },
+    { id: 3, name: "Mais De Leche.png", price: 80, category: "Special", status: "Unavailable" },
+    { id: 4, name: "Mango Graham Shake.png", price: 80, category: "Shake", status: "Available" },
+    { id: 5, name: "Mango Shake.png", price: 80, category: "Shake", status: "Available" },
+    { id: 6, name: "Melon Shake.png", price: 80, category: "Shake", status: "Unavailable" },
+    { id: 7, name: "Oreo Cheese Shake.png", price: 80, category: "Shake", status: "Available" },
+    { id: 8, name: "Halo-halo.png", price: 80, category: "Iced", status: "Available" },
+    { id: 9, name: "Mango Con Yelo.png", price: 80, category: "Iced", status: "Available" },
+    { id: 10, name: "Mais Con Yelo.png", price: 80, category: "Iced", status: "Available" },
+    { id: 11, name: "Saging Con Yelo.png", price: 80, category: "Iced", status: "Available" },
+    { id: 12, name: "Milo Con Yelo.png", price: 80, category: "Iced", status: "Available" }
+];
+
+let cart = [];
+
+// RENDER PRODUCTS WITH FILTER
+function renderProducts(filter = "All Products") {
+    const grid = document.getElementById('productGrid');
+    const filtered = filter === "All Products" 
+        ? products 
+        : products.filter(p => p.category === filter);
+
+    grid.innerHTML = filtered.map(p => {
+        // Convert product name to match your file naming convention (e.g., "Special Halo-halo" -> "special halo-halo.png")
+        const fileName = p.name.toLowerCase() + ".png";
+        
+        return `
+            <div class="product-card" onclick="${p.status === 'Available' ? `addToCart(${p.id})` : ''}">
+                <div class="product-img-container">
+                    <img src="../images/${fileName}" alt="${p.name}">
+                </div>
+                <div class="product-info-overlay">
+                    <h4>${p.name}</h4>
+                    <p class="price">PHP ${p.price}.00</p>
+                </div>
+                <span class="status-badge ${p.status.toLowerCase()}">${p.status}</span>
+            </div>
+        `;
+    }).join('');
+}
+
+// FILTER INTERACTIVITY
+document.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        // Remove active class from others
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        // Add to clicked
+        btn.classList.add('active');
+        // Render
+        renderProducts(btn.innerText);
+    });
+});
+
+function addToCart(id) {
+    const product = products.find(p => p.id === id);
+    const existing = cart.find(item => item.id === id);
+    if (existing) { existing.qty++; } 
+    else { cart.push({ ...product, qty: 1 }); }
+    updateCartUI();
+}
+
+function updateCartUI() {
+    const cartBody = document.getElementById('cartItems');
+    let total = 0;
+    cartBody.innerHTML = cart.map(item => {
+        total += item.price * item.qty;
+        return `
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.qty}</td>
+                <td>
+                    <div class="qty-ctrl">
+                        <i class="ph ph-plus-circle" onclick="changeQty(${item.id}, 1)"></i>
+                        <i class="ph ph-minus-circle" onclick="changeQty(${item.id}, -1)"></i>
+                    </div>
+                </td>
+                <td>${item.price * item.qty}</td>
+            </tr>`;
+    }).join('');
+    document.getElementById('grandTotal').innerText = total;
+}
+
+function changeQty(id, delta) {
+    const item = cart.find(i => i.id === id);
+    if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+        updateCartUI();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => renderProducts());

@@ -1,26 +1,83 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<title>Point of Sale</title>
-
-<link rel="stylesheet" href="../css/sidebar.css">
-
-<link href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Point of Sale</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/pointofsale.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="../js/pointsofsalejs"></script>
 </head>
 
 <body>
+    
+    <div class="layout">
+        <div id="sidebar-container"></div>
 
-<!-- SIDEBAR LOADS HERE -->
-<div id="sidebar-container"></div>
+        <main class="pos-container">
+            <section class="products-section">
+                <header class="pos-header">
+                    <div class="header-text">
+                        <h1>Point of Sale</h1>
+                        <p>Make an order</p>
+                    </div>
+                    <div class="search-bar">
+                        <i class="ph ph-magnifying-glass"></i>
+                        <input type="text" placeholder="Search products" id="productSearch">
+                    </div>
+                </header>
 
-<div class="main">
-<h1>Point of Sale</h1>
-</div>
+                <nav class="categories">
+                    <button class="cat-btn active">All Products</button>
+                    <button class="cat-btn">Iced</button>
+                    <button class="cat-btn">Shake</button>
+                    <button class="cat-btn">Special</button>
+                </nav>
 
-<script src="../js/sidebar.js"></script>
+                <div class="product-grid" id="productGrid">
+                    </div>
+            </section>
 
+            <aside class="order-summary">
+                <div class="order-header">
+                    <i class="ph ph-shopping-cart-simple"></i>
+                    <h2>ORDER</h2>
+                </div>
+                
+                <div class="order-table-container">
+                    <table class="order-table">
+                        <thead>
+                            <tr>
+                                <th>PRODUCTS</th>
+                                <th>QTY</th>
+                                <th>ACTION</th>
+                                <th>AMOUNT</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartItems">
+                            </tbody>
+                    </table>
+                </div>
+
+                <div class="order-footer">
+                    <div class="total-row">
+                        <span>TOTAL</span>
+                        <span id="grandTotal">0</span>
+                    </div>
+                    <div class="payment-methods">
+                        <span>Payment Method</span>
+                        <div class="pay-btns">
+                            <button class="pay-btn active">Cash</button>
+                            <button class="pay-btn">QR</button>
+                        </div>
+                    </div>
+                    <button class="checkout-btn">CHECK OUT</button>
+                </div>
+            </aside>
+        </main>
+    </div>
 </body>
 </html>
