@@ -1,26 +1,68 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<title>Products</title>
-
-<link rel="stylesheet" href="../css/sidebar.css">
-
-<link href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meryenda | Products</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/products.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="../js/products.js"></script>
 </head>
-
 <body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
 
-<!-- SIDEBAR LOADS HERE -->
-<div id="sidebar-container"></div>
+        <main class="products-container">
+            <header class="products-title-section">
+                <h1>Products</h1>
+                <p class="description-text">Track your products, add new product, edit product stocks and remove items</p>
+            </header>
 
-<div class="main">
-<h1>Products</h1>
-</div>
+            <div class="controls-row">
+                <div class="search-bar-container">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="productSearch" placeholder="Search products">
+                </div>
+                <button class="add-btn">
+                    <i class="ph ph-plus"></i> ADD PRODUCT
+                </button>
+            </div>
 
-<script src="../js/sidebar.js"></script>
+            <section class="table-card">
+                <div class="table-filters">
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="All Categories">All Categories</option>
+                        <option value="Special">Special</option>
+                        <option value="Shake">Shake</option>
+                        <option value="Iced">Iced</option>
+                    </select>
+                    <select class="filter-select" id="priceFilter">
+                        <option value="Low to High">Low to High</option>
+                        <option value="High to Low">High to Low</option>
+                    </select>
+                </div>
 
+                <div class="table-wrapper">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Contribution Margin</th>
+                                <th>Price</th>
+                                <th>Ingredients Needed</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody">
+                            </tbody>
+                    </table>
+                </div>
+            </section> </main> </div>
 </body>
 </html>
