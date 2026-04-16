@@ -46,29 +46,43 @@
 
             <!-- CARDS -->
             <div class="cards">
+
                 <div class="card">
-                    <h3>Total Revenue</h3>
+                    <div class="card-top">
+                        <i class="ph ph-currency-circle-dollar"></i>
+                        <h3>Total Revenue</h3>
+                    </div>
                     <h2 class="count" data-target="12500">0</h2>
                     <p>Gross Sales</p>
                 </div>
 
                 <div class="card">
-                    <h3>Transactions</h3>
+                    <div class="card-top">
+                        <i class="ph ph-receipt"></i>
+                        <h3>Transactions</h3>
+                    </div>
                     <h2 class="count" data-target="86">0</h2>
                     <p>Purchase History</p>
                 </div>
 
                 <div class="card">
-                    <h3>Products</h3>
+                    <div class="card-top">
+                        <i class="ph ph-package"></i>
+                        <h3>Products</h3>
+                    </div>
                     <h2 class="count" data-target="24">0</h2>
                     <p>All products</p>
                 </div>
 
                 <div class="card">
-                    <h3>Stocks</h3>
+                    <div class="card-top">
+                        <i class="ph ph-chart-pie"></i>
+                        <h3>Stocks</h3>
+                    </div>
                     <h2 class="count" data-target="6">0</h2>
                     <p>Low Stock Items</p>
                 </div>
+
             </div>
 
             <!-- MIDDLE SECTION -->
@@ -84,7 +98,10 @@
                             <option>Monthly</option>
                         </select>
                     </div>
-                    <canvas id="salesChart"></canvas>
+
+                    <div class="chart-container">
+                        <canvas id="salesChart"></canvas>
+                    </div>
                 </div>
 
                 <!-- RIGHT SIDE -->

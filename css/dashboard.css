@@ -14,9 +14,11 @@ body {
 .dashboard .header h1 {
     font-size: 28px;
     font-weight: bold;
+    color:#e0b15c;
 }
 .dashboard .header p {
-    color: #777;
+    color: #020000;
+    font-weight: bold;
     margin-bottom: 20px;
 }
 
@@ -28,33 +30,76 @@ body {
 }
 
 .dashboard .card {
-    background: #fff;
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid #e5e5e5;
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 14px;
+    border: 2px solid #2c2c2c;
+    box-shadow: 0 4px 0 #2c2c2c;
 }
 
 .dashboard .card h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #000;
+}
+
+.dashboard .card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.dashboard .card-top i {
+    font-size: 22px;
+    color: #e67e22;
+}
+
+.dashboard .card:first-child h2 {
     color: #e67e22;
 }
 
 /* MIDDLE SECTION */
 .dashboard .middle-section {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     gap: 15px;
     margin-top: 20px;
+    align-items: stretch;
 }
 
 /* RIGHT SIDE STACK */
 .dashboard .side-widgets {
     display: flex;
     flex-direction: column;
+    height: 100%;
     gap: 15px;
 }
 
 /* BOXES */
-.dashboard .chart-box,
+.dashboard .chart-box {
+    background: #fff;
+    border-radius: 12px;
+    height: 350px;
+    padding: 15px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 4px 0 #2c2c2c;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dashboard .chart-container {
+    flex: 1;              /* take remaining space */
+    position: relative;
+    min-height: 0;
+}
+
+.dashboard .chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
 .dashboard .top-products,
 .dashboard .stocks,
 .dashboard .purchase-history {
@@ -62,13 +107,15 @@ body {
     border-radius: 12px;
     padding: 15px;
     border: 1px solid #e5e5e5;
+    box-shadow: 0 4px 0 #2c2c2c;
+    flex: 1;
 }
 
 /* HEADER INSIDE */
 .dashboard .box-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .dashboard .report-btn {
@@ -104,6 +151,9 @@ body {
 /* TABLE */
 .dashboard .purchase-history {
     margin-top: 20px;
+    border: 2px solid #2c2c2c;
+    border-radius: 14px;
+    box-shadow: 0 4px 0 #2c2c2c;
 }
 
 .dashboard .purchase-history table {
@@ -112,8 +162,10 @@ body {
 }
 
 .dashboard .purchase-history th {
-    background: #f4b942;
+    background: #e0b15c;
     padding: 10px;
+    color: #000;
+    font-weight: bold;
 }
 
 .dashboard .purchase-history td {
@@ -153,6 +205,7 @@ body {
     display: flex;
     gap: 10px;
     margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 
 .dashboard .filters input,
@@ -167,6 +220,7 @@ body {
     padding: 5px 10px;
     border-radius: 20px;
     border: 1px solid #ddd;
+    min-width: 120px;
 }
 
 /* SMALL CATEGORY TEXT */
@@ -197,11 +251,6 @@ body {
     align-items: center;
 }
 
-.dashboard .chart-box canvas {
-    width: 100% !important;
-    height: 250px !important;
-}
-
 /* RESPONSIVE */
 @media (max-width: 1024px) {
     .dashboard .cards {
@@ -216,5 +265,16 @@ body {
 @media (max-width: 600px) {
     .dashboard .cards {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard .filters {
+        flex-direction: column;
+    }
+
+    .dashboard .filters input,
+    .dashboard .filters select {
+        width: 100%;
     }
 }

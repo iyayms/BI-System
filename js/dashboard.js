@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const ctx = document.getElementById("salesChart");
+    const ctx = document.getElementById("salesChart").getContext("2d");
 
     let chart;
 
@@ -35,16 +35,78 @@ document.addEventListener("DOMContentLoaded", () => {
             data: {
                 labels: d.labels,
                 datasets: [
-                    { label: "Revenue", data: d.revenue, tension: 0.4 },
-                    { label: "Funds", data: d.funds, tension: 0.4 },
-                    { label: "Others", data: d.others, tension: 0.4 }
+                    {
+                        label: "Revenue",
+                        data: d.revenue,
+                        borderColor: "#6b2d1a",
+                        backgroundColor: "#6b2d1a",
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: "#6b2d1a",
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Funds",
+                        data: d.funds,
+                        borderColor: "#e67e22",
+                        backgroundColor: "#e67e22",
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: "#e67e22",
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Others",
+                        data: d.others,
+                        borderColor: "#f1c40f",
+                        backgroundColor: "#f1c40f",
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: "#f1c40f",
+                        borderWidth: 2
+                    }
                 ]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
                 plugins: {
-                    legend: { position: "bottom" }
+                    legend: {
+                        position: "bottom",
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: "circle",
+                            padding: 20,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: "#fff",
+                        titleColor: "#000",
+                        bodyColor: "#000",
+                        borderColor: "#ddd",
+                        borderWidth: 1
+                    }
                 },
-                responsive: true
+
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: "#eee"
+                        },
+                        ticks: {
+                            stepSize: 10
+                        }
+                    }
+                }
             }
         });
     }
