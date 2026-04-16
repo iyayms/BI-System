@@ -17,18 +17,18 @@ fetch("../components/sidebar.html")
     .catch(err => console.error("Error loading sidebar:", err));
     
 const products = [
-    { id: 1, name: "Special Halo-halo.png", price: 80, category: "Special", status: "Available" },
-    { id: 2, name: "Saba De Leche.png", price: 80, category: "Special", status: "Available" },
-    { id: 3, name: "Mais De Leche.png", price: 80, category: "Special", status: "Unavailable" },
-    { id: 4, name: "Mango Graham Shake.png", price: 80, category: "Shake", status: "Available" },
-    { id: 5, name: "Mango Shake.png", price: 80, category: "Shake", status: "Available" },
-    { id: 6, name: "Melon Shake.png", price: 80, category: "Shake", status: "Unavailable" },
-    { id: 7, name: "Oreo Cheese Shake.png", price: 80, category: "Shake", status: "Available" },
-    { id: 8, name: "Halo-halo.png", price: 80, category: "Iced", status: "Available" },
-    { id: 9, name: "Mango Con Yelo.png", price: 80, category: "Iced", status: "Available" },
-    { id: 10, name: "Mais Con Yelo.png", price: 80, category: "Iced", status: "Available" },
-    { id: 11, name: "Saging Con Yelo.png", price: 80, category: "Iced", status: "Available" },
-    { id: 12, name: "Milo Con Yelo.png", price: 80, category: "Iced", status: "Available" }
+    { id: 1, name: "Special Halo-halo", price: 100, category: "Special", status: "Available" },
+    { id: 2, name: "Saba De Leche", price: 100, category: "Special", status: "Available" },
+    { id: 3, name: "Mais De Leche", price: 100, category: "Special", status: "Unavailable" },
+    { id: 4, name: "Mango Graham Shake", price: 100, category: "Shake", status: "Available" },
+    { id: 5, name: "Mango Shake", price: 80, category: "Shake", status: "Available" },
+    { id: 6, name: "Melon Shake", price: 80, category: "Shake", status: "Unavailable" },
+    { id: 7, name: "Oreo Cheese Shake", price: 80, category: "Shake", status: "Available" },
+    { id: 8, name: "Halo-halo", price: 50, category: "Iced", status: "Available" },
+    { id: 9, name: "Mango Con Yelo", price: 35, category: "Iced", status: "Available" },
+    { id: 10, name: "Mais Con Yelo", price: 35, category: "Iced", status: "Available" },
+    { id: 11, name: "Saging Con Yelo", price: 35, category: "Iced", status: "Available" },
+    { id: 12, name: "Milo Con Yelo", price: 35, category: "Iced", status: "Available" }
 ];
 
 let cart = [];

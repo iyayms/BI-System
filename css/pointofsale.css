@@ -56,47 +56,69 @@
     overflow-y: auto;
 }
 
+/* Card Setup */
 .product-card {
     background: white;
     border: 2px solid #2c2c2c;
-    border-radius: 15px;
-    padding: 15px;
-    position: relative; /* Anchor for the status badge */
-    
-    /* Makes the card smaller and perfectly square */
-    aspect-ratio: 1 / 1; 
-    max-width: 180px; /* Adjust this value to make them even smaller */
-    
-    /* Centering the text content */
+    border-radius: 12px;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 0 #2c2c2c; /* Matches dashboard card style */
+}
+
+/* Image Container */
+.product-img-container {
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.product-img-container img {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+}
+
+.product-info-overlay {
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: rgba(255, 255, 255, 0.11); 
+    padding: 10px;
+    pointer-events: none; 
 }
 
-.product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* Typography Adjustments */
 .product-card h4 {
-    margin: 10px 0 5px;
+    margin: 0;
     font-size: 1.1rem;
-    color: #2c2c2c;
-    font-weight: 800;
+    color: #000000; /* Black font */
+    font-weight: 900;
+    /* White outline effect */
+    -webkit-text-stroke: 1px white; 
+    paint-order: stroke fill;
 }
 
 .product-card .price {
-    color: #b05e3a; /* Deep brown-orange accent */
-    font-weight: bold;
-    margin: 0;
+    color: #ac0000; /* Black font */
+    font-weight: 800;
+    margin: 2px 0 0;
+    /* White outline effect */
+    -webkit-text-stroke: 0.8px white;
+    paint-order: stroke fill;
 }
-
 .product-info { padding: 10px; text-align: center; }
 .product-info h4 { margin: 5px 0; font-size: 16px; }
 .price { color: #b05e3a; font-weight: bold; }
@@ -110,6 +132,8 @@
     padding: 4px 10px;
     border-radius: 6px;
     color: white;
+    z-index: 10;
+    border: 1px solid #2c2c2c;
 }
 .status-badge.available {
     background: #76c757; /* Matches your current green */
