@@ -121,3 +121,97 @@
     background-color: #ffffff;
     padding: 30px;
 }
+
+/* Modal specific bold text */
+.bold-label {
+    font-weight: 900 !important;
+    font-size: 14px;
+    color: #000;
+}
+
+/* Grid Layout for Label + Input */
+.stock-form-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr; /* Fixed label width, flexible input width */
+    gap: 20px 20px;
+    align-items: center;
+    padding: 20px 40px;
+    width: 100%;
+    box-sizing: border-box; /* Crucial to keep padding inside the width */
+}
+
+/* For rows with multiple inputs (Price/Sold By and Stock/Min Level) */
+.inline-inputs {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.inline-inputs input {
+    flex: 1; 
+    min-width: 0; /* Prevents long placeholders from breaking the layout */
+    padding: 10px 20px;
+    border: 2px solid #000;
+    border-radius: 50px;
+}
+
+.inline-inputs .bold-label {
+    white-space: nowrap;
+    margin: 0 5px;
+}
+
+.bold-label {
+    font-weight: 900;
+    font-size: 14px;
+    color: #000;
+    text-transform: uppercase;
+}
+
+/* Input Styling to match the rounded wireframe */
+.stock-form-grid input, 
+.stock-form-grid select {
+    padding: 10px 20px;
+    border: 2px solid #000;
+    border-radius: 50px; /* Pill shape */
+    font-weight: 600;
+    font-size: 13px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Divider line above buttons */
+.modal-divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 20px 40px 0;
+}
+
+/* Footer Button Styles from Image */
+.centered-footer {
+    justify-content: center !important;
+    padding-bottom: 40px;
+    border-top: none !important;
+}
+
+.btn-add-stock {
+    background-color: #6b2d1a !important; /* Dark Coffee Brown */
+    color: white;
+    border: 2px solid #000;
+    border-radius: 15px;
+    padding: 12px 40px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.btn-modal-cancel {
+    background-color: #e0e0e0 !important; /* Light Grey */
+    color: #000;
+    border: 2px solid #000;
+    border-radius: 15px;
+    padding: 12px 40px;
+    font-weight: 900;
+    cursor: pointer;
+}
+

@@ -253,35 +253,29 @@ function openEditStockModal(itemName) {
 ADD STOCK MODAL LOGIC
 ========================= */
 function setupAddStockLogic() {
-    const openAddStockModal = () => {
-        const modal = document.getElementById("addStockModal");
-        if (modal) {
-            modal.classList.add("active");
-        }
-    };
-
-    // Function to handle hiding the modal
-    const closeAddStockModal = () => {
-        const modal = document.getElementById("addStockModal");
-        if (modal) {
-            modal.classList.remove("active");
-        }
-    };
-    const openBtn = document.querySelector(".add-btn.yellow-btn:nth-child(1)"); // Selects the first + STOCK button
+    const addStockModal = document.getElementById("addStockModal");
+    const openBtn = document.querySelector(".action-button-group .yellow-btn"); // Targets the first button
     const closeBtn = document.getElementById("closeAddStock");
     const confirmBtn = document.getElementById("confirmAddStock");
-
-    // Inputs for automation
+    
     const categorySelect = document.getElementById("newStockCategory");
-    const priceInput = document.getElementById("newStockPrice");
+    const priceIn = document.getElementById("newStockPrice");
     const soldByInput = document.getElementById("newStockSoldBy");
-    const ppgInput = document.getElementById("newStockPPG");
+    const ppgOut = document.getElementById("newStockPPG");
     const minLevelInput = document.getElementById("newStockMinLevel");
 
     // Open/Close
-    if (openBtn) openBtn.onclick = () => addStockModal.classList.add("active");
-    if (closeBtn) closeBtn.onclick = () => addStockModal.classList.remove("active");
+    if (openBtn) {
+    openBtn.onclick = () => {
+        addStockModal.classList.add("active");
+    };
+    }
 
+    if (closeBtn) {
+        closeBtn.onclick = () => {
+            addStockModal.classList.remove("active");
+        };
+    }
     // Automation: Min Stock Level based on Category
     categorySelect.addEventListener("change", () => {
         const cat = categorySelect.value;
@@ -292,9 +286,10 @@ function setupAddStockLogic() {
     });
 
     // Automation: Price Per Gram (Simple mock logic: Price / 100 as placeholder)
-    priceInput.addEventListener("input", () => {
-        const price = parseFloat(priceInput.value) || 0;
-        ppgInput.value = (price / 100).toFixed(2); 
+   priceIn.addEventListener("input", () => {
+        const val = parseFloat(priceIn.value) || 0;
+        // Example logic: Divide price by 1000 if it's per kilo
+        ppgOut.value = (val / 1000).toFixed(2); 
     });
 
     // Save Logic
