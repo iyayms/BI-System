@@ -84,3 +84,40 @@
     min-width: 100px;
     white-space: nowrap;
 }
+
+/* Ensure the overlay covers the screen and dims the background */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Ensure the modal itself has a solid white background */
+.modal-container {
+    background-color: #ffffff !important; /* Force white background */
+    border: 3px solid #000000; /* Thick black border from wireframe */
+    border-radius: 20px;
+    padding: 0; /* Header and Body handle their own padding */
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.1); /* Subtle offset shadow */
+    overflow: hidden; /* Keeps the header corners rounded */
+    width: 90%;
+    position: relative;
+}
+
+/* Active class to show the modal */
+.modal-overlay.active {
+    display: flex;
+}
+
+/* Ensure the body area is also white */
+.modal-body {
+    background-color: #ffffff;
+    padding: 30px;
+}

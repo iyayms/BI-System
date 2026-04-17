@@ -35,13 +35,21 @@
 
             <section class="table-card">
                 <div class="table-filters">
-                    <select class="filter-select">
-                        <option>All Categories</option>
+                    <select class="filter-select" id="stockCategoryFilter">
+                        <option value="All Categories">All Categories</option>
+                        <option value="Fruit">Fruit</option>
+                        <option value="Dairy">Dairy</option>
+                        <option value="Powder">Powder</option>
+                        <option value="Toppings">Toppings</option>
+                        <option value="Material">Material</option>
                     </select>
-                    <select class="filter-select">
-                        <option>Low to High</option>
+                    <select class="filter-select" id="priceSortFilter">
+                        <option value="Low to High">Low to High</option>
+                        <option value="High to Low">High to Low</option>
                     </select>
                 </div>
+
+            <tbody id="stockTableBody"></tbody>
 
                 <div class="table-wrapper">
                     <table class="products-table">
@@ -64,5 +72,48 @@
             </section>
         </main>
     </div>
+
+    <div class="modal-overlay" id="addStockModal">
+        <div class="modal-container" style="max-width: 600px;">
+            <header class="modal-header">
+                <h2>ADD STOCK</h2>
+            </header>
+
+            <div class="modal-body edit-content-wrapper">
+                <div class="edit-form-row">
+                    <label>Ingredient</label>
+                    <input type="text" id="newStockIngredient" placeholder="Enter ingredient name">
+                </div>
+
+                <div class="edit-form-row flex-row">
+                    <label>Price</label>
+                    <div class="split-input-container">
+                        <input type="number" id="newStockPrice" placeholder="Selling price">
+                        <label class="inline-label">Sold by</label>
+                        <input type="text" id="newStockSoldBy" placeholder="Bundle/Pack/Kilogram">
+                    </div>
+                </div>
+
+                <div class="edit-form-row">
+                    <label>Price per gram</label>
+                    <input type="text" id="newStockPPG" placeholder="Price per gram" disabled>
+                </div>
+
+                <div class="edit-form-row flex-row">
+                    <label>Stock</label>
+                    <div class="split-input-container">
+                        <input type="text" id="newStockQty" placeholder="Quantity of ingredient">
+                        <label class="inline-label">Min stock level</label>
+                        <input type="text" id="newStockMinLevel" placeholder="Level" disabled>
+                    </div>
+                </div>
+
+            <footer class="modal-footer" style="justify-content: center; gap: 20px;">
+                <button class="btn-save" id="confirmAddStock">ADD STOCK</button>
+                <button class="btn-cancel" id="closeAddStock">CANCEL</button>
+            </footer>
+        </div>
+    </div>
+
 </body>
 </html>
