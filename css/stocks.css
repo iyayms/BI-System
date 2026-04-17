@@ -1,0 +1,86 @@
+/* Inherits from base.css and layout.css via HTML links */
+@import url("products.css");
+
+/* Stock Specific Styling */
+.stock-low {
+    color: #d9534f;
+    font-weight: 900;
+}
+
+.stock-good {
+    color: #28a745;
+    font-weight: 900;
+}
+
+/* Custom width for stock columns to ensure alignment */
+.products-table td {
+    font-weight: 600;
+}
+
+/* Container for the three buttons beside search */
+.action-button-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.yellow-btn {
+    background-color: #e0b15c !important; /* var(--amber-gold) */
+    color: white !important;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+/* History button (Peach/Orange) */
+.history-btn {
+    background-color: #e0b15c !important; 
+    color: white !important;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.table-wrapper {
+    max-height: 550px; 
+    overflow-y: auto;
+    border-radius: 0 0 20px 20px;
+}
+
+/* Make headers sticky so they stay visible while scrolling */
+.products-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #e0b15c; /* var(--amber-gold) */
+}
+
+/* Status text coloring based on wireframe */
+.status-low { color: #d9534f; font-weight: 800; }
+.status-available { color: #28a745; font-weight: 800; }
+.status-none { color: #777; font-weight: 800; }
+
+/* Increase the size of the action icons */
+.action-btns i {
+    font-size: 24px; /* Increased from 20px */
+    cursor: pointer;
+    margin: 0 3px; /* Added more horizontal spacing between buttons */
+    transition: transform 0.2s ease, color 0.2s ease;
+    display: inline-block;
+}
+
+/* Hover effect to make them feel interactive */
+.action-btns i:hover {transform: scale(1.2);}
+
+/* Specific colors for each action to match the wireframe style */
+.action-btns .ph-note-pencil:hover {color: var(--amber-gold);}
+
+.action-btns .ph-plus-circle:hover {color: #28a745; /* Green for adding stock */}
+
+.action-btns .ph-trash {color: #444; /* Default dark grey */}
+
+.action-btns .ph-trash:hover {color: #cc0000; /* Red for delete */}
+
+/* Ensure the table cell has enough room for larger buttons */
+.products-table td:last-child {
+    min-width: 100px;
+    white-space: nowrap;
+}

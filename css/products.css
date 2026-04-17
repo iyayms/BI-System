@@ -481,10 +481,10 @@ font-weight:700;
 
 /* Delete Modal Specifics */
 .delete-modal {
-    background: white !important; /* Forces white background so table doesn't show through */
-    width: 90% !important;
-    max-width: 500px !important;
-    height: auto !important; /* Let content define height */
+    background: white; /* Forces white background so table doesn't show through */
+    width: 90%;
+    max-width: 500px;
+    height: auto; /* Let content define height */
     min-height: 280px;
     border: 3px solid var(--dark-border);
     border-radius: 20px;
@@ -495,7 +495,7 @@ font-weight:700;
 }
 
 .delete-body {
-    padding: 40px !important;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -520,20 +520,44 @@ font-weight:700;
 
 .delete-footer {
     padding: 20px 40px 40px;
-    justify-content: center !important; /* Centers the Yes/Cancel buttons */
+    justify-content: center; /* Centers the Yes/Cancel buttons */
     gap: 20px;
 }
 
 /* Rounded Buttons for Delete Modal */
 .confirm-delete-btn {
-    background: white !important;
-    color: black !important;
-    border: 2px solid black !important;
-    border-radius: 15px !important;
-    padding: 12px 30px !important;
+    background: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 12px 30px;
 }
 
 #closeDeleteModal {
-    border-radius: 15px !important;
-    padding: 12px 30px !important;
+    border-radius: 15px;
+    padding: 12px 30px;
+}
+
+.action-btns i {
+    font-size: 24px; /* Increased from 20px */
+    cursor: pointer;
+    margin: 0 3px; /* Added more horizontal spacing between buttons */
+    transition: transform 0.2s ease, color 0.2s ease;
+    display: inline-block;
+}
+
+/* Hover effect to make them feel interactive */
+.action-btns i:hover {transform: scale(1.2);}
+
+/* Specific colors for each action to match the wireframe style */
+.action-btns .ph-note-pencil:hover {color: var(--amber-gold);}
+
+.action-btns .ph-trash {color: #444; /* Default dark grey */}
+
+.action-btns .ph-trash:hover {color: #cc0000; /* Red for delete */}
+
+/* Ensure the table cell has enough room for larger buttons */
+.products-table td:last-child {
+    min-width: 100px;
+    white-space: nowrap;
 }

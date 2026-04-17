@@ -1,26 +1,68 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<title>Stocks</title>
-
-<link rel="stylesheet" href="../css/sidebar.css">
-
-<link href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meryenda | Stocks</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/products.css"> <link rel="stylesheet" href="../css/stocks.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="../js/stocks.js"></script>
 </head>
-
 <body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
 
-<!-- SIDEBAR LOADS HERE -->
-<div id="sidebar-container"></div>
+        <main class="products-container">
+            <header class="products-title-section">
+                <h1>Stocks</h1>
+                <p class="description-text">Track your stocks, add ingredient, stocks and remove items</p>
+            </header>
 
-<div class="main">
-<h1>Stocks</h1>
-</div>
+            <div class="controls-row">
+                <div class="search-bar-container">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="stockSearch" placeholder="Search products">
+                </div>
+                <div class="action-button-group">
+                    <button class="add-btn yellow-btn"><i class="ph ph-plus"></i> STOCK</button>
+                    <button class="add-btn yellow-btn"><i class="ph ph-plus"></i> INGREDIENT</button>
+                    <button class="add-btn history-btn">STOCK HISTORY</button>
+                </div>
+            </div>
 
-<script src="../js/sidebar.js"></script>
+            <section class="table-card">
+                <div class="table-filters">
+                    <select class="filter-select">
+                        <option>All Categories</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Low to High</option>
+                    </select>
+                </div>
 
+                <div class="table-wrapper">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Ingredients</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Sold By</th>
+                                <th>Price per gram</th>
+                                <th>Stock</th>
+                                <th>Min Stock Level</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stockTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
 </body>
 </html>
