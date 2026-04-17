@@ -233,10 +233,21 @@
     width:420px;
     border-radius:10px;
     border:2px solid #111;
+    font-weight:700;
+}
+
+.ingredient-modal label{
+font-weight:700;
+}
+
+.ingredient-modal input,
+.ingredient-modal select{
+font-weight:700;
 }
 
 .ingredient-modal h3{
     margin-bottom:10px;
+    font-weight:800;
 }
 
 /* MODAL OVERLAY */
@@ -300,6 +311,7 @@
     display:flex;
     justify-content:flex-end;
     gap:10px;
+    font-weight:700;
 }
 
 .save-btn{
