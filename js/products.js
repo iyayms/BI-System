@@ -295,3 +295,45 @@ if (closeEditBtn) {
         document.getElementById("editModal").classList.remove("active");
     };
 }
+
+/* =========================
+   DELETE PRODUCT LOGIC
+   ========================= */
+
+let productToDelete = null; // Temporary storage for the ID
+
+// 1. Function called by the trash icon in the table
+function deleteProduct(productId) {
+    productToDelete = productId; // Store the ID
+    document.getElementById("deleteModal").classList.add("active");
+}
+
+// 2. Logic for "YES, DELETE" button
+const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+if (confirmDeleteBtn) {
+    confirmDeleteBtn.onclick = function() {
+        if (productToDelete) {
+            // Find index of the item in the products array
+            const index = products.findIndex(p => p.id === productToDelete);
+            
+            if (index !== -1) {
+                // Remove from array
+                products.splice(index, 1);
+                
+                // Refresh table and close modal
+                renderProductTable(products);
+                document.getElementById("deleteModal").classList.remove("active");
+                productToDelete = null; // Clear selection
+            }
+        }
+    };
+}
+
+// 3. Logic for "CANCEL" button
+const closeDeleteModal = document.getElementById("closeDeleteModal");
+if (closeDeleteModal) {
+    closeDeleteModal.onclick = () => {
+        document.getElementById("deleteModal").classList.remove("active");
+        productToDelete = null;
+    };
+}

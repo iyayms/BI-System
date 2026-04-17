@@ -478,3 +478,62 @@ font-weight:700;
 /* Adjust the specific split input row width */
 #editMaterialsCost { width: 140px; }
 #editProductPrice { flex: 1; }
+
+/* Delete Modal Specifics */
+.delete-modal {
+    background: white !important; /* Forces white background so table doesn't show through */
+    width: 90% !important;
+    max-width: 500px !important;
+    height: auto !important; /* Let content define height */
+    min-height: 280px;
+    border: 3px solid var(--dark-border);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 0 rgba(0,0,0,0.25);
+    z-index: 10005; /* Higher than table and other modals */
+}
+
+.delete-body {
+    padding: 40px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.warning-text {
+    font-weight: 900;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.sub-warning {
+    font-weight: 800;
+    font-size: 14px;
+    color: #000;
+    text-align: center;
+}
+
+.delete-footer {
+    padding: 20px 40px 40px;
+    justify-content: center !important; /* Centers the Yes/Cancel buttons */
+    gap: 20px;
+}
+
+/* Rounded Buttons for Delete Modal */
+.confirm-delete-btn {
+    background: white !important;
+    color: black !important;
+    border: 2px solid black !important;
+    border-radius: 15px !important;
+    padding: 12px 30px !important;
+}
+
+#closeDeleteModal {
+    border-radius: 15px !important;
+    padding: 12px 30px !important;
+}
