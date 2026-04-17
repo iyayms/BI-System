@@ -147,51 +147,93 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-container"> 
+            <header class="modal-header">
+                <h2>EDIT PRODUCT</h2>
+            </header>
+
+            <div class="modal-body edit-content-wrapper">
+                <div class="edit-form-row">
+                    <label>PRODUCT ID</label>
+                    <input type="text" id="editProductId" placeholder="ID NUMBER" disabled>
+                </div>
+
+                <div class="edit-form-row">
+                    <label>PRODUCT NAME</label>
+                    <input type="text" id="editProductName" placeholder="ENTER PRODUCT NAME">
+                </div>
+
+                <div class="edit-form-row">
+                    <label>CATEGORY</label>
+                    <select id="editProductCategory">
+                        <option value="" disabled selected>SELECT CATEGORY</option>
+                        <option value="Special">Special</option>
+                        <option value="Shake">Shake</option>
+                        <option value="Iced">Iced</option>
+                    </select>
+                </div>
+
+                <div class="edit-form-row flex-row">
+                    <label>CONTRIBUTION MARGIN</label>
+                    <div class="split-input-container">
+                        <input type="text" id="editMaterialsCost" placeholder="MATERIALS COST" disabled>
+                        <label class="inline-label">PRICE</label>
+                        <input type="number" id="editProductPrice" placeholder="SELLING PRICE">
+                    </div>
+                </div>
+
+                <div class="edit-form-row">
+                    <label>INGREDIENTS NEEDED</label>
+                    <input type="text" id="editIngredientsNeeded" placeholder="NO. OF MATERIALS NEEDED" disabled>
+                </div>
+
+                <div class="edit-form-row">
+                    <label>STATUS</label>
+                    <span id="editStatusText" class="status-bold">-</span>
+                </div>
+            </div>
+
+            <footer class="modal-footer">
+                <button class="btn-save" id="saveEditBtn">SAVE CHANGES</button>
+                <button class="btn-cancel" id="closeEditModal">CANCEL</button>
+            </footer>
+
     <div id="ingredientOverlay" class="modal-overlay">
+        <div class="ingredient-modal">
+            <h3>ADD INGREDIENT</h3>
+            <hr>
+            <div class="form-grid">
+                <label>Category</label>
+                <select id="ingredientCategory" class="searchable">
+                    <option value="">Select Category</option>
+                </select>
 
-    <div class="ingredient-modal">
+                <label>Ingredient</label>
+                <input list="ingredientList" id="ingredientName" placeholder="Type or select ingredient">
+                <datalist id="ingredientList"></datalist>
 
-    <h3>ADD INGREDIENT</h3>
-    <hr>
+                <label>Grams/ml</label> 
+                <input type="number" id="ingredientGrams" placeholder="Enter amount">
+                
+                <label class="bold">Price per g/ml</label> 
+                <div id="pricePerGram" class="auto-field">₱0.00</div>
 
-    <div class="form-grid">
+                <label class="bold">Unit Cost</label>
+                <div id="unitCost" class="auto-field">₱0.00</div>
 
-    <label>Category</label>
-    <select id="ingredientCategory" class="searchable">
-    <option value="">Select Category</option>
-    </select>
+                <label>Remaining Stock</label> 
+                <div id="remainingStock" class="auto-field">0 g/ml</div>
 
-    <label>Ingredient</label>
-    <input list="ingredientList" id="ingredientName" placeholder="Type or select ingredient">
+                <label>Status</label>
+                <div id="ingredientStatus" class="status">-</div>
+            </div>
 
-    <datalist id="ingredientList"></datalist>
-
-    <label>Grams/ml</label> 
-    <input type="number" id="ingredientGrams" placeholder="Enter amount">
-    
-    <label class="bold">Price per g/ml</label> 
-    <div id="pricePerGram" class="auto-field">₱0.00</div>
-
-    <label class="bold">Unit Cost</label>
-    <div id="unitCost" class="auto-field">₱0.00</div>
-
-    <label>Remaining Stock</label> 
-    <div id="remainingStock" class="auto-field">0 g/ml</div>
-
-
-    <label>Status</label>
-    <div id="ingredientStatus" class="status">-</div>
-
-    </div>
-
-    <div class="modal-buttons">
-
-    <button class="save-btn" id="saveIngredient">ADD INGREDIENT</button>
-    <button class="cancel-btn" id="closeIngredientModal">CANCEL</button>
-
-    </div>
-
-    </div>
+            <div class="modal-buttons">
+                <button class="save-btn" id="saveIngredient">ADD INGREDIENT</button>
+                <button class="cancel-btn" id="closeIngredientModal">CANCEL</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>

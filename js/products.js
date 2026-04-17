@@ -84,8 +84,8 @@ function renderProductTable(data) {
                 <td><span class="status-text status-${statusClass}">${item.status}</span></td>
                 <td>
                     <div class="action-btns">
-                        <i class="ph ph-note-pencil"></i>
-                        <i class="ph ph-trash"></i>
+                        <i class="ph ph-note-pencil" onclick="openEditModal('${item.id}')"></i>
+                        <i class="ph ph-trash" onclick="deleteProduct('${item.id}')"></i>
                     </div>
                 </td>
             </tr>`;
@@ -231,4 +231,67 @@ function resetIngredientFields() {
     document.getElementById("unitCost").innerText = "₱0.00";
     document.getElementById("remainingStock").innerText = "0 g/ml";
     document.getElementById("ingredientStatus").textContent = "-";
+}
+
+/* =========================
+   EDIT PRODUCT LOGIC
+   ========================= */
+/* =========================
+   EDIT MODAL LOGIC (FIXED)
+   ========================= */
+
+// 1. Function to open and populate the modal
+function openEditModal(productId) {
+    const product = products.find(p => p.id === productId);
+    
+    if (product) {
+        document.getElementById("editProductId").value = product.id;
+        document.getElementById("editProductName").value = product.name;
+        document.getElementById("editProductCategory").value = product.category;
+        document.getElementById("editProductPrice").value = product.price;
+        document.getElementById("editIngredientsNeeded").value = product.ingredients;
+        
+        // Calculate and display material cost
+        document.getElementById("editMaterialsCost").value = "PHP " + (product.price * 0.4).toFixed(2);
+        
+        const statusEl = document.getElementById("editStatusText");
+        statusEl.textContent = product.status;
+        
+        // Apply Bold Green or Red based on status
+        statusEl.classList.remove("status-green", "status-red");
+        if (product.status.toLowerCase() === "available") {
+            statusEl.classList.add("status-green");
+        } else {
+            statusEl.classList.add("status-red");
+        }
+
+        document.getElementById("editModal").classList.add("active");
+    }
+}
+
+// 2. Logic for the "SAVE CHANGES" button
+const saveEditBtn = document.getElementById("saveEditBtn");
+if (saveEditBtn) {
+    saveEditBtn.onclick = function() {
+        const id = document.getElementById("editProductId").value;
+        const index = products.findIndex(p => p.id === id);
+        
+        if (index !== -1) {
+            // Update the local data array
+            products[index].name = document.getElementById("editProductName").value;
+            products[index].category = document.getElementById("editProductCategory").value;
+            products[index].price = parseFloat(document.getElementById("editProductPrice").value);
+            
+            renderProductTable(products); // Refresh the main table
+            document.getElementById("editModal").classList.remove("active");
+        }
+    };
+}
+
+// 3. Logic for the "CANCEL" button
+const closeEditBtn = document.getElementById("closeEditModal");
+if (closeEditBtn) {
+    closeEditBtn.onclick = () => {
+        document.getElementById("editModal").classList.remove("active");
+    };
 }
