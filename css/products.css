@@ -94,42 +94,60 @@
 .products-table tbody td { padding: 18px 10px; text-align: center; border-bottom: 1px solid #eee; }
 
 /* MODAL FIXES */
-.modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: none; justify-content: center; align-items: center;
+.modal-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    display: none;
+    justify-content: center;
+    align-items: center;
     z-index: 2000;
 }
 
-.modal-overlay.active { display: flex; }
-
-.modal-container.wide-modal {
-    background: white;
-    width: 90%; max-width: 1100px;
-    border: 3px solid var(--dark-border);
-    border-radius: 20px;
-    display: flex; flex-direction: column;
-    box-shadow: 0 10px 0 rgba(0,0,0,0.2);
+.modal-overlay.active{
+    display:flex;
 }
 
-.modal-header {
-    background: var(--amber-gold);
-    padding: 20px; text-align: center;
-    border-bottom: 3px solid var(--dark-border);
+
+.modal-container.wide-modal{
+    background:white;
+    width:90%;
+    max-width:1150px;
+    height:720px;              /* FIXED HEIGHT */
+    border:3px solid var(--dark-border);
+    border-radius:20px;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 15px 0 rgba(0,0,0,0.25);
 }
 
-.modal-body {
-    padding: 30px;
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 40px;
-    max-height: 70vh;
-    overflow-y: auto;
+.modal-header{
+    background:var(--amber-gold);
+    padding:18px;
+    text-align:center;
+    border-bottom:3px solid var(--dark-border);
 }
 
-.modal-column h3 {
-    font-size: 18px; font-weight: 900;
-    margin-bottom: 20px; border-bottom: 2px solid var(--dark-border);
+.modal-body{
+    flex:1;
+    padding:30px;
+    display:grid;
+    grid-template-columns:1fr 1.5fr;
+    gap:40px;
+    overflow:hidden;
+}
+
+.modal-column{
+    display:flex;
+    flex-direction:column;
+}
+
+.modal-column h3{
+    font-size:18px;
+    font-weight:900;
+    margin-bottom:20px;
+    border-bottom:2px solid var(--dark-border);
+    padding-bottom:5px;
 }
 
 .form-group-row {
@@ -150,6 +168,17 @@
 
 .margin-highlight { font-size: 24px; font-weight: 900; color: var(--coffee-brown); margin: 10px 0; }
 
+.ingredient-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.ingredient-header h3{
+    margin:0;
+}
+
 .ingredient-table-container {
     border: 2px solid var(--dark-border); border-radius: 12px;
     height: 300px; overflow-y: auto; background: white;
@@ -159,7 +188,34 @@
 .ingredient-table th { background: var(--amber-gold); padding: 10px; position: sticky; top: 0; }
 .ingredient-table td { padding: 10px; border-bottom: 1px solid #eee; text-align: center; }
 
-.ing-input { width: 90%; padding: 5px; border: 1px solid #ccc; border-radius: 4px; }
+.add-ing-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    background:var(--amber-gold);
+    border:2px solid var(--dark-border);
+    border-radius:8px;
+
+    padding:8px 14px;
+
+    font-weight:800;
+    font-size:12px;
+
+    cursor:pointer;
+
+    box-shadow:0 4px 0 var(--dark-border);
+    transition:all .15s ease;
+}
+
+.add-ing-btn:hover{
+    transform:translateY(-2px);
+}
+
+.add-ing-btn:active{
+    transform:translateY(2px);
+    box-shadow:0 2px 0 var(--dark-border);
+}
 
 .modal-footer {
     padding: 20px; border-top: 2px solid #eee;
