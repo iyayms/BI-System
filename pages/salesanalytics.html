@@ -1,26 +1,75 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<title>Sales Analytics</title>
-
-<link rel="stylesheet" href="../css/sidebar.css">
-
-<link href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meryenda | Sales Analytics</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/salesanalytics.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="../js/salesanalytics.js"></script>
 </head>
-
 <body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
 
-<!-- SIDEBAR LOADS HERE -->
-<div id="sidebar-container"></div>
+        <main class="analytics-container">
+            <header class="analytics-header">
+                <h1>Sales Analytics</h1>
+                <p class="description-text">Track your sales, revenue, and break-even analysis in real time.</p>
+            </header>
 
-<div class="main">
-<h1>Sales Analytics</h1>
-</div>
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Revenue</h3>
+                    <p class="value" id="totalRevenue">PHP 0.00</p>
+                    <span class="subtext">Gross Sales</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Cost</h3>
+                    <p class="value" id="totalCost">PHP 0.00</p>
+                    <span class="subtext">Materials purchased</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Break-Even Sales</h3>
+                    <p class="value" id="breakEvenValue">PHP 0.00</p>
+                    <span class="subtext">Profit calculation</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Transactions</h3>
+                    <p class="value" id="transactionCount">0</p>
+                    <span class="subtext">Orders placed</span>
+                </div>
+            </section>
 
-<script src="../js/sidebar.js"></script>
+            <section class="charts-row">
+                <div class="chart-box main-chart">
+                    <h3>Revenue</h3>
+                    <span class="chart-sub">Line Chart</span>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                <div class="chart-box side-chart">
+                    <div class="chart-header">
+                        <h3>Sales</h3>
+                        <span class="chart-sub">Line Chart with dual lines</span>
+                    </div>
+                    <canvas id="salesCategoryChart"></canvas>
+                </div>
+            </section>
 
+            <section class="analysis-footer">
+                <div class="info-card">
+                    <h3>Break-Even Analysis</h3>
+                    <p>/* Break-even analysis in economics and business refers to the point at which total costs and total revenue are equal. A break-even point analysis is used to determine the number of units or dollars of revenue needed to cover total costs (fixed and variable costs). */</p>
+                    <div class="chart-wrapper">
+                        <canvas id="breakEvenChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 </body>
 </html>
