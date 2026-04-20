@@ -1,26 +1,110 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<title>Purchase History</title>
-
-<link rel="stylesheet" href="../css/sidebar.css">
-
-<link href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meryenda | Purchase History</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/purchasehistory.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="../js/purchasehistory.js"></script>
 </head>
-
 <body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
 
-<!-- SIDEBAR LOADS HERE -->
-<div id="sidebar-container"></div>
+        <main class="purchase-container">
+            <header class="purchase-title-section">
+                <h1>Purchase History</h1>
+                <p class="description-text">Track your purchase history, print receipt, and export data</p>
+            </header>
 
-<div class="main">
-<h1>Purchase History</h1>
-</div>
+            <div class="controls-row">
+                <div class="search-bar-container">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="purchaseSearch" placeholder="Search products">
+                </div>
+                <button class="export-btn">
+                    <i class="ph ph-plus"></i> EXPORT DATA
+                </button>
+            </div>
 
-<script src="../js/sidebar.js"></script>
+            <section class="table-card">
+                <div class="table-filters">
+                    <select class="filter-select" id="dateFilter">
+                        <option value="This Day">This Day</option>
+                        <option value="This Week">This Week</option>
+                        <option value="This Month">This Month</option>
+                    </select>
+                </div>
 
+                <div class="table-wrapper">
+                    <table class="purchase-table">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Transaction ID</th>
+                                <th>Date</th>
+                                <th>Quantity</th>
+                                <th>Total Amount</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="purchaseTableBody">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+          <div class="modal-overlay" id="detailsModal">
+            <div class="modal-container details-modal">
+                <header class="modal-header-simple">
+                    <h2>VIEW DETAILS</h2>
+                </header>
+
+                <div class="modal-body details-body">
+                    <div class="details-row">
+                        <label>CASHIER</label>
+                        <span id="detailCashier">AYA</span>
+                    </div>
+                    <div class="details-row">
+                        <label>TRANSACTION ID</label>
+                        <input type="text" id="detailTransId" readonly>
+                    </div>
+                    <div class="details-row">
+                        <label>DATE</label>
+                        <input type="text" id="detailDate" readonly>
+                    </div>
+
+                    <div class="purchased-products-section">
+                        <div class="products-header">
+                            <span>PURCHASED PRODUCTS</span>
+                            <span>QUANTITY</span>
+                            <span>AMOUNT</span>
+                        </div>
+                        <div id="itemListBody" class="item-list-body">
+                            </div>
+                    </div>
+
+                    <div class="details-row footer-row">
+                        <label>TOTAL AMOUNT</label>
+                        <input type="text" id="detailTotal" readonly>
+                    </div>
+                    <div class="details-row footer-row">
+                        <label>PAYMENT METHOD</label>
+                        <input type="text" id="detailPayment" value="CASH" readonly>
+                    </div>
+                </div>
+
+                <footer class="details-footer">
+                    <button class="btn-print" id="printReceiptBtn">PRINT RECEIPT</button>
+                    <button class="btn-close-modal" id="closeDetailsBtn">CLOSE</button>
+                </footer>
+            </div>
+        </div>  
+        </main>
+    </div>
 </body>
 </html>

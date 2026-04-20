@@ -1,0 +1,298 @@
+:root {
+    --coffee-brown: #6b2d1a;
+    --amber-gold: #e0b15c;
+    --dark-border: #2c2c2c;
+}
+
+.purchase-container {
+    margin-left: 240px; /* Keep this to account for sidebar */
+    padding: 40px;
+    width: calc(100% - 240px);
+    min-height: 100vh; /* Ensures the background extends to the bottom */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.purchase-title-section h1 {
+    color: var(--amber-gold);
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.description-text {
+    color: #000;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
+.controls-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.layout {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('../assets/background.jpg'); /* Your woven pattern */
+    background-size: cover;
+    background-attachment: fixed; /* Keeps background from moving when scrolling */
+}
+
+.search-bar-container {
+    flex: 1;
+    display: flex;
+    border: 2px solid var(--dark-border);
+    border-radius: 30px;
+    padding: 10px 20px;
+    background: white;
+    margin-right: 20px;
+}
+
+.search-bar-container input { border: none; outline: none; width: 100%; }
+
+.export-btn {
+    background: var(--amber-gold);
+    color: white;
+    border: 2px solid var(--dark-border);
+    border-radius: 12px;
+    padding: 12px 25px;
+    font-weight: 800;
+    box-shadow: 0 4px 0 var(--dark-border);
+    cursor: pointer;
+}
+
+/* THE TABLE CARD */
+.table-card {
+    background: white;
+    border: 3px solid var(--dark-border);
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 10px 0 rgba(0,0,0,0.05);
+    
+    /* Extension Fixes */
+    width: 100%; 
+    flex-grow: 1; /* Allows the card to expand vertically if needed */
+    margin-bottom: 20px;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Adds a scrollbar only if the screen gets very narrow */
+}
+
+.table-filters {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.filter-select {
+    padding: 8px 15px;
+    border: 2px solid var(--dark-border);
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.purchase-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Allows columns to adjust based on content */
+}
+
+.purchase-table thead th {
+    background: var(--amber-gold);
+    padding: 15px;
+    font-weight: 900;
+    text-transform: capitalize;
+}
+
+.purchase-table tbody td {
+    padding: 20px 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+    color: #000000;
+}
+
+/* Details Column Styles */
+.view-details-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    color: black;
+    font-weight: 900;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.view-details-link i {
+    font-size: 20px;
+}
+
+/* Details Modal Specifics */
+.details-modal {
+    background: white;
+    width: 500px;
+    border: 3px solid var(--dark-border);
+    border-radius: 25px;
+    padding: 20px;
+}
+
+.modal-header-simple h2 {
+    font-weight: 900;
+    font-size: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.details-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.details-row label {
+    font-weight: 900;
+    font-size: 13px;
+}
+
+.details-row input {
+    border: 2px solid var(--dark-border);
+    border-radius: 12px;
+    padding: 8px 15px;
+    font-weight: 600;
+}
+
+/* This makes the background dark and covers the whole screen */
+.modal-overlay {
+    position: fixed; /* Fixed relative to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+    display: none; /* Hidden by default */
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    z-index: 9999; /* Higher than sidebar and table */
+}
+
+/* This shows the modal when the 'active' class is added via JS */
+.modal-overlay.active {
+    display: flex;
+}
+
+/* Modal box styling */
+.details-modal {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    border: 3px solid #2c2c2c;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    position: relative; /* Internal layout stays normal */
+}
+
+/* Purchased Products Section */
+.purchased-products-section {
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.products-header {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr; /* 1.5 parts for name, 1 for qty, 1 for amount */
+    font-weight: 900;
+    font-size: 11px;
+    color: #000000;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.item-list-body {
+    max-height: 120px; /* Limits height so modal doesn't get too long */
+    overflow-y: auto;
+}
+
+.product-item {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    padding: 6px 0;
+    font-size: 13px;
+    font-weight: 600;
+    align-items: center;
+}
+
+/* Align text to center for numbers */
+.product-item span:nth-child(2), 
+.product-item span:nth-child(3),
+.products-header span:nth-child(2),
+.products-header span:nth-child(3) {
+    text-align: center;
+}
+
+/* Modal Buttons */
+.details-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-print, .btn-close-modal {
+    border: 2px solid var(--dark-border);
+    border-radius: 15px;
+    padding: 10px 25px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-print { background: white; }
+.btn-close-modal { background: white; }
+
+.btn-print:hover, .btn-close-modal:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   PRINT STYLES
+   ========================= */
+@media print {
+    /* Hide everything except the modal */
+    body * {
+        visibility: hidden;
+    }
+    #detailsModal, #detailsModal * {
+        visibility: visible;
+    }
+    #detailsModal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white;
+    }
+    /* Hide the buttons on the printed paper */
+    .details-footer {
+        display: none;
+    }
+    /* Remove the dark overlay during print */
+    .modal-overlay {
+        background: none;
+    }
+}
