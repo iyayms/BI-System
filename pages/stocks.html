@@ -49,8 +49,6 @@
                     </select>
                 </div>
 
-            <tbody id="stockTableBody"></tbody>
-
                 <div class="table-wrapper">
                     <table class="products-table">
                         <thead>
@@ -74,8 +72,8 @@
     </div>
 
     <div class="modal-overlay" id="addStockModal">
-        <div class="modal-container" style="max-width: 600px;">
-            <header class="modal-header">
+                <div class="modal-container stock-modal">
+                <header class="modal-header">
                 <h2>ADD STOCK</h2>
             </header>
 
@@ -85,7 +83,7 @@
                     <input type="text" id="newStockIngredient" placeholder="ENTER INGREDIENT NAME">
 
                     <label class="bold-label">CATEGORY</label>
-                    <select id="newStockCategory" class="pill-input">
+                    <select id="newStockCategory">
                         <option value="" disabled selected>SELECT CATEGORY</option>
                         <option value="Fruit">Fruit</option>
                         <option value="Dairy">Dairy</option>
@@ -93,21 +91,19 @@
                     </select>
 
                     <label class="bold-label">PRICE</label>
-                    <div class="inline-inputs">
-                        <input type="number" id="newStockPrice" placeholder="SELLING PRICE">
-                        <label class="bold-label">SOLD BY</label>
-                        <input type="text" id="newStockSoldBy" placeholder="Bundle/Pack/Kg">
-                    </div>
+                    <input type="number" id="newStockPrice" placeholder="SELLING PRICE">
+
+                    <label class="bold-label">SOLD BY</label>
+                    <input type="text" id="newStockSoldBy" placeholder="BUNDLE/PACK/KILOGRAM">
 
                     <label class="bold-label">PRICE PER GRAM</label>
-                    <input type="text" id="newStockPPG" placeholder="PRICE PER GRAM" disabled>
+                    <input type="text" id="newStockPPG" placeholder="PRICE PER GRAM">
 
                     <label class="bold-label">STOCK</label>
-                    <div class="inline-inputs">
-                        <input type="text" id="newStockQty" placeholder="QUANTITY">
-                        <label class="bold-label">MIN STOCK LEVEL</label>
-                        <input type="text" id="newStockMinLevel" placeholder="LEVEL">
-                    </div>
+                    <input type="text" id="newStockQty" placeholder="QUANTITY OF INGREDIENT">
+
+                    <label class="bold-label">MIN STOCK LEVEL</label>
+                    <input type="text" id="newStockMinLevel" placeholder="LEVEL">
                 </div>
             </div>
 

@@ -254,66 +254,57 @@ ADD STOCK MODAL LOGIC
 ========================= */
 function setupAddStockLogic() {
     const addStockModal = document.getElementById("addStockModal");
-    const openBtn = document.querySelector(".action-button-group .yellow-btn"); // Targets the first button
+    
+    // TARGETS THE "STOCK" BUTTON (The 1st yellow-btn)
+    const stockBtn = document.querySelector(".action-button-group .yellow-btn:nth-child(1)"); 
     const closeBtn = document.getElementById("closeAddStock");
     const confirmBtn = document.getElementById("confirmAddStock");
-    
-    const categorySelect = document.getElementById("newStockCategory");
-    const priceIn = document.getElementById("newStockPrice");
-    const soldByInput = document.getElementById("newStockSoldBy");
-    const ppgOut = document.getElementById("newStockPPG");
-    const minLevelInput = document.getElementById("newStockMinLevel");
 
-    // Open/Close
-    if (openBtn) {
-    openBtn.onclick = () => {
-        addStockModal.classList.add("active");
-    };
+    if (stockBtn) {
+        stockBtn.onclick = () => {
+            addStockModal.classList.add("active");
+        };
     }
 
     if (closeBtn) {
         closeBtn.onclick = () => {
             addStockModal.classList.remove("active");
+            clearForm();
         };
     }
-    // Automation: Min Stock Level based on Category
-    categorySelect.addEventListener("change", () => {
-        const cat = categorySelect.value;
-        if (cat === "Fruit") minLevelInput.value = "1 kg";
-        else if (cat === "Powder") minLevelInput.value = "1 pack";
-        else if (cat === "Toppings") minLevelInput.value = "1 can";
-        else minLevelInput.value = "1 unit";
-    });
 
-    // Automation: Price Per Gram (Simple mock logic: Price / 100 as placeholder)
-   priceIn.addEventListener("input", () => {
-        const val = parseFloat(priceIn.value) || 0;
-        // Example logic: Divide price by 1000 if it's per kilo
-        ppgOut.value = (val / 1000).toFixed(2); 
-    });
+    if (confirmBtn) {
+        confirmBtn.onclick = () => {
+            const name = document.getElementById("newStockIngredient").value;
+            const cat = document.getElementById("newStockCategory").value;
 
-    // Save Logic
-    confirmBtn.onclick = () => {
-        const newEntry = {
-            name: document.getElementById("newStockIngredient").value,
-            cat: categorySelect.value,
-            price: parseFloat(priceInput.value),
-            soldBy: soldByInput.value,
-            ppg: ppgInput.value,
-            stock: document.getElementById("newStockQty").value,
-            min: minLevelInput.value,
-            status: "Available"
-        };
+            if (!name || !cat) {
+                alert("Please fill in the Ingredient Name and Category.");
+                return;
+            }
 
-        if (newEntry.name && newEntry.cat) {
+            const newEntry = {
+                name: name,
+                cat: cat,
+                price: parseFloat(document.getElementById("newStockPrice").value) || 0,
+                soldBy: document.getElementById("newStockSoldBy").value,
+                ppg: document.getElementById("newStockPPG").value,
+                stock: document.getElementById("newStockQty").value,
+                min: document.getElementById("newStockMinLevel").value,
+                status: "Available"
+            };
+
             stockInventory.push(newEntry);
             renderStockTable(stockInventory);
             addStockModal.classList.remove("active");
-            // Optional: Reset form fields here
-        } else {
-            alert("Please fill in the required fields.");
-        }
-    };
+            clearForm();
+        };
+    }
+}
+
+function clearForm() {
+    document.querySelectorAll("#addStockModal input").forEach(i => i.value = "");
+    document.getElementById("newStockCategory").selectedIndex = 0;
 }
 document.querySelector(".add-btn.yellow-btn").addEventListener("click", openAddStockModal);
 document.getElementById("closeAddStock").addEventListener("click", closeAddStockModal);
