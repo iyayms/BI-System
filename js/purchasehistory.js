@@ -191,3 +191,79 @@ if (detailsModalOverlay) {
         }
     };
 }
+
+/* =========================
+   EXPORT DATA LOGIC
+   ========================= */
+   
+function showToast(message, type = "success") {
+    const container = document.getElementById("toast-container");
+    if (!container) return; // Guard clause if container isn't in HTML yet
+
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    
+    // Using Phosphor icons to match your sidebar
+    const icon = type === "success" ? "ph-check-circle" : "ph-x-circle";
+    
+    toast.innerHTML = `
+        <i class="ph ${icon}"></i>
+        <span>${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    // Remove toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.add("fade-out");
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
+
+/* =========================
+   FIXED & MERGED EXPORT LOGIC
+   ========================= */
+const exportBtn = document.querySelector(".export-btn");
+
+if (exportBtn) {
+    exportBtn.onclick = function () {
+        try {
+            const frequency = document.getElementById("dateFilter").value;
+            
+            // 1. Prepare CSV Header
+            let csvContent = "Transaction ID,Date,Quantity,Total Amount,Products\n";
+
+            // 2. Filter and Format Data
+            // We use the transactions array from your global state
+            transactions.forEach(trans => {
+                const productNames = trans.items.map(i => i.name).join(" | ");
+                const row = `${trans.id},${trans.date},${trans.qty},${trans.amount},"${productNames}"\n`;
+                csvContent += row;
+            });
+
+            // 3. Create Download Link
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            
+            // Setting the filename based on the filter
+            const fileName = `Meryenda_Report_${frequency.replace(/\s+/g, "_")}.csv`;
+            
+            link.setAttribute("href", url);
+            link.setAttribute("download", fileName);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // 4. Trigger the Toast instead of Alert
+            showToast(`Exported ${frequency} history successfully!`, "success");
+
+        } catch (error) {
+            // Handle any errors that occur during CSV generation
+            showToast("Failed to export data. Please try again.", "error");
+            console.error("Export Error:", error);
+        }
+    };
+}
