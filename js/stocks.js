@@ -22,31 +22,31 @@ STOCK DATA
 ========================= */
 const stockInventory = [
     // Fruits
-    { name: "Mango", cat: "Fruit", price: 150, soldBy: "Bundle/Kilo", ppg: 10, stock: "3 kg", min: "2 kg", status: "Low in Ingredients" },
-    { name: "Saba", cat: "Fruit", price: 120, soldBy: "Bundle/Kilo", ppg: 7, stock: "2 kg", min: "1 kg", status: "Available" },
-    { name: "Melon", cat: "Fruit", price: 120, soldBy: "Bundle/Kilo", ppg: 5, stock: "1 kg", min: "1 kg", status: "Available" },
-    { name: "Mais", cat: "Fruit", price: 100, soldBy: "Can", ppg: 8, stock: "2 cans", min: "1 can", status: "Not Available" },
+    { name: "Mango", cat: "Fruit", price: 150, soldBy: "Bundle/Kilo", gramsPerItem: 1000, ppg: 10, stock: "3 kg", min: "2 kg", status: "Low in Ingredients" },
+    { name: "Saba", cat: "Fruit", price: 120, soldBy: "Bundle/Kilo", gramsPerItem: 1000, ppg: 7, stock: "2 kg", min: "1 kg", status: "Available" },
+    { name: "Melon", cat: "Fruit", price: 120, soldBy: "Bundle/Kilo", gramsPerItem: 1000, ppg: 5, stock: "1 kg", min: "1 kg", status: "Available" },
+    { name: "Mais", cat: "Fruit", price: 100, soldBy: "Can", gramsPerItem: 100, ppg: 8, stock: "2 cans", min: "1 can", status: "Not Available" },
     
     // Dairy
-    { name: "Milk", cat: "Dairy", price: 100, soldBy: "Can", ppg: 0.50, stock: "300ml", min: "60ml", status: "Available" },
-    { name: "Condensation Milk", cat: "Dairy", price: 90, soldBy: "Can", ppg: 0.40, stock: "50ml", min: "30ml", status: "Low in Ingredients" },
-    { name: "Evaporated Milk", cat: "Dairy", price: 45, soldBy: "Can", ppg: 0.35, stock: "10 cans", min: "3 cans", status: "Available" },
+    { name: "Milk", cat: "Dairy", price: 100, soldBy: "Can", gramsPerItem: 300, ppg: 0.50, stock: "300ml", min: "60ml", status: "Available" },
+    { name: "Condensation Milk", cat: "Dairy", price: 90, soldBy: "Can", gramsPerItem: 50, ppg: 0.40, stock: "50ml", min: "30ml", status: "Low in Ingredients" },
+    { name: "Evaporated Milk", cat: "Dairy", price: 45, soldBy: "Can", gramsPerItem: 100, ppg: 0.35, stock: "10 cans", min: "3 cans", status: "Available" },
     
     // Powder
-    { name: "Milo", cat: "Powder", price: 80, soldBy: "Pack", ppg: 0.60, stock: "200g", min: "50g", status: "Available" },
-    { name: "Graham", cat: "Powder", price: 80, soldBy: "Pack", ppg: 8, stock: "2 packs", min: "1 pack", status: "No ingredients" },
-    { name: "Ube Powder", cat: "Powder", price: 150, soldBy: "Pack", ppg: 12, stock: "500g", min: "100g", status: "Available" },
+    { name: "Milo", cat: "Powder", price: 80, soldBy: "Pack", gramsPerItem: 200, ppg: 0.60, stock: "200g", min: "50g", status: "Available" },
+    { name: "Graham", cat: "Powder", price: 80, soldBy: "Pack", gramsPerItem: 100, ppg: 8, stock: "2 packs", min: "1 pack", status: "No ingredients" },
+    { name: "Ube Powder", cat: "Powder", price: 150, soldBy: "Pack", gramsPerItem: 500, ppg: 12, stock: "500g", min: "100g", status: "Available" },
     
     // Toppings
-    { name: "Nata", cat: "Toppings", price: 100, soldBy: "Jar", ppg: 10, stock: "2 jars", min: "1 jar", status: "Available" },
-    { name: "Kaong", cat: "Toppings", price: 110, soldBy: "Jar", ppg: 9, stock: "3 jars", min: "1 jar", status: "Available" },
-    { name: "Leche Flan", cat: "Toppings", price: 200, soldBy: "Tray", ppg: 20, stock: "5 trays", min: "2 trays", status: "Available" },
+    { name: "Nata", cat: "Toppings", price: 100, soldBy: "Jar", gramsPerItem: 100, ppg: 10, stock: "2 jars", min: "1 jar", status: "Available" },
+    { name: "Kaong", cat: "Toppings", price: 110, soldBy: "Jar", gramsPerItem: 100, ppg: 9, stock: "3 jars", min: "1 jar", status: "Available" },
+    { name: "Leche Flan", cat: "Toppings", price: 200, soldBy: "Tray", gramsPerItem: 100, ppg: 20, stock: "5 trays", min: "2 trays", status: "Available" },
     
     // Materials
-    { name: "Plastic Cup (16oz)", cat: "Material", price: 250, soldBy: "Roll (50pcs)", ppg: 5, stock: "150 pcs", min: "50 pcs", status: "Available" },
-    { name: "Plastic Spoon", cat: "Material", price: 120, soldBy: "Pack (100pcs)", ppg: 1.2, stock: "300 pcs", min: "100 pcs", status: "Available" },
-    { name: "Plastic Bag", cat: "Material", price: 80, soldBy: "Bundle", ppg: 0.8, stock: "500 pcs", min: "1/2 bundle", status: "Available" },
-    { name: "Straws", cat: "Material", price: 60, soldBy: "Pack", ppg: 0.6, stock: "2 packs", min: "1/2 pack", status: "Available" }
+    { name: "Plastic Cup (16oz)", cat: "Material", price: 250, soldBy: "Roll (50pcs)", gramsPerItem: 150, ppg: 5, stock: "150 pcs", min: "50 pcs", status: "Available" },
+    { name: "Plastic Spoon", cat: "Material", price: 120, soldBy: "Pack (100pcs)", gramsPerItem: 300, ppg: 1.2, stock: "300 pcs", min: "100 pcs", status: "Available" },
+    { name: "Plastic Bag", cat: "Material", price: 80, soldBy: "Bundle", gramsPerItem: 500, ppg: 0.8, stock: "500 pcs", min: "1/2 bundle", status: "Available" },
+    { name: "Straws", cat: "Material", price: 60, soldBy: "Pack", gramsPerItem: 100, ppg: 0.6, stock: "2 packs", min: "1/2 pack", status: "Available" }
 ];
 
 /* =========================
@@ -132,11 +132,19 @@ function renderStockTable(data) {
     if (!tbody) return;
 
     if (data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:20px;">No matching items found.</td></tr>`;
+        // Updated colspan to 10 to account for the new column
+        tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding:20px;">No matching items found.</td></tr>`;
         return;
     }
 
     tbody.innerHTML = data.map(item => {
+        // 1. Calculate Price Per Gram safely
+        // If gramsPerItem is missing or 0, we show 0.00 to prevent errors
+        const grams = parseFloat(item.gramsPerItem) || 0;
+        const price = parseFloat(item.price) || 0;
+        const pricePerGram = grams > 0 ? (price / grams).toFixed(2) : "0.00";
+
+        // 2. Determine Status Class
         let statusClass = "status-available";
         if (item.status.includes("Low")) statusClass = "status-low";
         if (item.status.includes("Not") || item.status.includes("No")) statusClass = "status-none";
@@ -145,17 +153,16 @@ function renderStockTable(data) {
             <tr>
                 <td><strong>${item.name}</strong></td>
                 <td>${item.cat}</td>
-                <td>₱${item.price}</td>
+                <td>₱${price}</td>
                 <td>${item.soldBy}</td>
-                <td>${item.ppg}</td>
-                <td>${item.stock}</td>
+                <td>${grams}g</td> <td>₱${pricePerGram}</td> <td>${item.stock}</td>
                 <td>${item.min}</td>
                 <td><span class="${statusClass}">${item.status}</span></td>
                 <td>
                     <div class="action-btns">
                         <i class="ph ph-note-pencil" onclick="openEditStockModal('${item.name}')"></i>
                         <i class="ph ph-plus-circle"></i>
-                        <i class="ph ph-trash"></i>
+                        <i class="ph ph-trash" onclick="deleteStock('${item.name}')"></i>
                     </div>
                 </td>
             </tr>`;

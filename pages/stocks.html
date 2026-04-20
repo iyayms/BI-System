@@ -57,6 +57,7 @@
                                 <th>Category</th>
                                 <th>Price</th>
                                 <th>Sold By</th>
+                                <th>Grams per Item</th>
                                 <th>Price per gram</th>
                                 <th>Stock</th>
                                 <th>Min Stock Level</th>
@@ -88,6 +89,8 @@
                         <option value="Fruit">Fruit</option>
                         <option value="Dairy">Dairy</option>
                         <option value="Powder">Powder</option>
+                        <option value="Toppings">Toppings</option>
+                        <option value="Material">Material</option>
                     </select>
 
                     <label class="bold-label">PRICE</label>
@@ -95,6 +98,9 @@
 
                     <label class="bold-label">SOLD BY</label>
                     <input type="text" id="newStockSoldBy" placeholder="BUNDLE/PACK/KILOGRAM">
+
+                    <label class="bold-label">GRAMS PER ITEM</label>
+                    <input type="number" id="gramsPerItem" placeholder="GRAMS PER ITEM" required>
 
                     <label class="bold-label">PRICE PER GRAM</label>
                     <input type="text" id="newStockPPG" placeholder="PRICE PER GRAM">
