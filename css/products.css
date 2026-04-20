@@ -5,6 +5,102 @@
     --dark-border: #2c2c2c;
 }
 
+/* =========================================
+   GLOBAL BUTTON STYLES (Unified)
+   ========================================= */
+
+/* Primary Action Buttons (Brown: Save, Add, Update, Yes Delete) */
+.btn-primary-action {
+    background: var(--coffee-brown) !important;
+    color: white !important;
+    border: 3px solid #000 !important;
+    border-radius: 15px;
+    padding: 12px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #000;
+    transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    outline: none;
+}
+
+/* Secondary Action Buttons (Grey: Cancel, Close) */
+.btn-secondary-action {
+    background: #d9d9d9 !important;
+    color: black !important;
+    border: 3px solid #000 !important;
+    border-radius: 15px;
+    padding: 12px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #000;
+    transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    outline: none;
+}
+
+/* Unified Hover & Active States */
+.btn-primary-action:hover, .btn-secondary-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #000;
+}
+
+.btn-primary-action:active, .btn-secondary-action:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #000;
+}
+
+/* =========================================
+   MODAL FOOTER REFACTOR
+   ========================================= */
+
+/* Apply this to ALL your modal footers (Add Product, Edit, Add Ingredient, Delete) */
+.modal-footer, .modal-buttons, .delete-footer {
+    padding: 20px 40px 40px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    border-top: none; /* Removing thin lines for cleaner look */
+}
+
+/* =========================================
+   CLEANING UP REDUNDANT MODAL STYLES
+   ========================================= */
+
+/* Update the Delete Modal to match your Users/Products style */
+.delete-modal {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border: 3px solid var(--dark-border);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 0 rgba(0,0,0,0.25);
+    z-index: 10005;
+    overflow: hidden; /* Clips the gold header */
+}
+
+/* Re-using your gold header for the Delete Modal for consistency */
+.delete-modal .modal-header {
+    background: var(--amber-gold);
+    padding: 15px;
+    text-align: center;
+    border-bottom: 3px solid #000;
+}
+
+/* Warning Text Alignment */
+.delete-body {
+    padding: 40px;
+    text-align: center;
+}
+
 /* DASHBOARD RESTORATION */
 .products-container {
     margin-left: 240px; 
@@ -330,50 +426,6 @@ font-weight:700;
 
 /* BUTTONS */
 
-.modal-buttons{
-    margin-top:20px;
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-    font-weight:700;
-    pointer-events: auto !important;
-}
-#saveIngredient {
-    position: relative;
-    z-index: 10001; 
-    cursor: pointer !important;
-}
-
-.save-btn{
-    padding:7px 14px;
-    font-weight:700;
-    border-radius:8px;
-    border:2px solid #111;
-    background: var(--amber-gold);
-}
-.save-btn:hover {
-    background-color: #d49a42 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 0 var(--dark-border);
-}
-
-.save-btn:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 var(--dark-border);
-}
-
-.cancel-btn{
-    padding:7px 14px;
-    border-radius:8px;
-    font-weight:700;
-    border:2px solid #111;
-    background:#fff;
-}
-
-.btn-save, .btn-cancel, .save-btn, .cancel-btn {
-    transition: all 0.2s ease;
-}
-
 .ph-trash {
     cursor: pointer;
     transition: transform 0.2s;
@@ -519,18 +571,7 @@ font-weight:700;
 }
 
 .delete-footer {
-    padding: 20px 40px 40px;
     justify-content: center; /* Centers the Yes/Cancel buttons */
-    gap: 20px;
-}
-
-/* Rounded Buttons for Delete Modal */
-.confirm-delete-btn {
-    background: white;
-    color: black;
-    border: 2px solid black;
-    border-radius: 15px;
-    padding: 12px 30px;
 }
 
 #closeDeleteModal {
