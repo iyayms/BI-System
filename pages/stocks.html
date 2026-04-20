@@ -113,6 +113,65 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="quickAddModal">
+        <div class="modal-container stock-modal">
+            <header class="modal-header">
+                <h2>RESTOCK INGREDIENT</h2>
+            </header>
+
+            <div class="modal-body">
+                <div class="stock-form-grid">
+                    <label>INGREDIENT</label>
+                    <input type="text" id="quickAddName" readonly style="background:#eee;">
+
+                    <label>CATEGORY</label>
+                    <input type="text" id="quickAddCategory" readonly style="background:#eee;">
+
+                    <label>PRICE</label>
+                    <input type="text" id="quickAddPrice" readonly style="background:#eee;">
+
+                    <label>GRAMS PER ITEM</label>
+                    <input type="text" id="quickAddGrams" readonly style="background:#eee;">
+
+                    <label>SOLD BY</label>
+                    <input type="text" id="quickAddSoldBy" readonly style="background:#eee;">
+
+                    <label>PRICE PER GRAM</label>
+                    <input type="text" id="quickAddPPG" readonly style="background:#eee;">
+
+                    <label>ADD QUANTITY</label>
+                    <input type="number" id="quickAddValue" placeholder="ENTER AMOUNT TO ADD">
+
+                    <label>MIN STOCK LEVEL</label>
+                    <input type="text" id="quickAddMin" readonly style="background:#eee;">
+                </div>
+            </div>
+
+            <footer class="modal-footer footer-side-by-side">
+                <button class="btn-add-stock" onclick="confirmQuickAdd()">CONFIRM ADD</button>
+                <button class="btn-modal-cancel" onclick="closeQuickAdd()">CANCEL</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="deleteStockModal">
+        <div class="modal-container delete-modal">
+            <header class="modal-header delete-header">
+                <h2>CONFIRM DELETE</h2>
+            </header>
+
+            <div class="modal-body centered-body">
+                <p class="delete-warning">ARE YOU SURE YOU WANT TO REMOVE THIS PRODUCT?</p>
+                <p class="delete-subtext">THIS ACTION CANNOT BE UNDONE.</p>
+            </div>
+
+            <footer class="modal-footer footer-side-by-side">
+                <button class="btn-confirm-delete" id="confirmDeleteBtn">YES, DELETE</button>
+                <button class="btn-modal-cancel" onclick="closeDeleteModal()">CANCEL</button>
+            </footer>
+        </div>
+    </div>
+    
     <div class="modal-overlay" id="addStockModal">
         <div class="modal-container stock-modal">
             <header class="modal-header">

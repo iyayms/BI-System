@@ -162,7 +162,7 @@ function renderStockTable(data) {
                 <td>
                     <div class="action-btns">
                         <i class="ph ph-note-pencil" onclick="openEditStockModal('${item.name}')"></i>
-                        <i class="ph ph-plus-circle"></i>
+                        <i class="ph ph-plus-circle" onclick="openQuickAddModal('${item.name}')"></i>
                         <i class="ph ph-trash" onclick="deleteStock('${item.name}')"></i>
                     </div>
                 </td>
@@ -323,6 +323,105 @@ function updateExistingStock() {
 
 function closeEditModal() {
     document.getElementById("editStockModal").classList.remove("active");
+}
+
+/* =========================
+   QUICK ADD STOCK LOGIC (+)
+   ========================= */
+
+// 1. Open and Populate
+function openQuickAddModal(itemName) {
+    const item = stockInventory.find(s => s.name === itemName);
+    if (!item) return;
+
+    document.getElementById("quickAddName").value = item.name;
+    document.getElementById("quickAddCategory").value = item.cat;
+    document.getElementById("quickAddPrice").value = `₱${item.price}`;
+    document.getElementById("quickAddGrams").value = `${item.gramsPerItem}g`;
+    document.getElementById("quickAddSoldBy").value = item.soldBy;
+    document.getElementById("quickAddPPG").value = item.ppg;
+    document.getElementById("quickAddMin").value = item.min;
+    
+    // Clear the input field for the new amount
+    document.getElementById("quickAddValue").value = "";
+
+    document.getElementById("quickAddModal").classList.add("active");
+}
+
+// 2. Additive Logic
+function confirmQuickAdd() {
+    const name = document.getElementById("quickAddName").value;
+    const amountToAdd = parseFloat(document.getElementById("quickAddValue").value) || 0;
+    
+    if (amountToAdd <= 0) {
+        alert("Please enter a valid amount to add.");
+        return;
+    }
+
+    const index = stockInventory.findIndex(i => i.name === name);
+
+    if (index !== -1) {
+        // Extract current number from stock string (e.g., "3 kg" -> 3)
+        const currentStockValue = parseFloat(stockInventory[index].stock) || 0;
+        const unit = stockInventory[index].stock.replace(/[0-9.]/g, '').trim();
+
+        // Perform the addition
+        const newTotal = currentStockValue + amountToAdd;
+        stockInventory[index].stock = `${newTotal} ${unit}`;
+
+        // Automated Status Update
+        const minVal = parseFloat(stockInventory[index].min) || 0;
+        stockInventory[index].status = newTotal > minVal ? "Available" : "Low in Ingredients";
+
+        // Refresh and Close
+        renderStockTable(stockInventory);
+        closeQuickAdd();
+    }
+}
+
+function closeQuickAdd() {
+    document.getElementById("quickAddModal").classList.remove("active");
+}
+
+/* =========================
+   DELETE STOCK LOGIC
+   ========================= */
+
+let itemToDelete = null; // Temporary storage for the item name
+
+function deleteStock(itemName) {
+    itemToDelete = itemName;
+    document.getElementById("deleteStockModal").classList.add("active");
+
+    // Attach the event to the "Yes, Delete" button
+    document.getElementById("confirmDeleteBtn").onclick = () => {
+        executeDelete();
+    };
+}
+
+function executeDelete() {
+    if (!itemToDelete) return;
+
+    // 1. Filter out the item from the array
+    const index = stockInventory.findIndex(i => i.name === itemToDelete);
+    
+    if (index !== -1) {
+        stockInventory.splice(index, 1); // Remove from dataset
+
+        // 2. Refresh Table
+        renderStockTable(stockInventory);
+        
+        // 3. Update the Add Stock dropdown (so the deleted item is gone)
+        populateIngredientDropdown();
+
+        // 4. Close and Reset
+        closeDeleteModal();
+    }
+}
+
+function closeDeleteModal() {
+    document.getElementById("deleteStockModal").classList.remove("active");
+    itemToDelete = null;
 }
 
 /* =========================
