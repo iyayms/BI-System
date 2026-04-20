@@ -72,6 +72,47 @@
         </main>
     </div>
 
+    <div class="modal-overlay" id="editStockModal">
+        <div class="modal-container stock-modal">
+            <header class="modal-header">
+                <h2>EDIT INGREDIENT</h2>
+            </header>
+
+            <div class="modal-body">
+                <div class="stock-form-grid">
+                    <label>INGREDIENT</label>
+                    <input type="text" id="editIngName" readonly style="background:#eee;">
+
+                    <label>CATEGORY</label>
+                    <input type="text" id="editIngCategory" readonly style="background:#eee;">
+
+                    <label>PRICE</label>
+                    <input type="number" id="editIngPrice" oninput="calculateEditPPG()">
+
+                    <label>GRAMS PER ITEM</label>
+                    <input type="number" id="editIngGrams" oninput="calculateEditPPG()">
+
+                    <label>SOLD BY</label>
+                    <input type="text" id="editIngSoldBy" readonly style="background:#eee;">
+
+                    <label>PRICE PER GRAM</label>
+                    <input type="text" id="editIngPPG" readonly>
+
+                    <label>STOCK</label>
+                    <input type="text" id="editIngStock">
+
+                    <label>MIN STOCK LEVEL</label>
+                    <input type="text" id="editIngMin" readonly style="background:#eee;">
+                </div>
+            </div>
+
+            <footer class="modal-footer footer-side-by-side">
+                <button class="btn-add-stock" onclick="updateExistingStock()">SAVE CHANGES</button>
+                <button class="btn-modal-cancel" onclick="closeEditModal()">CANCEL</button>
+            </footer>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="addStockModal">
         <div class="modal-container stock-modal">
             <header class="modal-header">

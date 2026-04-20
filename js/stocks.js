@@ -258,6 +258,74 @@ function openEditStockModal(itemName) {
 }
 
 /* =========================
+   EDIT STOCK LOGIC
+   ========================= */
+
+// 1. Open Modal and Populate Data
+function openEditStockModal(itemName) {
+    const item = stockInventory.find(s => s.name === itemName);
+    if (!item) return;
+
+    // Fill the fields
+    document.getElementById("editIngName").value = item.name;
+    document.getElementById("editIngCategory").value = item.cat;
+    document.getElementById("editIngPrice").value = item.price;
+    document.getElementById("editIngGrams").value = item.gramsPerItem || 0;
+    document.getElementById("editIngSoldBy").value = item.soldBy;
+    document.getElementById("editIngPPG").value = item.ppg;
+    document.getElementById("editIngStock").value = item.stock;
+    document.getElementById("editIngMin").value = item.min;
+
+    document.getElementById("editStockModal").classList.add("active");
+}
+
+// 2. Automate PPG for Edit Modal
+function calculateEditPPG() {
+    const price = parseFloat(document.getElementById("editIngPrice").value) || 0;
+    const grams = parseFloat(document.getElementById("editIngGrams").value) || 0;
+    const ppgField = document.getElementById("editIngPPG");
+    ppgField.value = (price > 0 && grams > 0) ? (price / grams).toFixed(2) : "0.00";
+}
+
+// 3. Save Changes
+function updateExistingStock() {
+    const name = document.getElementById("editIngName").value;
+    const index = stockInventory.findIndex(i => i.name === name);
+
+    if (index !== -1) {
+        // Update editable fields
+        const newPrice = parseFloat(document.getElementById("editIngPrice").value) || 0;
+        const newGrams = parseFloat(document.getElementById("editIngGrams").value) || 0;
+        const newStock = document.getElementById("editIngStock").value;
+        const ppg = document.getElementById("editIngPPG").value;
+
+        stockInventory[index].price = newPrice;
+        stockInventory[index].gramsPerItem = newGrams;
+        stockInventory[index].stock = newStock;
+        stockInventory[index].ppg = ppg;
+
+        // 4. Automated Status Update
+        const stockNum = parseFloat(newStock) || 0;
+        const minNum = parseFloat(stockInventory[index].min) || 0;
+
+        if (stockNum <= 0) {
+            stockInventory[index].status = "Not Available";
+        } else if (stockNum <= minNum) {
+            stockInventory[index].status = "Low in Ingredients";
+        } else {
+            stockInventory[index].status = "Available";
+        }
+
+        renderStockTable(stockInventory);
+        closeEditModal();
+    }
+}
+
+function closeEditModal() {
+    document.getElementById("editStockModal").classList.remove("active");
+}
+
+/* =========================
    ADD STOCK MODAL LOGIC
    ========================= */
 
