@@ -1,26 +1,182 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<title>Users</title>
-
-<link rel="stylesheet" href="../css/sidebar.css">
-
-<link href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/icons.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meryenda | Users</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/users.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="../js/users.js"></script>
 </head>
-
 <body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
 
-<!-- SIDEBAR LOADS HERE -->
-<div id="sidebar-container"></div>
+        <main class="users-container">
+            <header class="users-header">
+                <h1>USERS</h1>
+                <p class="description-text">Tracks users, add user, change roles, remove account</p>
+            </header>
 
-<div class="main">
-<h1>Users</h1>
-</div>
+            <div class="controls-row">
+                <div class="role-filters">
+                    <button class="filter-btn active" data-role="ALL ROLES">ALL ROLES</button>
+                    <button class="filter-btn" data-role="ADMIN">ADMIN</button>
+                    <button class="filter-btn" data-role="USER">USER</button>
+                    <button class="filter-btn" data-role="OWNER">OWNER</button>
+                </div>
+                
+                <button class="add-user-btn" id="addUserBtn">
+                    <i class="ph ph-plus"></i> ADD USER
+                </button>
+            </div>
 
-<script src="../js/sidebar.js"></script>
+            <section class="table-card">
+                <div class="table-wrapper">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Account Created</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
 
+    <div class="modal-overlay" id="addUserModal">
+        <div class="add-user-modal">
+            <header class="modal-header-gold">
+                <h2>ADD USER</h2>
+            </header>
+
+            <form id="addUserForm" class="modal-body">
+                <div class="modal-input-row">
+                    <label>NAME</label>
+                    <input type="text" id="newName" placeholder="ENTER USERNAME" required>
+                </div>
+                <div class="modal-input-row">
+                    <label>EMAIL</label>
+                    <input type="email" id="newEmail" placeholder="EMAIL" required>
+                </div>
+                <div class="modal-input-row">
+                    <label>ACCOUNT CREATED</label>
+                    <input type="date" id="newDate" required>
+                </div>
+                <div class="modal-input-row">
+                    <label>ROLE</label>
+                    <select id="newRole" required>
+                        <option value="" disabled selected>SELECT ROLE</option>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="USER">USER</option>
+                        <option value="OWNER">OWNER</option>
+                    </select>
+                </div>
+
+                <footer class="modal-action-footer">
+                    <button class="btn-primary-action">ADD USER</button>
+                    <button class="btn-secondary-action" id="closeModalBtn">CANCEL</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="editUserModal">
+        <div class="modal-container add-user-modal">
+            <header class="modal-header-gold">
+                <h2>EDIT USER</h2>
+            </header>
+
+            <form id="editUserForm" class="modal-body">
+                <div class="modal-input-row">
+                    <label>NAME</label>
+                    <input type="text" id="editName" required>
+                </div>
+                <div class="modal-input-row">
+                    <label>EMAIL</label>
+                    <input type="email" id="editEmail" required>
+                </div>
+                <div class="modal-input-row">
+                    <label>ACCOUNT CREATED</label>
+                    <input type="text" id="editDate" readonly style="background: #f0f0f0; cursor: not-allowed;">
+                </div>
+                <div class="modal-input-row">
+                    <label>ROLE</label>
+                    <select id="editRole" required>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="USER">USER</option>
+                        <option value="OWNER">OWNER</option>
+                    </select>
+                </div>
+                <div class="modal-input-row">
+                    <label>STATUS</label>
+                    <input type="text" id="editStatus" readonly style="background: #f0f0f0; cursor: not-allowed;">
+                </div>
+
+                <footer class="modal-action-footer">
+                    <button class="btn-primary-action">SAVE USER</button>
+                    <button class="btn-secondary-action" id="closeEditModalBtn">CANCEL</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="statusUserModal">
+        <div class="modal-container add-user-modal">
+            <header class="modal-header-gold">
+                <h2>UPDATE STATUS</h2>
+            </header>
+
+            <form id="statusUserForm" class="modal-body">
+                <div class="modal-input-row">
+                    <label>NAME</label>
+                    <input type="text" id="statusUserName" readonly style="background: #f0f0f0; cursor: not-allowed;">
+                </div>
+                <div class="modal-input-row">
+                    <label>CURRENT STATUS</label>
+                    <select id="updateStatus" required>
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="ON LEAVE">ON LEAVE</option>
+                        <option value="SICK">SICK</option>
+                    </select>
+                </div>
+
+                <footer class="modal-action-footer">
+                    <button class="btn-primary-action">UPDATE STATUS</button>
+                    <button class="btn-secondary-action" id="closeStatusModalBtn">CANCEL</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="deleteUserModal">
+        <div class="modal-container add-user-modal confirm-delete-modal">
+            <header class="modal-header-gold">
+                <h2>CONFIRM DELETE</h2>
+            </header>
+
+            <div class="modal-body confirm-body">
+                <p class="confirm-main-text">ARE YOU SURE YOU WANT TO REMOVE THIS ACCOUNT?</p>
+                <p class="confirm-sub-text">THIS ACTION CANNOT BE UNDONE.</p>
+
+                <footer class="modal-action-footer">
+                    <button type="button" class="btn-primary-action" id="confirmDeleteBtn">YES, DELETE</button>
+                    <button type="button" class="btn-secondary-action" id="closeDeleteModalBtn">CANCEL</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
 </body>
 </html>

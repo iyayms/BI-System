@@ -1,0 +1,309 @@
+:root {
+    --coffee-brown: #6b2d1a;
+    --amber-gold: #e0b15c;
+    --dark-border: #2c2c2c;
+}
+
+/* =========================================
+   GLOBAL BUTTON STYLES (Consolidated)
+   ========================================= */
+
+/* Use this class for all Brown "Action" buttons (Add, Save, Update, Delete) */
+.btn-primary-action {
+    background: var(--coffee-brown);
+    color: white;
+    border: 3px solid #000;
+    border-radius: 15px;
+    padding: 12px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #000;
+    transition: transform 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Use this class for all Grey "Cancel" buttons */
+.btn-secondary-action {
+    background: #d9d9d9;
+    color: black;
+    border: 3px solid #000;
+    border-radius: 15px;
+    padding: 12px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #000;
+    transition: transform 0.1s;
+}
+
+/* Unified Active State for all modal buttons */
+.btn-primary-action:active, 
+.btn-secondary-action:active,
+.add-user-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #000;
+}
+
+.users-container {
+    margin-left: 240px;
+    padding: 40px;
+    width: calc(100% - 240px);
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.users-header h1 {
+    color: var(--amber-gold);
+    font-size: 36px;
+    font-weight: 900;
+    margin: 0;
+}
+
+.description-text {
+    color: #000;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
+/* New Aligned Row */
+.controls-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.role-filters {
+    display: flex;
+    gap: 12px;
+}
+
+.filter-btn {
+    background: var(--amber-gold);
+    border: 2px solid var(--dark-border);
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.filter-btn.active {
+    background: #f8e08e;
+}
+
+.add-user-btn {
+    background: var(--amber-gold);
+    color: white;
+    border: 3px solid var(--dark-border);
+    border-radius: 15px;
+    padding: 12px 25px;
+    font-weight: 900;
+    box-shadow: 0 4px 0 var(--dark-border);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Table Styling */
+.table-card {
+    background: white;
+    border: 3px solid var(--dark-border);
+    border-radius: 30px;
+    padding: 15px;
+    box-shadow: 0 10px 0 rgba(0,0,0,0.05);
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table thead th {
+    background: #e0b15c;
+    padding: 15px;
+    font-weight: 900;
+}
+
+.users-table tbody td {
+    padding: 18px 10px;
+    text-align: center;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+}
+
+.actions-cell {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 20px;
+}
+
+.layout {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('../assets/background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* Ensure the overlay covers the whole screen regardless of content height */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Toggle this with JavaScript */
+.modal-overlay.active {
+    display: flex;
+}
+
+.add-user-modal, .confirm-delete-modal {
+    background: white;
+    width: 500px;
+    border: 3px solid #000;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Gold Header Bar */
+.modal-header-gold {
+    background: var(--amber-gold);
+    padding: 15px;
+    text-align: center;
+    border-bottom: 3px solid #000;
+}
+
+.modal-header-gold h2 {
+    margin: 0;
+    font-weight: 900;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+/* Input Styles */
+.modal-input-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Update this section in your users.css */
+.modal-input-row label {
+    font-weight: 900; /* Extra bold for high-contrast look */
+    font-size: 14px;
+    color: #000000;
+    text-transform: uppercase; /* Keeps the labels consistent with the wireframe */
+    display: block;
+}
+
+/* Optional: Ensure the inputs also have a strong font weight for consistency */
+.modal-input-row input, 
+.modal-input-row select {
+    border: 2px solid #000;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: 800; /* Makes placeholder and typed text bold too */
+    outline: none;
+    font-size: 13px;
+}
+
+/* Button Styles */
+.modal-action-footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 30px 30px;
+}
+
+/* Delete Modal Specifics */
+.confirm-delete-modal {
+    background: white; /* Forces white background so table doesn't show through */
+    width: 90%;
+    max-width: 500px;
+    height: auto; /* Let content define height */
+    min-height: 280px;
+    border: 3px solid var(--dark-border);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 0 rgba(0,0,0,0.25);
+    z-index: 10005; /* Higher than table and other modals */
+    padding: 0; /* Ensures the gold header spans full width */
+    overflow: hidden;
+}
+
+.confirm-body {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    flex: 1;
+    text-align: center;
+}
+
+.confirm-main-text {
+    font-weight: 900;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.confirm-sub-text {
+    font-weight: 800;
+    font-size: 14px;
+    color: #000;
+    text-align: center;
+}
+
+.modal-action-footer {
+    padding: 20px 40px 40px;
+    display: flex;
+    justify-content: center; /* Centers the Yes/Cancel buttons */
+    gap: 20px;
+}
+
+/* Rounded Buttons for Delete Modal */
+#confirmDeleteBtn {
+    background: var(--coffee-brown); /* Using your established brown */
+    color: white;
+    border: 3px solid #000;
+    border-radius: 15px;
+    padding: 12px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #000;
+}
+
+#closeDeleteModalBtn {
+    background: #d9d9d9; /* Using your established grey */
+    color: black;
+    border: 3px solid #000;
+    border-radius: 15px;
+    padding: 12px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #000;
+}
+
+/* Hover/Active states to match your other buttons */
+#confirmDeleteBtn:active, #closeDeleteModalBtn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #000;
+}
