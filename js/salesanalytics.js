@@ -9,7 +9,7 @@ fetch("../components/sidebar.html")
         container.innerHTML = data;
         const links = document.querySelectorAll(".menu a");
         links.forEach(link=>{
-            if(link.getAttribute("href").includes("stocks.html")){
+            if(link.getAttribute("href").includes("salesanalytics.html")){
                 link.classList.add("active");
             }
         });
@@ -38,7 +38,7 @@ function initAnalytics() {
             }
         },
         layout: {
-            padding: { top: 10, bottom: 40, left: 10, right: 20 }
+            padding: { top: 20, bottom: 40, left: 20, right: 30 }
         },
         scales: {
         x: {
@@ -76,7 +76,11 @@ function initAnalytics() {
                 backgroundColor: 'rgba(224, 177, 92, 0.1)',
                 fill: true,
                 tension: 0.4,
-                borderWidth: 3
+                borderWidth: 3,
+                shadowColor: 'rgba(0, 0, 0, 0.3)',
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowOffsetY: 5,
             }]
         },
         options: chartOptions // Applying the shared options correctly
