@@ -316,6 +316,8 @@ function updateExistingStock() {
             stockInventory[index].status = "Available";
         }
 
+        addHistoryLog("EDIT", name, `Updated price to ₱${newPrice} and stock to ${newStock}.`);
+
         renderStockTable(stockInventory);
         closeEditModal();
     }
@@ -374,6 +376,8 @@ function confirmQuickAdd() {
         stockInventory[index].status = newTotal > minVal ? "Available" : "Low in Ingredients";
 
         // Refresh and Close
+        addHistoryLog("RESTOCK", name, `Added +${amountToAdd}${unit}. Total: ${newTotal}${unit}.`);
+
         renderStockTable(stockInventory);
         closeQuickAdd();
     }
@@ -408,7 +412,10 @@ function executeDelete() {
     if (index !== -1) {
         stockInventory.splice(index, 1); // Remove from dataset
 
+        addHistoryLog("DELETE", itemToDelete, "Permanently removed ingredient.");
+
         // 2. Refresh Table
+        stockInventory.splice(index, 1);
         renderStockTable(stockInventory);
         
         // 3. Update the Add Stock dropdown (so the deleted item is gone)
@@ -613,6 +620,8 @@ function saveNewIngredient() {
     // Add to dataset
     stockInventory.push(newEntry);
     
+    addHistoryLog("NEW ITEM", name, `Added ${stock} to inventory.`);
+
     // REFRESH EVERYTHING
     renderStockTable(stockInventory); // Updates Table
     populateIngredientDropdown();    // Updates the "Add Stock" list so the new item appears there too!
@@ -625,4 +634,72 @@ function saveNewIngredient() {
 function clearNewIngForm() {
     document.querySelectorAll("#addIngredientModal input").forEach(i => i.value = "");
     document.getElementById("newIngCategory").selectedIndex = 0;
+}
+
+/* =========================
+   STOCK HISTORY LOGIC
+   ========================= */
+
+let stockHistory = []; // The array to store logs
+
+function addHistoryLog(action, ingredient, details) {
+    const now = new Date();
+    const timestamp = now.toLocaleDateString() + ' ' + 
+                      now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    // AUTOMATION: Find the category from the inventory based on the name
+    const item = stockInventory.find(i => i.name === ingredient);
+    const category = item ? item.cat : "N/A";
+
+    const logEntry = {
+        date: timestamp,
+        action: action.toUpperCase(),
+        category: category, // Now automated
+        ingredient: ingredient,
+        details: details
+    };
+
+    stockHistory.unshift(logEntry);
+}
+
+// 2. Function to Render the History Table
+function renderHistoryTable() {
+    const tbody = document.getElementById("historyTableBody");
+    if (!tbody) return;
+
+    if (stockHistory.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:20px;">No history found.</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = stockHistory.map(log => {
+        let actionColor = "#000";
+        if (log.action === "DELETE") actionColor = "#d9534f";
+        if (log.action === "RESTOCK") actionColor = "#28a745";
+        if (log.action === "NEW ITEM") actionColor = "#007bff";
+        if (log.action === "EDIT") actionColor = "#f0ad4e";
+
+        // Bold numbers and currency
+        const formattedDetails = log.details.replace(/(\d+(\.\d+)?\s?\w+|₱\d+(\.\d+)?)/g, '<strong>$1</strong>');
+
+        return `
+            <tr>
+                <td style="width: 18%; white-space: nowrap;">${log.date}</td>
+                <td style="width: 13%; color: ${actionColor};"><strong>${log.action}</strong></td>
+                <td style="width: 15%;">${log.category}</td>
+                <td style="width: 15%; font-weight: 600;">${log.ingredient}</td>
+                <td style="width: 40%; text-align: left;">${formattedDetails}</td>
+            </tr>
+        `;
+    }).join("");
+}
+
+// 3. Modal Controls
+function openHistoryModal() {
+    renderHistoryTable();
+    document.getElementById("historyModal").classList.add("active");
+}
+
+function closeHistoryModal() {
+    document.getElementById("historyModal").classList.remove("active");
 }

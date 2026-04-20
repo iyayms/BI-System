@@ -29,7 +29,7 @@
                 <div class="action-button-group">
                     <button class="add-btn yellow-btn"><i class="ph ph-plus"></i> STOCK</button>
                     <button class="add-btn yellow-btn"><i class="ph ph-plus"></i> INGREDIENT</button>
-                    <button class="add-btn history-btn">STOCK HISTORY</button>
+                    <button class="add-btn yellow-btn" onclick="openHistoryModal()">STOCK HISTORY</button>
                 </div>
             </div>
 
@@ -171,7 +171,7 @@
             </footer>
         </div>
     </div>
-    
+
     <div class="modal-overlay" id="addStockModal">
         <div class="modal-container stock-modal">
             <header class="modal-header">
@@ -266,6 +266,36 @@
             <footer class="modal-footer footer-side-by-side">
                 <button class="btn-add-stock" onclick="saveNewIngredient()">ADD INGREDIENT</button>
                 <button class="btn-modal-cancel" id="closeAddIngredient">CANCEL</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal-container history-modal">
+            <header class="modal-header">
+                <h2>STOCK HISTORY</h2>
+            </header>
+
+            <div class="modal-body">
+                <div class="table-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 18%;">DATE & TIME</th>
+                                <th style="width: 13%;">ACTION</th>
+                                <th style="width: 15%;">CATEGORY</th>
+                                <th style="width: 15%;">INGREDIENT</th>
+                                <th style="width: 40%;">DETAILS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <footer class="modal-footer centered-footer">
+                <button class="btn-modal-cancel" onclick="closeHistoryModal()">CLOSE</button>
             </footer>
         </div>
     </div>

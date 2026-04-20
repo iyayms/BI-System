@@ -269,3 +269,91 @@
     font-weight: bold;
     cursor: pointer;
 }
+/* Ensure the modal is wide enough */
+.history-modal {
+    width: 90%;
+    max-width: 850px;
+    height: 600px; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* Force the body to stack elements vertically */
+.history-modal .modal-body {
+    flex: 1; /* Takes up all available space between header and footer */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevents the body itself from scrolling */
+}
+
+/* The container must be full width */
+.table-container {
+    width: 100%;
+    height: 400px; 
+    overflow-y: auto; /* Vertical scrollbar for lots of data */
+    overflow-x: hidden; /* Prevents horizontal scroll if table fits */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* THE FIX: Force table to fill the container */
+.history-table {
+    width: 100% !important;
+    border-collapse: collapse;
+    table-layout: fixed; /* Let columns adjust to content */
+}
+
+.history-table th {
+    background-color: #E3B069;
+    padding: 12px 5px;
+    text-align: left;
+    white-space: nowrap; /* Prevents headers from wrapping weirdly */
+    position: sticky;
+    top: 0;
+    font-weight: 900;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-table td {
+    padding: 12px 5px;
+    vertical-align: middle;
+    word-wrap: break-word;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Prevents long details from breaking the layout */
+}
+
+.history-table td:first-child {
+    padding-left: 15px;
+}
+
+/* Specific alignment for the details column to keep it clean */
+.history-table td:last-child {
+    text-align: left;
+    padding-left: 15px;
+    word-break: break-word;
+}
+
+/* Custom Scrollbar for the table container */
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #E3B069; /* Matches your gold theme */
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #c99a5a;
+}
