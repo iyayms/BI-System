@@ -1,6 +1,110 @@
 /* Inherits from base.css and layout.css via HTML links */
 @import url("products.css");
 
+/* =========================================
+   GLOBAL BUTTON STYLES (Unified)
+   ========================================= */
+
+/* Primary Action Buttons (Brown: Add Stock, Update, Yes Delete) */
+.btn-primary-action {
+    background: var(--coffee-brown) !important;
+    color: white !important;
+    border: 3px solid #000 !important;
+    border-radius: 15px;
+    padding: 12px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #000;
+    transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Secondary Action Buttons (Grey: Cancel, Close) */
+.btn-secondary-action {
+    background: #d9d9d9 !important;
+    color: black !important;
+    border: 3px solid #000 !important;
+    border-radius: 15px;
+    padding: 12px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #000;
+    transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Header Action Buttons (Gold: Add Stock beside Search) */
+.yellow-btn, .history-btn {
+    background: var(--amber-gold) !important;
+    color: white !important;
+    border: 3px solid var(--dark-border);
+    border-radius: 15px;
+    padding: 12px 25px;
+    font-weight: 900;
+    box-shadow: 0 4px 0 var(--dark-border);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+/* Unified Hover & Active States */
+.btn-primary-action:hover, 
+.btn-secondary-action:hover,
+.yellow-btn:hover,
+.history-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #000;
+}
+
+.btn-primary-action:active, 
+.btn-secondary-action:active,
+.yellow-btn:active,
+.history-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #000;
+}
+
+/* =========================================
+   MODAL FOOTER REFACTOR
+   ========================================= */
+
+.footer-side-by-side, .modal-buttons, .modal-footer {
+    display: flex;
+    justify-content: center; /* Centered per your stock wireframe */
+    gap: 20px;
+    padding: 20px 40px 40px;
+}
+
+/* =========================================
+   CLEANING REDUNDANT STOCKS STYLES
+   ========================================= */
+
+/* Update Modal Container for consistent heavy borders */
+.modal-container, .stock-modal, .history-modal {
+    background-color: #fff;
+    border: 3px solid #000;
+    border-radius: 25px;
+    box-shadow: 0 15px 0 rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+/* Header consistency for Delete/Add Stock/History */
+.modal-header, .delete-header, .modal-header-gold {
+    background-color: var(--amber-gold) !important;
+    padding: 18px;
+    text-align: center;
+    border-bottom: 3px solid #000;
+}
+
 /* Stock Specific Styling */
 .stock-low {
     color: #d9534f;
@@ -128,15 +232,6 @@
     color: #000;
 }
 
-/* LARGE MODAL FOR STOCK FORM */
-.stock-modal{
-    width: 600px !important;
-    width: 100%;
-    border-radius: 20px;
-    border: 3px solid #000;
-    overflow: hidden;
-}
-
 /* Grid Layout for Label + Input */
 .stock-form-grid {
     display: grid;
@@ -203,35 +298,6 @@
     padding-bottom: 30px;
 }
 
-.btn-add-stock {
-    background-color: #6b2d1a !important; /* Dark Coffee Brown */
-    color: white;
-    border: 2px solid #000;
-    border-radius: 15px;
-    padding: 12px 40px;
-    font-weight: 900;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.btn-add-stock:hover {
-    background: #86360093;
-}
-
-.btn-modal-cancel {
-    background-color: #e0e0e0 !important; /* Light Grey */
-    color: #000;
-    border: 2px solid #000;
-    border-radius: 15px;
-    padding: 12px 40px;
-    font-weight: 900;
-    cursor: pointer;
-}
-
-.delete-header {
-    background-color: #E3B069 !important; /* The gold/yellow from your image */
-}
-
 .centered-body {
     display: flex;
     flex-direction: column; /* This stacks the text vertically */
@@ -260,16 +326,6 @@
     letter-spacing: 1px;
 }
 
-.btn-confirm-delete {
-    background-color: #5D2617; /* Dark reddish-brown from image */
-    color: white;
-    padding: 12px 35px;
-    border-radius: 20px;
-    border: 2px solid #000;
-    font-weight: bold;
-    cursor: pointer;
-}
-/* Ensure the modal is wide enough */
 .history-modal {
     width: 90%;
     max-width: 850px;
