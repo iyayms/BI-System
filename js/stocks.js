@@ -391,3 +391,71 @@ function clearForm() {
 
 // Ensure dropdown is populated on load
 window.addEventListener('DOMContentLoaded', populateIngredientDropdown);
+
+/* =========================
+   ADD NEW INGREDIENT LOGIC
+   ========================= */
+
+// 1. Open/Close Logic
+const addIngBtn = document.querySelector(".yellow-btn:nth-child(2)"); // Adjust if needed
+const closeIngBtn = document.getElementById("closeAddIngredient");
+const ingModal = document.getElementById("addIngredientModal");
+
+if (addIngBtn) {
+    addIngBtn.onclick = () => ingModal.classList.add("active");
+}
+if (closeIngBtn) {
+    closeIngBtn.onclick = () => ingModal.classList.remove("active");
+}
+
+// 2. Automate PPG for NEW items
+function calculateNewIngPPG() {
+    const price = parseFloat(document.getElementById("newIngPrice").value) || 0;
+    const grams = parseFloat(document.getElementById("newIngGrams").value) || 0;
+    const ppgField = document.getElementById("newIngPPG");
+    ppgField.value = (price > 0 && grams > 0) ? (price / grams).toFixed(2) : "0.00";
+}
+
+// 3. Save the brand new ingredient
+function saveNewIngredient() {
+    const name = document.getElementById("newIngName").value.trim();
+    const cat = document.getElementById("newIngCategory").value;
+    const price = parseFloat(document.getElementById("newIngPrice").value) || 0;
+    const grams = parseFloat(document.getElementById("newIngGrams").value) || 0;
+    const soldBy = document.getElementById("newIngSoldBy").value;
+    const stock = document.getElementById("newIngStock").value;
+    const min = document.getElementById("newIngMin").value;
+
+    if (!name || !cat || !stock) {
+        alert("Please fill in the Name, Category, and Initial Stock.");
+        return;
+    }
+
+    const newEntry = {
+        name: name,
+        cat: cat,
+        price: price,
+        soldBy: soldBy,
+        gramsPerItem: grams,
+        ppg: document.getElementById("newIngPPG").value,
+        stock: stock,
+        min: min,
+        status: "Available"
+    };
+
+    // Add to dataset
+    stockInventory.push(newEntry);
+    
+    // REFRESH EVERYTHING
+    renderStockTable(stockInventory); // Updates Table
+    populateIngredientDropdown();    // Updates the "Add Stock" list so the new item appears there too!
+    
+    // Close and Clear
+    ingModal.classList.remove("active");
+    clearNewIngForm();
+}
+
+function clearNewIngForm() {
+    document.querySelectorAll("#addIngredientModal input").forEach(i => i.value = "");
+    document.getElementById("newIngCategory").selectedIndex = 0;
+}

@@ -122,5 +122,52 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="addIngredientModal">
+        <div class="modal-container stock-modal">
+            <header class="modal-header">
+                <h2>ADD NEW INGREDIENT</h2>
+            </header>
+
+            <div class="modal-body">
+                <div class="stock-form-grid">
+                    <label>INGREDIENT</label>
+                    <input type="text" id="newIngName" placeholder="ENTER INGREDIENT NAME">
+
+                    <label>CATEGORY</label>
+                    <select id="newIngCategory">
+                        <option value="" disabled selected>SELECT CATEGORY</option>
+                        <option value="Fruit">Fruit</option>
+                        <option value="Dairy">Dairy</option>
+                        <option value="Powder">Powder</option>
+                        <option value="Toppings">Toppings</option>
+                        <option value="Material">Material</option>
+                    </select>
+
+                    <label>PRICE</label>
+                    <input type="number" id="newIngPrice" placeholder="SELLING PRICE" oninput="calculateNewIngPPG()">
+
+                    <label>GRAMS PER ITEM</label>
+                    <input type="number" id="newIngGrams" placeholder="GRAMS PER ITEM" oninput="calculateNewIngPPG()">
+
+                    <label>SOLD BY</label>
+                    <input type="text" id="newIngSoldBy" placeholder="e.g. BUNDLE, CAN, PACK">
+
+                    <label>PRICE PER GRAM</label>
+                    <input type="text" id="newIngPPG" placeholder="0.00" readonly>
+
+                    <label>INITIAL STOCK</label>
+                    <input type="text" id="newIngStock" placeholder="e.g. 5 kg">
+
+                    <label>MIN STOCK LEVEL</label>
+                    <input type="text" id="newIngMin" placeholder="e.g. 2 kg">
+                </div>
+            </div>
+
+            <footer class="modal-footer footer-side-by-side">
+                <button class="btn-add-stock" onclick="saveNewIngredient()">ADD INGREDIENT</button>
+                <button class="btn-modal-cancel" id="closeAddIngredient">CANCEL</button>
+            </footer>
+        </div>
+    </div>
 </body>
 </html>
