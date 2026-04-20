@@ -57,11 +57,28 @@ const products = [
 ];
 
 const inventory = [
-    { category: "Fruit", name: "Mango", pricePerGram: 0.8, stock: 150, unit: "g" },
+    { category: "Fruits", name: "Mango", pricePerGram: 0.8, stock: 150, unit: "g" },
+    { category: "Fruits", name: "Banana", pricePerGram: 0.5, stock: 200, unit: "g" },
+
+    { category: "Dairy", name: "EvaporatedMilk", pricePerGram: 0.5, stock: 300, unit: "ml" },
+    { category: "Dairy", name: "Condensed Milk", pricePerGram: 0.4, stock: 500, unit: "ml" },
+
     { category: "Powder", name: "Milo", pricePerGram: 0.6, stock: 200, unit: "g" },
-    { category: "Sweetener", name: "Sugar", pricePerGram: 0.3, stock: 500, unit: "g" },
-    { category: "Dairy", name: "Milk", pricePerGram: 0.5, stock: 300, unit: "ml" },
-    { category: "Dairy", name: "Condensation Milk", pricePerGram: 0.4, stock: 500, unit: "ml" }
+    { category: "Powder", name: "Graham Cracker", pricePerGram: 0.55, stock: 180, unit: "g" },
+
+    { category: "Toppings", name: "Nata de Coco", pricePerGram: 0.45, stock: 250, unit: "g" },
+    { category: "Toppings", name: "Kaong", pricePerGram: 0.45, stock: 220, unit: "g" },
+
+    { category: "Materials", name: "Plastic Cup", pricePerGram: 2.5, stock: 500, unit: "pc" },
+    { category: "Materials", name: "Plastic Spoon", pricePerGram: 1.5, stock: 600, unit: "pc" },
+
+    { category: "Ice", name: "Crushed Ice", pricePerGram: 0.1, stock: 2000, unit: "g" },
+
+    { category: "Syrup", name: "Mango Syrup", pricePerGram: 0.7, stock: 150, unit: "ml" },
+    { category: "Syrup", name: "Chocolate Syrup", pricePerGram: 0.75, stock: 140, unit: "ml" },
+
+    { category: "Sinkers", name: "Tapioca Pearl", pricePerGram: 0.65, stock: 200, unit: "g" },
+    { category: "Sinkers", name: "Crystals", pricePerGram: 0.9, stock: 120, unit: "g" }
 ];
 
 /* =========================
@@ -166,6 +183,71 @@ function setupEventListeners() {
             resetIngredientFields();
         };
     }
+}
+
+/* =========================
+   SAVE PRODUCT
+========================= */
+
+const saveProductBtn = document.getElementById("saveProductBtn");
+
+if (saveProductBtn) {
+    saveProductBtn.onclick = function () {
+
+        const name = document.getElementById("newProductName").value;
+        const category = document.getElementById("newProductCategory").value;
+        const price = parseFloat(document.getElementById("newProductPrice").value);
+
+        if (!name || category === "SELECT CATEGORY" || isNaN(price)) {
+            alert("Please complete all product details.");
+            return;
+        }
+
+        // Generate Product ID automatically
+        const prefixMap = {
+            "Special": "SP",
+            "Shake": "SH",
+            "Iced": "IC"
+        };
+
+        const prefix = prefixMap[category] || "PR";
+
+        const count = products.filter(p => p.category === category).length + 1;
+        const newId = `${prefix}-${String(count).padStart(3,'0')}`;
+
+        // Calculate margin
+        const margin = price > 0 ? ((price - totalMaterialCost) / price) * 100 : 0;
+
+        const ingredientsCount = document.querySelectorAll("#ingredientBody tr").length;
+
+        const newProduct = {
+            id: newId,
+            name: name,
+            category: category,
+            margin: margin.toFixed(1),
+            price: price,
+            ingredients: ingredientsCount,
+            status: ingredientsCount > 0 ? "Available" : "No Ingredients"
+        };
+
+        // 🔥 Add to TOP of array
+        products.unshift(newProduct);
+
+        // Refresh table
+        renderProductTable(products);
+
+        // Close modal
+        document.getElementById("addModal").classList.remove("active");
+
+        // Reset fields
+        document.getElementById("newProductName").value = "";
+        document.getElementById("newProductCategory").value = "SELECT CATEGORY";
+        document.getElementById("newProductPrice").value = "";
+        document.getElementById("ingredientBody").innerHTML = "";
+
+        totalMaterialCost = 0;
+        updateFinancials();
+    };
 }
 
 /* =========================
