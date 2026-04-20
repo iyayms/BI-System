@@ -29,7 +29,7 @@ const stockInventory = [
     
     // Dairy
     { name: "Milk", cat: "Dairy", price: 100, soldBy: "Can", gramsPerItem: 300, ppg: 0.50, stock: "300ml", min: "60ml", status: "Available" },
-    { name: "Condensation Milk", cat: "Dairy", price: 90, soldBy: "Can", gramsPerItem: 50, ppg: 0.40, stock: "50ml", min: "30ml", status: "Low in Ingredients" },
+    { name: "Condensed Milk", cat: "Dairy", price: 90, soldBy: "Can", gramsPerItem: 50, ppg: 0.40, stock: "50ml", min: "30ml", status: "Low in Ingredients" },
     { name: "Evaporated Milk", cat: "Dairy", price: 45, soldBy: "Can", gramsPerItem: 100, ppg: 0.35, stock: "10 cans", min: "3 cans", status: "Available" },
     
     // Powder
@@ -54,6 +54,7 @@ INITIALIZATION
 ========================= */
 document.addEventListener("DOMContentLoaded", () => {
     renderStockTable(stockInventory);
+    populateIngredientDropdown();
     setupStockEventListeners();
     setupAddStockLogic(); // Initialize the new logic
     
@@ -257,19 +258,22 @@ function openEditStockModal(itemName) {
 }
 
 /* =========================
-ADD STOCK MODAL LOGIC
-========================= */
-function setupAddStockLogic() {
+   ADD STOCK MODAL LOGIC
+   ========================= */
+
+   function setupAddStockLogic() {
     const addStockModal = document.getElementById("addStockModal");
     
-    // TARGETS THE "STOCK" BUTTON (The 1st yellow-btn)
-    const stockBtn = document.querySelector(".action-button-group .yellow-btn:nth-child(1)"); 
+    // Updated selector: Find the yellow button that says "+ STOCK"
+    // Usually, this is the first button in your action group
+    const stockBtn = document.querySelector(".yellow-btn") || document.querySelector(".action-button-group .yellow-btn:nth-child(1)"); 
     const closeBtn = document.getElementById("closeAddStock");
-    const confirmBtn = document.getElementById("confirmAddStock");
 
     if (stockBtn) {
-        stockBtn.onclick = () => {
+        stockBtn.onclick = (e) => {
+            e.preventDefault(); // Prevent any default page jumps
             addStockModal.classList.add("active");
+            populateIngredientDropdown(); // Refresh the list
         };
     }
 
@@ -279,39 +283,111 @@ function setupAddStockLogic() {
             clearForm();
         };
     }
+}
 
-    if (confirmBtn) {
-        confirmBtn.onclick = () => {
-            const name = document.getElementById("newStockIngredient").value;
-            const cat = document.getElementById("newStockCategory").value;
+// 1. Populate the Select Dropdown when the page loads
+function populateIngredientDropdown() {
+    const select = document.getElementById("ingredientSelect");
+    if (!select) return;
 
-            if (!name || !cat) {
-                alert("Please fill in the Ingredient Name and Category.");
-                return;
-            }
+    // Clear existing options except the first one
+    select.innerHTML = '<option value="">Select Ingredient</option>';
 
-            const newEntry = {
-                name: name,
-                cat: cat,
-                price: parseFloat(document.getElementById("newStockPrice").value) || 0,
-                soldBy: document.getElementById("newStockSoldBy").value,
-                ppg: document.getElementById("newStockPPG").value,
-                stock: document.getElementById("newStockQty").value,
-                min: document.getElementById("newStockMinLevel").value,
-                status: "Available"
-            };
+    stockInventory.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.name;
+        option.textContent = item.name;
+        select.appendChild(option);
+    });
+}
 
-            stockInventory.push(newEntry);
-            renderStockTable(stockInventory);
-            addStockModal.classList.remove("active");
-            clearForm();
-        };
+// 2. Auto-fill data based on selected ingredient
+function autoFillIngredientData() {
+    const selectedName = document.getElementById("ingredientSelect").value;
+    const item = stockInventory.find(i => i.name === selectedName);
+
+    if (item) {
+        document.getElementById("newStockCategory").value = item.cat || "";
+        document.getElementById("autoSoldBy").value = item.soldBy || "";
+        document.getElementById("autoMinStock").value = item.min || "";
+        // If you already have grams stored, fill it; otherwise keep empty for new input
+        document.getElementById("inputGrams").value = item.gramsPerItem || "";
+        calculatePPG();
+    }
+}
+
+// 3. Calculate Price Per Gram automatically
+function calculatePPG() {
+    const price = parseFloat(document.getElementById("inputPrice").value) || 0;
+    const grams = parseFloat(document.getElementById("inputGrams").value) || 0;
+    const ppgField = document.getElementById("autoPPG");
+
+    if (price > 0 && grams > 0) {
+        ppgField.value = (price / grams).toFixed(2);
+    } else {
+        ppgField.value = "0.00";
+    }
+}
+
+// 4. Save Update and Refresh Table
+function saveStockUpdate() {
+    const name = document.getElementById("ingredientSelect").value;
+    const cat = document.getElementById("newStockCategory").value;
+    const price = parseFloat(document.getElementById("inputPrice").value) || 0;
+    const grams = parseFloat(document.getElementById("inputGrams").value) || 0;
+    
+    // NEW: Get the quantity the user just typed in the "STOCK" input field
+    const addedStockInput = document.getElementById("newStockQty").value;
+    const addedAmount = parseFloat(addedStockInput) || 0;
+
+    if (!name || !cat || addedAmount <= 0) {
+        alert("Please select an ingredient and enter a valid stock amount.");
+        return;
+    }
+
+    const index = stockInventory.findIndex(i => i.name === name);
+
+    if (index !== -1) {
+        // 1. Get the current stock (e.g., "3 kg" -> 3)
+        const currentStockValue = parseFloat(stockInventory[index].stock) || 0;
+
+        // 2. Add the new amount to the current amount
+        const newTotalStock = currentStockValue + addedAmount;
+
+        // 3. Keep the original unit (kg, cans, ml)
+        // This regex extracts the unit part (the text after the number)
+        const unit = stockInventory[index].stock.replace(/[0-9.]/g, '').trim();
+        
+        // 4. Update the inventory object
+        stockInventory[index].cat = cat;
+        stockInventory[index].price = price;
+        stockInventory[index].gramsPerItem = grams;
+        stockInventory[index].stock = `${newTotalStock} ${unit}`;
+        
+        // 5. Re-evaluate Status (Auto-Available)
+        const minVal = parseFloat(stockInventory[index].min) || 0;
+        stockInventory[index].status = newTotalStock > minVal ? "Available" : "Low in Ingredients";
+
+        // 6. Refresh the UI
+        renderStockTable(stockInventory);
+        
+        // 7. Close and Reset
+        document.getElementById("addStockModal").classList.remove("active");
+        clearForm();
+        
+        alert(`Successfully added ${addedAmount}${unit} to ${name}!`);
     }
 }
 
 function clearForm() {
-    document.querySelectorAll("#addStockModal input").forEach(i => i.value = "");
-    document.getElementById("newStockCategory").selectedIndex = 0;
+    document.getElementById("ingredientSelect").value = "";
+    document.getElementById("newStockCategory").value = "";
+    document.getElementById("inputPrice").value = "";
+    document.getElementById("inputGrams").value = "";
+    document.getElementById("autoSoldBy").value = "";
+    document.getElementById("autoPPG").value = "";
+    document.getElementById("autoMinStock").value = "";
 }
-document.querySelector(".add-btn.yellow-btn").addEventListener("click", openAddStockModal);
-document.getElementById("closeAddStock").addEventListener("click", closeAddStockModal);
+
+// Ensure dropdown is populated on load
+window.addEventListener('DOMContentLoaded', populateIngredientDropdown);

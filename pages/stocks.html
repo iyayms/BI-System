@@ -73,17 +73,19 @@
     </div>
 
     <div class="modal-overlay" id="addStockModal">
-                <div class="modal-container stock-modal">
-                <header class="modal-header">
+        <div class="modal-container stock-modal">
+            <header class="modal-header">
                 <h2>ADD STOCK</h2>
             </header>
 
             <div class="modal-body">
                 <div class="stock-form-grid">
-                    <label class="bold-label">INGREDIENT</label>
-                    <input type="text" id="newStockIngredient" placeholder="ENTER INGREDIENT NAME">
+                    <label>INGREDIENT</label>
+                    <select id="ingredientSelect" onchange="autoFillIngredientData()">
+                        <option value="">SELECT INGREDIENT</option>
+                    </select>
 
-                    <label class="bold-label">CATEGORY</label>
+                    <label>CATEGORY</label>
                     <select id="newStockCategory">
                         <option value="" disabled selected>SELECT CATEGORY</option>
                         <option value="Fruit">Fruit</option>
@@ -93,28 +95,28 @@
                         <option value="Material">Material</option>
                     </select>
 
-                    <label class="bold-label">PRICE</label>
-                    <input type="number" id="newStockPrice" placeholder="SELLING PRICE">
+                    <label>PRICE</label>
+                    <input type="number" id="inputPrice" placeholder="SELLING PRICE" oninput="calculatePPG()">
 
-                    <label class="bold-label">SOLD BY</label>
-                    <input type="text" id="newStockSoldBy" placeholder="BUNDLE/PACK/KILOGRAM">
+                    <label>GRAMS PER ITEM</label>
+                    <input type="number" id="inputGrams" placeholder="GRAMS PER ITEM" oninput="calculatePPG()">
 
-                    <label class="bold-label">GRAMS PER ITEM</label>
-                    <input type="number" id="gramsPerItem" placeholder="GRAMS PER ITEM" required>
+                    <label>SOLD BY</label>
+                    <input type="text" id="autoSoldBy" placeholder="BUNDLE/PACK/KILOGRAM" readonly>
 
-                    <label class="bold-label">PRICE PER GRAM</label>
-                    <input type="text" id="newStockPPG" placeholder="PRICE PER GRAM">
+                    <label>PRICE PER GRAM</label>
+                    <input type="text" id="autoPPG" placeholder="PRICE PER GRAM" readonly>
 
-                    <label class="bold-label">STOCK</label>
-                    <input type="text" id="newStockQty" placeholder="QUANTITY OF INGREDIENT">
+                    <label>STOCK</label>
+                    <input type="number" id="newStockQty" placeholder="QUANTITY TO ADD" min="0" step="0.01">
 
-                    <label class="bold-label">MIN STOCK LEVEL</label>
-                    <input type="text" id="newStockMinLevel" placeholder="LEVEL">
+                    <label>MIN STOCK LEVEL</label>
+                    <input type="text" id="autoMinStock" placeholder="LEVEL" readonly>
                 </div>
             </div>
 
-            <footer class="modal-footer centered-footer">
-                <button class="btn-add-stock" id="confirmAddStock">ADD STOCK</button>
+            <footer class="modal-footer footer-side-by-side">
+                <button class="btn-add-stock" onclick="saveStockUpdate()">ADD STOCK</button>
                 <button class="btn-modal-cancel" id="closeAddStock">CANCEL</button>
             </footer>
         </div>
