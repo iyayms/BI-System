@@ -42,18 +42,18 @@ document.addEventListener("DOMContentLoaded", () => {
 PRODUCT DATA
 ========================= */
 const products = [
-    { id: "SP-001", name: "Special Halo-halo", category: "Special", margin: 40, price: 100, ingredients: 10, status: "Available" },
-    { id: "SP-002", name: "Saba De Leche", category: "Special", margin: 40, price: 100, ingredients: 7, status: "Available" },
-    { id: "SP-003", name: "Mais De Leche", category: "Special", margin: 40, price: 100, ingredients: 8, status: "Not Available" },
-    { id: "SH-001", name: "Mango Graham Shake", category: "Shake", margin: 30, price: 100, ingredients: 8, status: "Available" },
-    { id: "SH-002", name: "Mango Shake", category: "Shake", margin: 25, price: 80, ingredients: 5, status: "Available" },
-    { id: "SH-003", name: "Melon Shake", category: "Shake", margin: 25, price: 80, ingredients: 5, status: "No Ingredients" },
-    { id: "SH-004", name: "Oreo Cheese Shake", category: "Shake", margin: 25, price: 80, ingredients: 6, status: "Available" },
-    { id: "IC-001", name: "Halo-halo", category: "Iced", margin: 20, price: 80, ingredients: 10, status: "Available" },
-    { id: "IC-002", name: "Mango Con Yelo", category: "Iced", margin: 15, price: 50, ingredients: 4, status: "Available" },
-    { id: "IC-003", name: "Mais Con Yelo", category: "Iced", margin: 15, price: 50, ingredients: 4, status: "Available" },
-    { id: "IC-004", name: "Saba Con Yelo", category: "Iced", margin: 15, price: 50, ingredients: 4, status: "Available" },
-    { id: "IC-005", name: "Milo Con Yelo", category: "Iced", margin: 15, price: 50, ingredients: 4, status: "Available" }
+    { id: "SP-001", name: "Special Halo-halo", category: "Special", margin: 40, price: 100, grams:250,  ingredients: 10, status: "Available" },
+    { id: "SP-002", name: "Saba De Leche", category: "Special", margin: 40, price: 100, grams:200,  ingredients: 7, status: "Available" },
+    { id: "SP-003", name: "Mais De Leche", category: "Special", margin: 40, price: 100, grams:220,  ingredients: 8, status: "Not Available" },
+    { id: "SH-001", name: "Mango Graham Shake", category: "Shake", margin: 30, price: 100, grams:250,  ingredients: 8, status: "Available" },
+    { id: "SH-002", name: "Mango Shake", category: "Shake", margin: 25, price: 80, grams:200,  ingredients: 5, status: "Available" },
+    { id: "SH-003", name: "Melon Shake", category: "Shake", margin: 25, price: 80, grams:200,  ingredients: 5, status: "No Ingredients" },
+    { id: "SH-004", name: "Oreo Cheese Shake", category: "Shake", margin: 25, price: 80, grams:200,  ingredients: 6, status: "Available" },
+    { id: "IC-001", name: "Halo-halo", category: "Iced", margin: 20, price: 80, grams:250,  ingredients: 10, status: "Available" },
+    { id: "IC-002", name: "Mango Con Yelo", category: "Iced", margin: 15, price: 50, grams:200,  ingredients: 4, status: "Available" },
+    { id: "IC-003", name: "Mais Con Yelo", category: "Iced", margin: 15, price: 50, grams:200,  ingredients: 4, status: "Available" },
+    { id: "IC-004", name: "Saba Con Yelo", category: "Iced", margin: 15, price: 50, grams:200,  ingredients: 4, status: "Available" },
+    { id: "IC-005", name: "Milo Con Yelo", category: "Iced", margin: 15, price: 50, grams:200,  ingredients: 4, status: "Available" }
 ];
 
 const inventory = [
@@ -97,6 +97,7 @@ function renderProductTable(data) {
                 <td>${item.category}</td>
                 <td>${item.margin}%</td>
                 <td>₱${item.price}</td>
+                <td>${item.grams} g</td>
                 <td>${item.ingredients}</td>
                 <td><span class="status-text status-${statusClass}">${item.status}</span></td>
                 <td>
@@ -197,8 +198,9 @@ if (saveProductBtn) {
         const name = document.getElementById("newProductName").value;
         const category = document.getElementById("newProductCategory").value;
         const price = parseFloat(document.getElementById("newProductPrice").value);
+        const grams = parseFloat(document.getElementById("newProductGrams").value);
 
-        if (!name || category === "SELECT CATEGORY" || isNaN(price)) {
+        if (!name || category === "SELECT CATEGORY" || isNaN(price) || isNaN(grams)) {
             alert("Please complete all product details.");
             return;
         }
@@ -226,6 +228,7 @@ if (saveProductBtn) {
             category: category,
             margin: margin.toFixed(1),
             price: price,
+            grams: grams,
             ingredients: ingredientsCount,
             status: ingredientsCount > 0 ? "Available" : "No Ingredients"
         };
