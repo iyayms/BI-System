@@ -17,7 +17,19 @@
 }
 
 /* HEADER & SEARCH */
-.pos-header h1 { color: var(--amber-gold); font-size: 28px; }
+
+.pos-header h1 {
+    color: var(--amber-gold);
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.pos-header p {
+    color: #000;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
 .search-bar {
     background: white;
     display: flex;
