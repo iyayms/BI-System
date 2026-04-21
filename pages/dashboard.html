@@ -34,14 +34,25 @@
 
             <!-- FILTERS -->
             <div class="filters">
-                <input type="date">
-                <input type="date">
-                <select>
-                    <option>All Categories</option>
-                    <option>Shake</option>
-                    <option>Fruit</option>
-                    <option>Dairy</option>
+                <select id="dateFilter">
+                    <option value="day">This Day</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
                 </select>
+
+                <select id="categoryFilter">
+                    <option value="all">All Categories</option>
+                    <option value="fruits">Fruits</option>
+                    <option value="dairy">Dairy</option>
+                    <option value="powder">Powder</option>
+                    <option value="toppings">Toppings</option>
+                    <option value="materials">Materials</option>
+                    <option value="ice">Ice</option>
+                    <option value="syrup">Syrup</option>
+                    <option value="sinkers">Sinkers</option>
+                </select>
+
+                <button class="export-btn">Export Report</button>
             </div>
 
             <!-- CARDS -->
@@ -134,11 +145,36 @@
                     <div class="purchase-history">
                         <div class="box-header">
                             <h3>Purchase History</h3>
-                            <select>
-                                <option>This Day</option>
-                                <option>This Week</option>
-                                <option>This Month</option>
-                            </select>
+                        </div>
+
+                        <div class="purchase-filters">
+
+                            <div class="search-box">
+                                <input type="text" placeholder="Search product...">
+                            </div>
+
+                            <div class="filter-group">
+
+                                <select>
+                                    <option>All Categories</option>
+                                    <option>Fruits</option>
+                                    <option>Dairy</option>
+                                    <option>Powder</option>
+                                    <option>Toppings</option>
+                                    <option>Materials</option>
+                                    <option>Ice</option>
+                                    <option>Syrup</option>
+                                    <option>Sinkers</option>
+                                </select>
+
+                                <select>
+                                    <option>This Day</option>
+                                    <option>This Week</option>
+                                    <option>This Month</option>
+                                </select>
+
+                            </div>
+
                         </div>
 
                         <table>
