@@ -21,6 +21,12 @@ body {
     max-width: 1200px;
 }
 
+/* dashboard.css only */
+.dashboard-container {
+    opacity: 0; /* Start hidden */
+    animation: fadeInSlide 0.4s ease-out 0.1s forwards; /* 0.1s delay for a smoother "reveal" */
+}
+
 .dashboard .main-content{
     width: 100%;
 }

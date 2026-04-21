@@ -5,6 +5,77 @@
     --dark-border: #2c2c2c;
 }
 
+/* =========================================
+   GLOBAL BUTTON STYLES (Unified)
+   ========================================= */
+
+/* Primary Action Buttons (Brown: Checkout, Finish, Save, Yes) */
+.btn-primary-action, .checkout-btn, #finishOrder {
+    background: var(--coffee-brown) !important;
+    color: white !important;
+    border: 3px solid #000 !important;
+    border-radius: 15px;
+    padding: 12px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #000;
+    transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: auto;
+}
+
+/* Secondary Action Buttons (Grey/White: Pay Method, Cancel, Close) */
+.btn-secondary-action, .pay-btn {
+    background: #d9d9d9 !important;
+    color: black !important;
+    border: 3px solid #000 !important;
+    border-radius: 15px;
+    padding: 12px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #000;
+    transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Special Case: Amber Gold Checkout (If you want to keep the Gold style) */
+.checkout-btn, .btn-primary {
+    background: var(--amber-gold) !important;
+    color: white !important;
+}
+
+/* Unified Hover & Active States */
+.btn-primary-action:hover, 
+.btn-secondary-action:hover, 
+.checkout-btn:hover, 
+.pay-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #000;
+}
+
+.btn-primary-action:active, 
+.btn-secondary-action:active, 
+.checkout-btn:active, 
+.pay-btn:active,
+#finishOrder:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #000;
+}
+
+/* Active Payment Method State */
+.pay-btn.active {
+    background: var(--amber-gold) !important;
+    color: white !important;
+    box-shadow: inset 0 3px 5px rgba(0,0,0,0.2);
+    transform: translateY(2px);
+}
+
 .pos-container {
     display: grid;
     grid-template-columns: 1fr 380px; /* Adjusting for 4 columns + Sidebar */
@@ -266,25 +337,6 @@
     box-shadow: 0 4px 0 #2c2c2c; /* Consistent with dashboard card style */
 }
 
-/* HOVER STATE */
-.pay-btn:hover {
-    background: #fdf2e2; /* Very light warm tint */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 0 #2c2c2c;
-}
-
-/* HIGHLIGHTED/ACTIVE STATE */
-.pay-btn.active {
-    background: #e0b15c; /* Your Amber Gold */
-    color: white;
-    border-color: #2c2c2c;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.pay-btn:active {
-    transform: translateY(0);
-    box-shadow: none;
-}
 
 .checkout-btn {
     width: 100%;
@@ -422,29 +474,6 @@
     display: flex;
     justify-content: flex-end;
     gap: 15px;
-}
-
-.btn-primary, .btn-secondary {
-    padding: 12px 25px;
-    border-radius: 30px;
-    font-weight: 800;
-    cursor: pointer;
-    border: 2px solid #2c2c2c;
-    background: white;
-    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* Hover State */
-.btn-primary:hover, .btn-secondary:hover {
-    background: #fdf2e2; 
-    transform: translateY(-4px); /* Vertical lift for interactivity */
-    box-shadow: 0 5px 0 #2c2c2c; /* Neo-brutalism shadow */
-}
-
-/* Active/Click State */
-.btn-primary:active, .btn-secondary:active {
-    transform: translateY(0);
-    box-shadow: none;
 }
 
 /* RECEIPT SPECIFIC STYLES */
