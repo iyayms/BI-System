@@ -1,13 +1,13 @@
 /* =============================================
-   responsive.js — Add as a deferred script
-   after layout.js and dashboard.js in <head>
+   responsive.js — Add LAST deferred script
    ============================================= */
-
 (function () {
   "use strict";
 
-  function initResponsiveSidebar() {
-    // ── 1. Inject hamburger button ──────────────────────────────
+  const BREAKPOINT = 1024; // tablet + mobile both get the drawer
+
+  function init() {
+    // 1. Inject hamburger
     if (!document.getElementById("sidebar-toggle")) {
       const btn = document.createElement("button");
       btn.id = "sidebar-toggle";
@@ -16,22 +16,27 @@
       document.body.appendChild(btn);
     }
 
-    // ── 2. Inject overlay ───────────────────────────────────────
+    // 2. Inject overlay
     if (!document.getElementById("sidebar-overlay")) {
       const overlay = document.createElement("div");
       overlay.id = "sidebar-overlay";
       document.body.appendChild(overlay);
     }
 
-    const toggle   = document.getElementById("sidebar-toggle");
-    const overlay  = document.getElementById("sidebar-overlay");
-    const sidebar  = document.getElementById("sidebar-container");
+    const toggle  = document.getElementById("sidebar-toggle");
+    const overlay = document.getElementById("sidebar-overlay");
+    const sidebar = document.getElementById("sidebar-container");
+
+    if (!sidebar) {
+      console.warn("responsive.js: #sidebar-container not found.");
+      return;
+    }
 
     function openSidebar() {
       sidebar.classList.add("open");
       overlay.classList.add("active");
       toggle.innerHTML = '<i class="ph ph-x"></i>';
-      document.body.style.overflow = "hidden"; // prevent background scroll
+      document.body.style.overflow = "hidden";
     }
 
     function closeSidebar() {
@@ -43,38 +48,30 @@
 
     toggle.addEventListener("click", () => {
       sidebar.classList.contains("open") ? closeSidebar() : openSidebar();
+      setTimeout(() => window.dispatchEvent(new Event("resize")), 300);
     });
 
     overlay.addEventListener("click", closeSidebar);
 
-    // Close sidebar when a nav link is tapped (mobile UX)
+    // Close on nav link tap
     sidebar.querySelectorAll("a").forEach(link => {
       link.addEventListener("click", () => {
-        if (window.innerWidth <= 768) closeSidebar();
+        if (window.innerWidth <= BREAKPOINT) closeSidebar();
       });
     });
 
-    // On resize to desktop: reset sidebar state
+    // Reset when resized above breakpoint (desktop)
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth > BREAKPOINT) {
         closeSidebar();
         document.body.style.overflow = "";
       }
     });
   }
 
-  // ── 3. Responsive Chart resize helper ──────────────────────────
-  // Chart.js already handles resize via responsive:true, but
-  // sidebar toggle changes container width — trigger a resize event.
-  function triggerChartResize() {
-    setTimeout(() => window.dispatchEvent(new Event("resize")), 320);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    initResponsiveSidebar();
-
-    // Patch toggle to also resize charts
-    const toggle = document.getElementById("sidebar-toggle");
-    if (toggle) toggle.addEventListener("click", triggerChartResize);
-  });
 })();

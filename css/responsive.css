@@ -1,38 +1,39 @@
 /* =============================================
-   RESPONSIVE.CSS — Add this to your <head>
-   after all other CSS files
+   RESPONSIVE.CSS
+   Reusable across ALL pages — layout & sidebar only.
+   Page-specific responsive styles go in each
+   page's own CSS file (e.g. dashboard.css).
    ============================================= */
 
-/* ── Sidebar overlay (mobile) ── */
+/* ── Overlay (behind open sidebar) ── */
 #sidebar-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0,0,0,0.5);
   z-index: 998;
-  backdrop-filter: blur(2px);
 }
 #sidebar-overlay.active { display: block; }
 
-/* ── Mobile sidebar toggle button ── */
+/* ── Hamburger button ── */
 #sidebar-toggle {
   display: none;
   position: fixed;
-  top: 16px;
-  left: 16px;
+  top: 14px;
+  left: 14px;
   z-index: 1001;
   background: var(--amber-gold, #e0b15c);
   border: 2px solid #2c2c2c;
   border-radius: 10px;
   box-shadow: 0 4px 0 #2c2c2c;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
   font-size: 22px;
   color: #2c2c2c;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition: transform 0.12s, box-shadow 0.12s;
 }
 #sidebar-toggle:active {
   transform: translateY(3px);
@@ -40,230 +41,57 @@
 }
 
 /* =============================================
-   TABLET  768px – 1024px
+   TABLET + MOBILE  ≤ 1024px
+   Sidebar becomes a toggled off-screen drawer.
+   Applies to every page automatically.
    ============================================= */
 @media (max-width: 1024px) {
-  /* Sidebar: collapses to icon-only strip */
-  #sidebar-container {
-    width: 70px;
-    min-width: 70px;
-    overflow: hidden;
-    transition: width 0.3s ease;
-  }
-  #sidebar-container .sidebar-label,
-  #sidebar-container .sidebar-brand-text,
-  #sidebar-container .sidebar-footer-text {
-    display: none;
-  }
-  #sidebar-container .sidebar-nav a,
-  #sidebar-container .sidebar-item {
-    justify-content: center;
-    padding: 12px 0;
-  }
 
-  /* Dashboard padding */
-  .dashboard { padding: 20px 16px; }
-
-  /* Cards: 2-column */
-  .dashboard .cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-  }
-
-  /* Middle section: stack vertically */
-  .dashboard .middle-section {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "sales"
-      "top-products"
-      "stocks"
-      "history";
-  }
-
-  /* Chart shorter on tablet */
-  .dashboard .chart-box { height: 380px; }
-  .dashboard .chart-container { height: 260px; }
-
-  /* Side widgets: row on tablet */
-  .dashboard .side-widgets {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  .dashboard .top-products,
-  .dashboard .stocks { flex: 1 1 260px; }
-
-  /* Search box less wide */
-  .dashboard .search-box input { width: 100%; max-width: 400px; }
-
-  /* Header: stack on tablet */
-  .header-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .dashboard .filters {
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-}
-
-/* =============================================
-   MOBILE  ≤ 768px
-   ============================================= */
-@media (max-width: 768px) {
   /* Show hamburger */
   #sidebar-toggle { display: flex; }
 
-  /* Sidebar: hidden off-screen by default */
+  /* Sidebar: fixed off-screen drawer */
   #sidebar-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100dvh;
-    width: 260px;
-    min-width: 260px;
-    z-index: 999;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    overflow-y: auto;
-    overflow-x: hidden;
-    /* restore labels */
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100dvh !important;
+    width: 260px !important;
+    min-width: 260px !important;
+    z-index: 999 !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.28s ease !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.3);
   }
+  #sidebar-container.open {
+    transform: translateX(0) !important;
+  }
+
+  /* Full labels always visible inside the drawer */
   #sidebar-container .sidebar-label,
   #sidebar-container .sidebar-brand-text,
   #sidebar-container .sidebar-footer-text {
-    display: block;
+    display: block !important;
   }
-  #sidebar-container .sidebar-nav a,
+  #sidebar-container a,
   #sidebar-container .sidebar-item {
-    justify-content: flex-start;
-    padding: 12px 20px;
+    justify-content: flex-start !important;
+    padding: 12px 20px !important;
   }
 
-  /* Slide in when open */
-  #sidebar-container.open {
-    transform: translateX(0);
+  /* Kill layout flex — sidebar takes zero space */
+  .layout {
+    display: block !important;
   }
 
-  /* Push dashboard content right when sidebar opens — optional */
-  .layout { display: block; }
-
-  /* Main dashboard top padding for hamburger */
-  .dashboard {
-    padding: 70px 14px 20px;
+  /* All page content: full width, no left margin */
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
   }
-
-  /* Header */
-  .dashboard .header h1 { font-size: 26px; }
-  .dashboard .header p  { font-size: 13px; }
-
-  .header-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .dashboard .header { margin-bottom: 12px; }
-
-  /* Filters: full-width stacked */
-  .dashboard .filters {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-  .dashboard .filters select,
-  .dashboard .filters input,
-  .dashboard .export-btn { width: 100%; box-sizing: border-box; }
-
-  /* Cards: single column */
-  .dashboard .cards {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .dashboard .card { padding: 16px; }
-  .dashboard .card h2 { font-size: 22px; }
-
-  /* Middle: single column */
-  .dashboard .middle-section {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "sales"
-      "top-products"
-      "stocks"
-      "history";
-    gap: 14px;
-    margin-top: 14px;
-  }
-
-  /* Chart compact */
-  .dashboard .chart-box { height: 320px; padding: 14px; }
-  .dashboard .chart-container { height: 220px; }
-
-  /* Side widgets: column */
-  .dashboard .side-widgets { flex-direction: column; }
-  .dashboard .top-products,
-  .dashboard .stocks { flex: none; }
-
-  /* Purchase history filters: stack */
-  .dashboard .purchase-filters {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    padding: 12px 14px;
-  }
-  .dashboard .search-box input {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-  .dashboard .filter-group {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .dashboard .filter-group select {
-    flex: 1 1 120px;
-    box-sizing: border-box;
-  }
-
-  /* ── Responsive Table ──
-     Hide lower-priority columns, show essential ones */
-  .dashboard .purchase-history table thead tr th:nth-child(1), /* No. */
-  .dashboard .purchase-history table tbody tr td:nth-child(1) {
-    display: none;
-  }
-  /* Make table scroll horizontally as fallback */
-  .dashboard .purchase-history {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .dashboard .purchase-history table {
-    min-width: 480px;
-  }
-
-  /* Smaller padding on table cells */
-  .dashboard .purchase-history th,
-  .dashboard .purchase-history td {
-    padding: 8px 6px;
-    font-size: 13px;
-  }
-
-  /* box-header on mobile */
-  .dashboard .box-header { flex-wrap: wrap; gap: 8px; }
-  .dashboard .report-dropdown { width: 100%; }
-
-  /* Purchase history box padding */
-  .dashboard .purchase-history { padding: 14px 0; }
-}
-
-/* =============================================
-   VERY SMALL  ≤ 400px
-   ============================================= */
-@media (max-width: 400px) {
-  .dashboard { padding: 65px 10px 16px; }
-  .dashboard .card { padding: 14px 12px; }
-  .dashboard .chart-box { height: 280px; padding: 12px; }
-  .dashboard .chart-container { height: 190px; }
-  .dashboard .purchase-history th,
-  .dashboard .purchase-history td { font-size: 12px; padding: 6px 4px; }
 }

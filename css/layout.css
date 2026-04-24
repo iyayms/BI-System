@@ -12,7 +12,6 @@
    PAGE TRANSITION ANIMATIONS
    ========================================= */
 
-/* Define the keyframes for a smooth fade-in and slight slide-up */
 @keyframes fadeInSlide {
     from {
         opacity: 0;
@@ -24,14 +23,28 @@
     }
 }
 
-/* Apply this to the main content container of every page */
-main, .main-content, .users-container, .products-container, .pos-container, .purchase-container{
+main, .main-content, .users-container, .products-container, .pos-container, .purchase-container {
     animation: fadeInSlide 0.4s ease-out forwards;
-    will-change: opacity, transform; /* Optimizes performance */
+    will-change: opacity, transform;
 }
 
-/* Optional: Prevent a "flash" of unstyled content by hiding the body 
-   until the CSS is ready (if supported by your browser) */
 body {
-    background-color: #fff; /* Matches your clean theme */
+    background-color: #fff;
+}
+
+/* =========================================
+   RESPONSIVE — Tablet & Mobile (≤ 1024px)
+   Sidebar becomes a toggle drawer, so
+   main-content gets full width with no margin
+   ========================================= */
+@media (max-width: 1024px) {
+    .layout {
+        display: block;
+    }
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+        box-sizing: border-box;
+    }
 }
