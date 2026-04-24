@@ -413,3 +413,193 @@
 .table-container::-webkit-scrollbar-thumb:hover {
     background: #c99a5a;
 }
+
+/* =========================================
+    TABLET + MOBILE LAYOUT
+   ========================================= */
+
+@media (max-width: 1024px) {
+
+  /* ===== CONTAINER ===== */
+  .products-container {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 80px 20px 25px !important;
+  }
+
+  /* ===== TITLE ===== */
+  .products-title-section h1 {
+    font-size: 26px;
+  }
+
+  .description-text {
+    font-size: 13px;
+  }
+
+  /* ===== CONTROLS ===== */
+  .controls-row {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .search-bar-container {
+    flex: 1 1 100%;
+    margin-right: 0;
+  }
+
+  /* ===== BUTTON GROUP (SIDE-BY-SIDE STILL) ===== */
+  .action-button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .yellow-btn,
+  .history-btn {
+    flex: 1 1 180px;   /* responsive but not too small */
+    justify-content: center;
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  /* ===== TABLE ===== */
+  .table-wrapper {
+    overflow-x: auto; /* allow scroll ONLY on tablet if needed */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .products-table {
+    width: 100%;
+    min-width: 800px; /* safe for tablet */
+  }
+
+  .products-table th,
+  .products-table td {
+    font-size: 13px;
+    padding: 10px 6px;
+  }
+
+  /* ===== ACTION ICONS ===== */
+  .action-btns i {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* ===== CONTAINER ===== */
+  .products-container {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 65px 8px 15px !important;
+  }
+
+  /* ===== TITLE ===== */
+  .products-title-section h1 {
+    font-size: 20px;
+  }
+
+  .description-text {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  /* ===== CONTROLS ROW ===== */
+  .controls-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .search-bar-container {
+    width: 100%;
+    padding: 5px 10px;
+  }
+
+  .search-bar-container input {
+    font-size: 11px;
+  }
+
+  /* ===== BUTTON GROUP (MAIN FIX) ===== */
+ .action-button-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 🔥 3 buttons equal */
+    gap: 6px;
+    width: 100%;
+  }
+
+  .yellow-btn,
+  .history-btn {
+    width: 100%;
+    
+    padding: 6px 4px;     /* smaller */
+    font-size: 9px;       /* compact text */
+    border-radius: 8px;
+
+    justify-content: center;
+    text-align: center;
+
+    /* reduce bulky look */
+    box-shadow: 0 2px 0 var(--dark-border);
+  }
+
+  .yellow-btn i,
+  .history-btn i {
+    font-size: 12px;
+  }
+
+  .yellow-btn span,
+  .history-btn span {
+    font-size: 9px;
+  }
+
+  /* ===== TABLE WRAPPER ===== */
+  .table-wrapper {
+    overflow: hidden !important; /* remove horizontal scroll */
+  }
+
+  .products-table {
+    width: 100%;
+    table-layout: fixed; /* force fit */
+  }
+
+  /* ===== ULTRA COMPACT TABLE ===== */
+  .products-table th,
+  .products-table td {
+    font-size: 9px;
+    padding: 4px 2px;
+    word-break: break-word;
+  }
+
+  .products-table thead th {
+    font-size: 9px;
+    padding: 6px 2px;
+  }
+
+  /* ===== ACTION ICONS ===== */
+  .action-btns i {
+    font-size: 14px;
+    margin: 0 1px;
+  }
+
+  /* ===== STATUS TEXT ===== */
+  .status-low,
+  .status-available,
+  .status-none {
+    font-size: 10px;
+  }
+
+  .table-filters {
+  flex-direction: row;
+  gap: 6px;
+  padding: 8px;
+}
+
+.filter-select {
+  flex: 1;
+  padding: 6px 8px;
+  font-size: 11px;
+  height: 32px;
+  box-shadow: 0 2px 0 var(--dark-border);
+}
+}
