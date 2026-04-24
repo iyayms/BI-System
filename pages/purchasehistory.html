@@ -42,6 +42,14 @@
 
                 <div class="table-wrapper">
                     <table class="purchase-table">
+                        <colgroup>
+                            <col class="col-no">
+                            <col class="col-id">
+                            <col class="col-date">
+                            <col class="col-qty">
+                            <col class="col-amount">
+                            <col class="col-details">
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -53,57 +61,62 @@
                             </tr>
                         </thead>
                         <tbody id="purchaseTableBody">
-                            </tbody>
+                        </tbody>
                     </table>
+                </div>
+
+                <!-- Pagination Row -->
+                <div class="pagination-row">
+                    <span class="pagination-info" id="paginationInfo">Showing 1–7 of 7 entries</span>
+                    <div class="pagination-controls" id="paginationControls"></div>
                 </div>
             </section>
 
-          <div class="modal-overlay" id="detailsModal">
-            <div class="modal-container details-modal">
-                <header class="modal-header-simple">
-                    <h2>VIEW DETAILS</h2>
-                </header>
+            <div class="modal-overlay" id="detailsModal">
+                <div class="modal-container details-modal">
+                    <header class="modal-header-simple">
+                        <h2>VIEW DETAILS</h2>
+                    </header>
 
-                <div class="modal-body details-body">
-                    <div class="details-row">
-                        <label>CASHIER</label>
-                        <span id="detailCashier">AYA</span>
-                    </div>
-                    <div class="details-row">
-                        <label>TRANSACTION ID</label>
-                        <input type="text" id="detailTransId" readonly>
-                    </div>
-                    <div class="details-row">
-                        <label>DATE</label>
-                        <input type="text" id="detailDate" readonly>
-                    </div>
-
-                    <div class="purchased-products-section">
-                        <div class="products-header">
-                            <span>PURCHASED PRODUCTS</span>
-                            <span>QUANTITY</span>
-                            <span>AMOUNT</span>
+                    <div class="modal-body details-body">
+                        <div class="details-row">
+                            <label>CASHIER</label>
+                            <span id="detailCashier">AYA</span>
                         </div>
-                        <div id="itemListBody" class="item-list-body">
+                        <div class="details-row">
+                            <label>TRANSACTION ID</label>
+                            <input type="text" id="detailTransId" readonly>
+                        </div>
+                        <div class="details-row">
+                            <label>DATE</label>
+                            <input type="text" id="detailDate" readonly>
+                        </div>
+
+                        <div class="purchased-products-section">
+                            <div class="products-header">
+                                <span>PURCHASED PRODUCTS</span>
+                                <span>QUANTITY</span>
+                                <span>AMOUNT</span>
                             </div>
+                            <div id="itemListBody" class="item-list-body"></div>
+                        </div>
+
+                        <div class="details-row footer-row">
+                            <label>TOTAL AMOUNT</label>
+                            <input type="text" id="detailTotal" readonly>
+                        </div>
+                        <div class="details-row footer-row">
+                            <label>PAYMENT METHOD</label>
+                            <input type="text" id="detailPayment" value="CASH" readonly>
+                        </div>
                     </div>
 
-                    <div class="details-row footer-row">
-                        <label>TOTAL AMOUNT</label>
-                        <input type="text" id="detailTotal" readonly>
-                    </div>
-                    <div class="details-row footer-row">
-                        <label>PAYMENT METHOD</label>
-                        <input type="text" id="detailPayment" value="CASH" readonly>
-                    </div>
+                    <footer class="details-footer">
+                        <button class="btn-print" id="printReceiptBtn">PRINT RECEIPT</button>
+                        <button class="btn-close-modal" id="closeDetailsBtn">CLOSE</button>
+                    </footer>
                 </div>
-
-                <footer class="details-footer">
-                    <button class="btn-print" id="printReceiptBtn">PRINT RECEIPT</button>
-                    <button class="btn-close-modal" id="closeDetailsBtn">CLOSE</button>
-                </footer>
             </div>
-        </div>  
         </main>
     </div>
 
