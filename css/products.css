@@ -3,6 +3,7 @@
     --amber-gold: #e0b15c;
     --cream-beige: #f6f7fb;
     --dark-border: #2c2c2c;
+    box-sizing: border-box;
 }
 
 /* =========================================
@@ -601,4 +602,193 @@ font-weight:700;
 .products-table td:last-child {
     min-width: 100px;
     white-space: nowrap;
+}
+
+/* =========================================
+    TABLET + MOBILE LAYOUT
+   ========================================= */
+
+@media (max-width: 1024px) {
+
+  /* Remove fixed sidebar spacing */
+  .products-container {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 80px 20px 30px !important;
+  }
+
+  /* Title */
+  .products-title-section h1 {
+    font-size: 28px;
+  }
+
+  .description-text {
+    font-size: 14px;
+  }
+
+  /* Controls row (search + add button) */
+  .controls-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .search-bar-container {
+    flex: 1 1 100%;
+    margin-right: 0;
+  }
+
+  .add-btn {
+    flex: 1 1 auto;
+    width: fit-content;
+  }
+
+  /* Filters */
+  .table-filters {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .filter-select {
+    flex: 1 1 150px;
+  }
+
+  /* Table scroll (important) */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .products-table {
+    min-width: 900px; /* prevents breaking */
+  }
+
+  .products-table th,
+  .products-table td {
+    font-size: 14px;
+    padding: 12px 8px;
+  }
+}
+@media (max-width: 768px) {
+
+  /* CONTAINER */
+  .products-container {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 65px 8px 15px !important;
+  }
+
+  /* TITLE */
+  .products-title-section h1 {
+    font-size: 20px;
+  }
+
+  .description-text {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  /* ===== CONTROLS ===== */
+  .controls-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .search-bar-container {
+    width: 100%;
+    padding: 6px 12px;
+  }
+
+  .search-bar-container input {
+    font-size: 11px;
+  }
+
+  /* 🔥 ADD BUTTON FULL WIDTH */
+  .add-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  /* ===== FILTER FIX (MAIN ISSUE) ===== */
+  .table-filters {
+    flex-direction: row;        /* ⬅️ CHANGE: not column */
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .filter-select {
+    flex: 1;                   /* equal width */
+    padding: 6px 8px;          /* smaller height */
+    font-size: 12px;
+    border-radius: 10px;
+
+    /* 🔥 REMOVE bulky look */
+    box-shadow: 0 2px 0 var(--dark-border);
+    height: 32px;              /* force compact height */
+  }
+
+  /* Remove weird tall select rendering */
+  .filter-select select {
+    height: 100%;
+    font-size: 12px;
+  }
+
+  /* TABLE CARD */
+  .table-card {
+    border-radius: 12px;
+  }
+
+  /* REMOVE SCROLL */
+  .table-wrapper {
+    overflow: hidden !important;
+  }
+
+  /* FORCE TABLE TO FIT */
+  .products-table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  /* 🔥 ULTRA COMPACT TABLE */
+  .products-table th,
+  .products-table td {
+    font-size: 9px;           /* KEY CHANGE */
+    padding: 4px 2px;         /* KEY CHANGE */
+    word-break: break-word;
+  }
+
+  /* HEADER */
+  .products-table thead th {
+    padding: 6px 2px;
+    font-size: 9px;
+  }
+
+  /* ACTION ICONS */
+  .action-btns i {
+    font-size: 13px;
+    margin: 0 1px;
+  }
+
+  /* LAST COLUMN WIDTH CONTROL */
+  .products-table td:last-child {
+    min-width: unset;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .products-title-section h1 {
+    font-size: 22px;
+  }
+
+  .products-table {
+    min-width: 520px;
+  }
+
+  .products-table th,
+  .products-table td {
+    font-size: 12px;
+    padding: 8px 5px;
+  }
 }
