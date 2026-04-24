@@ -645,13 +645,13 @@
    Append to bottom of pointofsale.css
    ============================================= */
 
-/* ── Floating cart toggle button ── */
+/* ── Floating "View Order" button ── */
 #order-toggle-btn {
   display: none;
   position: fixed;
   bottom: 24px;
   right: 20px;
-  z-index: 800;                          /* above overlay (700) and panel (750) */
+  z-index: 1100;
   background: var(--coffee-brown, #6b2d1a);
   color: white;
   border: 3px solid #000;
@@ -688,10 +688,31 @@
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 700;                          /* below order panel (750) */
+  background: rgba(0,0,0,0.45);
+  z-index: 1000;
 }
 #order-overlay.active { display: block; }
+
+/* ── Close "X" button — injected into .order-header by JS ── */
+#order-close-btn {
+  display: none;                        /* hidden on desktop */
+  margin-left: auto;
+  background: rgba(255,255,255,0.18);
+  border: 2px solid rgba(255,255,255,0.45);
+  border-radius: 8px;
+  color: white;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+#order-close-btn:hover {
+  background: rgba(255,255,255,0.32);
+}
 
 /* =============================================
    TABLET + MOBILE  ≤ 1024px
@@ -706,31 +727,28 @@
     max-width: 100% !important;
     height: auto !important;
     min-height: 100dvh;
-    padding: 16px 16px 100px !important;
+    padding: 0 16px 100px !important;
     box-sizing: border-box !important;
   }
 
-  /* Products section fills full width */
   .products-section {
     width: 100%;
     overflow-y: visible;
     padding-right: 0;
   }
 
-  /* Sticky nav: solid background so products scroll UNDER it */
+  /* Sticky nav: blurred woven background — matches body::before */
   .sticky-nav {
     position: sticky;
     top: 0;
     z-index: 300;
-    background: var(--cream-beige, #f6f7fb);
-    padding: 12px 0 8px;
-    margin-bottom: 8px;
+    padding: 68px 0 10px;
+    /* Glass-blur over the woven background */
+    background: rgba(246, 247, 251, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
-  /* Header */
-  .pos-header {
-    padding-top: 52px;                   /* space for hamburger button */
-  }
   .pos-header h1 { font-size: 26px; }
   .pos-header p  { font-size: 13px; margin-bottom: 8px; }
   .search-bar    { margin-top: 8px; }
@@ -749,7 +767,7 @@
   .categories::-webkit-scrollbar { display: none; }
   .cat-btn { flex-shrink: 0; white-space: nowrap; }
 
-  /* Product grid: 4 columns, compact cards */
+  /* Product grid: 4 cols, compact */
   .product-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
@@ -758,49 +776,74 @@
   .product-card .price { font-size: 0.75rem; }
   .status-badge        { font-size: 9px; padding: 3px 7px; }
 
-  /* Show floating cart button */
+  /* Show floating button */
   #order-toggle-btn { display: flex; }
 
+  /* Show close btn (JS appends it inside .order-header) */
+  #order-close-btn { display: flex; }
+
   /* ── ORDER SUMMARY: right-side drawer ──
-     Hidden off-screen by default.
-     Uses transform only (no visibility) so
-     the panel is always in the DOM flow for JS. */
+     z-index 1050 — above overlay (1000), below toggle btn (1100) */
   .order-summary {
     position: fixed !important;
     top: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
+    left: auto !important;
     width: 360px !important;
     max-width: 92vw !important;
     height: 100dvh !important;
-    z-index: 750 !important;             /* above overlay, below toggle btn */
+    z-index: 1050 !important;
     border-radius: 0 !important;
-    border-left: 3px solid #000 !important;
-    transform: translateX(105%) !important;
-    transition: transform 0.3s ease !important;
-    box-shadow: -6px 0 24px rgba(0,0,0,0.3) !important;
-    overflow: hidden !important;
-    display: flex !important;            /* always flex, just off-screen */
+    border-left: 3px solid #2c2c2c !important;
+    /* Fully off-screen — transform only, no visibility tricks */
+    transform: translateX(110%) !important;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: -8px 0 32px rgba(0,0,0,0.4) !important;
+    display: flex !important;
     flex-direction: column !important;
+    overflow: hidden !important;
+    /* Woven blurred background */
+    background: transparent !important;
   }
+  /* Pseudo-element carries the blurred woven bg inside the panel */
+  .order-summary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../images/background.jpg") center / cover no-repeat;
+    filter: blur(3px);
+    z-index: 0;
+  }
+  /* Tint over the blur so content is readable */
+  .order-summary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.72);
+    z-index: 1;
+  }
+  /* All direct children sit above the pseudo-elements */
+  .order-summary > * {
+    position: relative;
+    z-index: 2;
+  }
+
   .order-summary.open {
     transform: translateX(0) !important;
   }
 }
 
 /* =============================================
-   MOBILE ONLY  ≤ 768px
+   MOBILE  ≤ 768px
    ============================================= */
 @media (max-width: 768px) {
 
-  .pos-container {
-    padding: 16px 12px 100px !important;
-  }
-
-  .pos-header { padding-top: 52px; }
+  .pos-container { padding: 0 12px 100px !important; }
+  .sticky-nav    { padding-top: 68px; }
   .pos-header h1 { font-size: 22px; }
 
-  /* Product grid: 2 columns */
+  /* 2-column product grid */
   .product-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px;
@@ -808,7 +851,7 @@
   .product-card h4     { font-size: 0.85rem; }
   .product-card .price { font-size: 0.8rem; }
 
-  /* ── ORDER SUMMARY: slide up from bottom ── */
+  /* Order summary: slides up from bottom */
   .order-summary {
     top: auto !important;
     right: 0 !important;
@@ -819,16 +862,20 @@
     height: 88dvh !important;
     border-radius: 20px 20px 0 0 !important;
     border-left: none !important;
-    border-top: 3px solid #000 !important;
-    transform: translateY(105%) !important;
-    transition: transform 0.3s ease !important;
-    box-shadow: 0 -6px 24px rgba(0,0,0,0.3) !important;
+    border-top: 3px solid #2c2c2c !important;
+    transform: translateY(110%) !important;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.4) !important;
   }
   .order-summary.open {
     transform: translateY(0) !important;
   }
 
-  /* Floating button bigger */
+  /* Woven bg on mobile panel too */
+  .order-summary::before {
+    border-radius: 20px 20px 0 0;
+  }
+
   #order-toggle-btn {
     bottom: 20px;
     right: 16px;
@@ -841,7 +888,7 @@
    VERY SMALL  ≤ 400px
    ============================================= */
 @media (max-width: 400px) {
-  .pos-container { padding: 16px 10px 96px !important; }
-  .pos-header    { padding-top: 52px; }
+  .pos-container { padding: 0 10px 96px !important; }
+  .sticky-nav    { padding-top: 62px; }
   .product-grid  { grid-template-columns: repeat(2, 1fr) !important; gap: 8px; }
 }
