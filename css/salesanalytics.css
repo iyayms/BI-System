@@ -151,6 +151,13 @@ body {
 }
 
 /* Break-Even Section */
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+}
+
 .analysis-footer {
     margin-top: 25px;
     padding-bottom: 20px;
@@ -161,15 +168,17 @@ body {
     padding: 20px;
     border: 2px solid var(--dark-border);
     border-radius: 20px;
-    box-shadow: 0 8px 0 #2c2c2c;    
-    overflow: visible !important; 
+    box-shadow: 0 8px 0 #2c2c2c;
+    overflow: visible !important;
     margin-bottom: 10px;
+    height: 500px;         /* matches .main-chart and .side-chart */
+    box-sizing: border-box;
 }
 
 .info-card h3 { font-weight: 900; margin-bottom: 10px; }
 .info-card p { font-size: 13px; font-style: italic; color: #666; margin-bottom: 20px; line-height: 1.5; }
 
 .chart-wrapper {
-    height: 300px;
+    height: calc(100% - 90px); /* subtract space taken by h3 + p text */
     width: 100%;
 }

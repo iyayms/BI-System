@@ -126,4 +126,53 @@ function initAnalytics() {
         },
         options: chartOptions
     });
+
+    // --- CHART 4: MOST PROFITABLE PRODUCTS ---
+    const profCtx = document.getElementById('profitableProductsChart').getContext('2d');
+    new Chart(profCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Mango Special', 'Oreo Shake', 'Matcha Iced', 'Strawberry Special', 'Taro Shake'],
+            datasets: [{
+                label: 'Gross Profit (PHP)',
+                data: [4850, 3920, 3410, 2980, 2540],
+                backgroundColor: [
+                    'rgba(107, 45, 26, 0.85)',
+                    'rgba(224, 177, 92, 0.85)',
+                    'rgba(44, 44, 44, 0.75)',
+                    'rgba(107, 45, 26, 0.6)',
+                    'rgba(224, 177, 92, 0.5)',
+                ],
+                borderColor: [
+                    '#6b2d1a',
+                    '#e0b15c',
+                    '#2c2c2c',
+                    '#6b2d1a',
+                    '#e0b15c',
+                ],
+                borderWidth: 2,
+                borderRadius: 6,
+            }]
+        },
+        options: {
+            ...chartOptions,
+            indexAxis: 'y',  // Horizontal bars — easier to read product names
+            plugins: {
+                ...chartOptions.plugins,
+                legend: { display: false }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: val => `₱${val.toLocaleString()}`,
+                        padding: 10
+                    }
+                },
+                y: {
+                    ticks: { padding: 8 }
+                }
+            }
+        }
+    });
 }
