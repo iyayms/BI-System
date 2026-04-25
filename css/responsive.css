@@ -63,7 +63,7 @@
     transition: transform 0.28s ease !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    box-shadow: 4px 0 24px rgba(0,0,0,0.3);
+    box-shadow: none;
   }
   #sidebar-container.open {
     transform: translateX(0) !important;
