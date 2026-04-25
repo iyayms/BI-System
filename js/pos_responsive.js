@@ -7,42 +7,48 @@
 
   const BREAKPOINT = 1024;
   let badgeCount = 0;
-  let isOpen = false;
+
+  function isMobile() { return window.innerWidth <= BREAKPOINT; }
 
   function init() {
-    const orderPanel = document.querySelector(".order-summary");
+    const orderPanel  = document.querySelector(".order-summary");
     const orderHeader = document.querySelector(".order-header");
     if (!orderPanel || !orderHeader) return;
 
-    // ── 1. Inject floating "View Order" button ─────────────────
+    /* ── Inject floating toggle button ── */
     let toggleBtn = document.getElementById("order-toggle-btn");
     if (!toggleBtn) {
       toggleBtn = document.createElement("button");
       toggleBtn.id = "order-toggle-btn";
-      toggleBtn.setAttribute("aria-label", "View order summary");
+      toggleBtn.setAttribute("aria-label", "View order");
       document.body.appendChild(toggleBtn);
     }
 
-    // ── 2. Inject dark overlay ─────────────────────────────────
-    let overlay = document.getElementById("order-overlay");
-    if (!overlay) {
-      overlay = document.createElement("div");
-      overlay.id = "order-overlay";
-      document.body.appendChild(overlay);
-    }
+    /* Overlay removed — no dimming */
 
-    // ── 3. Inject close "X" button INTO the order header ───────
-    //    This way it's inside the panel — never overlaps footer
+    /* ── Inject close X into order header (top-right) ── */
     let closeBtn = document.getElementById("order-close-btn");
     if (!closeBtn) {
       closeBtn = document.createElement("button");
       closeBtn.id = "order-close-btn";
-      closeBtn.setAttribute("aria-label", "Close order summary");
+      closeBtn.setAttribute("aria-label", "Close order panel");
       closeBtn.innerHTML = '<i class="ph ph-x"></i>';
-      orderHeader.appendChild(closeBtn);   // appended → sits right in header row
+      orderHeader.appendChild(closeBtn);
     }
 
-    // ── 4. Render toggle button label ─────────────────────────
+    /* ── Badge update ── */
+    function updateBadge(count) {
+      badgeCount = count;
+      const el = document.getElementById("cartBadge");
+      if (el) {
+        el.textContent = badgeCount;
+        el.style.animation = "none";
+        void el.offsetWidth;
+        el.style.animation = "badgePop 0.3s ease";
+      }
+    }
+
+    /* ── Render toggle button ── */
     function renderBtn() {
       toggleBtn.innerHTML =
         `<i class="ph ph-shopping-cart-simple"></i> View Order ` +
@@ -50,43 +56,35 @@
     }
     renderBtn();
 
-    // ── 5. Open / close ───────────────────────────────────────
+    /* ── Open panel ── */
     function openOrder() {
-      isOpen = true;
       orderPanel.classList.add("open");
-      overlay.classList.add("active");
+
       document.body.style.overflow = "hidden";
-      // Hide toggle btn while panel is open — close btn inside header handles closing
+      /* Hide floating btn — X inside header closes the panel */
       toggleBtn.style.display = "none";
     }
 
+    /* ── Close panel ── */
     function closeOrder() {
-      isOpen = false;
       orderPanel.classList.remove("open");
-      overlay.classList.remove("active");
+
       document.body.style.overflow = "";
-      // Re-show toggle btn
-      if (window.innerWidth <= BREAKPOINT) {
-        toggleBtn.style.display = "flex";
-      }
+      if (isMobile()) toggleBtn.style.display = "flex";
     }
 
-    // Ensure closed on init for tablet/mobile
-    if (window.innerWidth <= BREAKPOINT) {
-      orderPanel.classList.remove("open");
-      overlay.classList.remove("active");
-    }
+    /* ── Force closed on init ── */
+    closeOrder();
 
-    // ── 6. Event listeners ────────────────────────────────────
+    /* ── Listeners ── */
     toggleBtn.addEventListener("click", openOrder);
     closeBtn.addEventListener("click", closeOrder);
-    overlay.addEventListener("click", closeOrder);
 
-    // "Order More" → close panel then keep shopping
+
     const orderMore = document.getElementById("orderMore");
     if (orderMore) orderMore.addEventListener("click", closeOrder);
 
-    // Auto-close when modals open
+    /* Auto-close when any modal opens */
     ["checkoutModal", "receiptModal", "thankYouModal"].forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
@@ -95,43 +93,39 @@
       }).observe(el, { attributes: true, attributeFilter: ["style"] });
     });
 
-    // Reset on resize to desktop
+    /* Reset on resize to desktop */
     window.addEventListener("resize", () => {
-      if (window.innerWidth > BREAKPOINT) {
+      if (!isMobile()) {
         closeOrder();
+        toggleBtn.style.display = "";
         document.body.style.overflow = "";
-        toggleBtn.style.display = "";   // let CSS control display on desktop
-      } else if (!isOpen) {
-        toggleBtn.style.display = "flex";
       }
     });
 
-    // ── 7. Cart badge — observe #cartItems for changes ────────
+    /* ── Cart badge observer ── */
     const cartBody = document.getElementById("cartItems");
     if (cartBody) {
       new MutationObserver(() => {
-        badgeCount = cartBody.querySelectorAll("tr").length;
-        // Update badge without rebuilding whole button
-        const badgeEl = document.getElementById("cartBadge");
-        if (badgeEl) {
-          badgeEl.textContent = badgeCount;
-          badgeEl.style.animation = "none";
-          void badgeEl.offsetWidth;
-          badgeEl.style.animation = "badgePop 0.3s ease";
-        }
+        const count = cartBody.querySelectorAll("tr").length;
+        updateBadge(count);
+        /* Re-render btn only when it's visible (panel closed) */
+        if (!orderPanel.classList.contains("open")) renderBtn();
       }).observe(cartBody, { childList: true, subtree: true });
     }
 
-    // Badge pop animation
-    const style = document.createElement("style");
-    style.textContent = `
-      @keyframes badgePop {
-        0%   { transform: scale(1); }
-        50%  { transform: scale(1.5); }
-        100% { transform: scale(1); }
-      }
-    `;
-    document.head.appendChild(style);
+    /* Badge pop keyframe */
+    if (!document.getElementById("pos-responsive-style")) {
+      const style = document.createElement("style");
+      style.id = "pos-responsive-style";
+      style.textContent = `
+        @keyframes badgePop {
+          0%   { transform: scale(1); }
+          50%  { transform: scale(1.5); }
+          100% { transform: scale(1); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
   }
 
   if (document.readyState === "loading") {

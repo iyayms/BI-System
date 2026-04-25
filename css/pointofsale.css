@@ -642,7 +642,8 @@
 
 /* =============================================
    POINT OF SALE — Responsive Styles
-   Append to bottom of pointofsale.css
+   Replace the responsive section at the bottom
+   of pointofsale.css with this entire block
    ============================================= */
 
 /* ── Floating "View Order" button ── */
@@ -651,8 +652,8 @@
   position: fixed;
   bottom: 24px;
   right: 20px;
-  z-index: 1100;
-  background: var(--coffee-brown, #6b2d1a);
+  z-index: 9000;
+  background: #6b2d1a;
   color: white;
   border: 3px solid #000;
   border-radius: 50px;
@@ -671,7 +672,7 @@
   box-shadow: 0 2px 0 #000;
 }
 #order-toggle-btn .cart-count {
-  background: var(--amber-gold, #e0b15c);
+  background: #e0b15c;
   color: #000;
   border-radius: 50%;
   width: 22px;
@@ -683,19 +684,12 @@
   font-weight: 900;
 }
 
-/* ── Dark overlay behind order panel ── */
-#order-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: 1000;
-}
-#order-overlay.active { display: block; }
+/* Overlay disabled — no dimming when order panel opens */
+#order-overlay { display: none !important; }
 
-/* ── Close "X" button — injected into .order-header by JS ── */
+/* ── Close X button (injected into .order-header by JS) ── */
 #order-close-btn {
-  display: none;                        /* hidden on desktop */
+  display: none;
   margin-left: auto;
   background: rgba(255,255,255,0.18);
   border: 2px solid rgba(255,255,255,0.45);
@@ -710,16 +704,14 @@
   flex-shrink: 0;
   transition: background 0.15s;
 }
-#order-close-btn:hover {
-  background: rgba(255,255,255,0.32);
-}
+#order-close-btn:hover { background: rgba(255,255,255,0.32); }
 
 /* =============================================
    TABLET + MOBILE  ≤ 1024px
    ============================================= */
 @media (max-width: 1024px) {
 
-  /* POS container: single column, full width */
+  /* Full-width single column, sidebar takes no space */
   .pos-container {
     display: block !important;
     margin-left: 0 !important;
@@ -737,21 +729,46 @@
     padding-right: 0;
   }
 
-  /* Sticky nav: blurred woven background — matches body::before */
+  /* ── Sticky nav: woven + blur via pseudo, NO white bg ── */
   .sticky-nav {
     position: sticky;
     top: 0;
     z-index: 300;
     padding: 68px 0 10px;
-    /* Glass-blur over the woven background */
-    background: rgba(246, 247, 251, 0.55);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    /* No background here — pseudo-element handles it */
+    isolation: isolate;
   }
+  .sticky-nav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../images/background.jpg") center / cover no-repeat;
+    filter: blur(2px);
+    z-index: -2;
+  }
+  .sticky-nav::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Slight warm tint — same feel as body overlay but lighter */
+    background: rgba(0, 0, 0, 0.25);
+    z-index: -1;
+  }
+  /* Make text white so it reads on the dark blurred bg */
+  .pos-header h1 { font-size: 26px; color: #e0b15c !important; }
+  .pos-header p  { font-size: 13px; margin-bottom: 8px; color: #fff !important; }
 
-  .pos-header h1 { font-size: 26px; }
-  .pos-header p  { font-size: 13px; margin-bottom: 8px; }
-  .search-bar    { margin-top: 8px; }
+  /* Search bar stays white/readable */
+  .search-bar { margin-top: 8px; background: rgba(255,255,255,0.92); }
+
+  /* Category buttons readable on dark header */
+  .cat-btn {
+    background: rgba(255,255,255,0.85);
+  }
+  .cat-btn.active {
+    background: #6b2d1a;
+    color: white;
+  }
 
   /* Categories: horizontal scroll */
   .categories {
@@ -767,7 +784,7 @@
   .categories::-webkit-scrollbar { display: none; }
   .cat-btn { flex-shrink: 0; white-space: nowrap; }
 
-  /* Product grid: 4 cols, compact */
+  /* Product grid: 4 cols */
   .product-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
@@ -776,14 +793,11 @@
   .product-card .price { font-size: 0.75rem; }
   .status-badge        { font-size: 9px; padding: 3px 7px; }
 
-  /* Show floating button */
+  /* Show floating button + close btn */
   #order-toggle-btn { display: flex; }
+  #order-close-btn  { display: flex; }
 
-  /* Show close btn (JS appends it inside .order-header) */
-  #order-close-btn { display: flex; }
-
-  /* ── ORDER SUMMARY: right-side drawer ──
-     z-index 1050 — above overlay (1000), below toggle btn (1100) */
+  /* ── ORDER SUMMARY DRAWER ── */
   .order-summary {
     position: fixed !important;
     top: 0 !important;
@@ -793,44 +807,30 @@
     width: 360px !important;
     max-width: 92vw !important;
     height: 100dvh !important;
-    z-index: 1050 !important;
+    z-index: 8500 !important;
     border-radius: 0 !important;
+    border: none !important;
     border-left: 3px solid #2c2c2c !important;
-    /* Fully off-screen — transform only, no visibility tricks */
     transform: translateX(110%) !important;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-shadow: -8px 0 32px rgba(0,0,0,0.4) !important;
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
-    /* Woven blurred background */
-    background: transparent !important;
-  }
-  /* Pseudo-element carries the blurred woven bg inside the panel */
-  .order-summary::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: url("../images/background.jpg") center / cover no-repeat;
-    filter: blur(3px);
-    z-index: 0;
-  }
-  /* Tint over the blur so content is readable */
-  .order-summary::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.72);
-    z-index: 1;
-  }
-  /* All direct children sit above the pseudo-elements */
-  .order-summary > * {
-    position: relative;
-    z-index: 2;
+    background: #ffffff !important;
   }
 
   .order-summary.open {
     transform: translateX(0) !important;
+  }
+
+  /* Force solid white on every section inside the panel */
+  .order-summary .order-table-container {
+    background: #ffffff !important;
+    flex: 1;
+  }
+  .order-summary .order-footer {
+    background: #ffffff !important;
   }
 }
 
@@ -843,37 +843,45 @@
   .sticky-nav    { padding-top: 68px; }
   .pos-header h1 { font-size: 22px; }
 
-  /* 2-column product grid */
+  /* 2-column grid */
   .product-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px;
   }
-  .product-card h4     { font-size: 0.85rem; }
-  .product-card .price { font-size: 0.8rem; }
 
-  /* Order summary: slides up from bottom */
+  /* ── ORDER SUMMARY: slides up from bottom ── */
   .order-summary {
-    top: auto !important;
+    position: fixed !important;
+    top: unset !important;
     right: 0 !important;
     bottom: 0 !important;
     left: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     height: 88dvh !important;
+    z-index: 8500 !important;
     border-radius: 20px 20px 0 0 !important;
     border-left: none !important;
     border-top: 3px solid #2c2c2c !important;
-    transform: translateY(110%) !important;
+    transform: translateY(100vh) !important;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 0 -8px 32px rgba(0,0,0,0.4) !important;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.5) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
   }
   .order-summary.open {
     transform: translateY(0) !important;
   }
 
-  /* Woven bg on mobile panel too */
-  .order-summary::before {
-    border-radius: 20px 20px 0 0;
+  /* Same solid white sections for mobile */
+  .order-summary .order-table-container {
+    background: #ffffff !important;
+    flex: 1;
+  }
+  .order-summary .order-footer {
+    background: #ffffff !important;
   }
 
   #order-toggle-btn {
