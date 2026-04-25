@@ -415,196 +415,187 @@
 @keyframes fadeOut {
     to { opacity: 0; transform: translateY(-20px); }
 }
+/* =============================================
+   PURCHASE HISTORY — Responsive Styles
+   Append to bottom of your existing CSS
+   (replaces the existing tablet/mobile block)
+   ============================================= */
+/* =============================================
+   PURCHASE HISTORY — Responsive Styles
+   Append to bottom of your existing CSS
+   (replaces the existing tablet/mobile block)
+   ============================================= */
 
-/* =========================================
-    TABLET + MOBILE LAYOUT
-   ========================================= */
+/* =============================================
+   TABLET + MOBILE  ≤ 1024px
+   ============================================= */
+@media (max-width: 1024px) {
 
-   @media (max-width: 1024px) {
-
-  /* CONTAINER */
+  /* Container: full width, clear sidebar, top padding for hamburger */
   .purchase-container {
     margin-left: 0 !important;
     width: 100% !important;
-    padding: 80px 20px 25px !important;
+    max-width: 100% !important;
+    padding: 80px 20px 30px !important;
+    box-sizing: border-box !important;
   }
 
-  /* TITLE */
-  .purchase-title-section h1 {
-    font-size: 26px;
-  }
+  /* Title */
+  .purchase-title-section h1 { font-size: 26px; }
+  .description-text { font-size: 13px; margin-bottom: 16px; }
 
-  .description-text {
-    font-size: 13px;
-  }
-
-  /* CONTROLS */
+  /* Controls row: wrap search + export */
   .controls-row {
     flex-wrap: wrap;
     gap: 10px;
+    margin-bottom: 16px;
   }
-
   .search-bar-container {
     flex: 1 1 100%;
     margin-right: 0;
   }
-
   .export-btn {
-    flex: 0 0 auto;
-    padding: 10px 16px;
-    font-size: 12px;
+    flex: 1 1 auto;
+    width: fit-content;
+    padding: 10px 18px;
+    font-size: 13px;
   }
 
-  /* FILTERS */
+  /* Filters */
   .table-filters {
     justify-content: flex-start;
     gap: 10px;
     flex-wrap: wrap;
+    margin-bottom: 12px;
   }
+  .filter-select { flex: 1 1 150px; }
 
-  .filter-select {
-    flex: 1 1 160px;
+  /* Table: horizontal scroll on tablet */
+  .table-card {
+    padding: 16px;
+    border-radius: 20px;
   }
-
-  /* TABLE */
   .table-wrapper {
-    overflow-x: auto;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
   }
-
   .purchase-table {
-    min-width: 700px;
+    min-width: 600px;
+    table-layout: fixed;
   }
-
   .purchase-table th,
   .purchase-table td {
     font-size: 13px;
-    padding: 10px 6px;
+    padding: 12px 8px;
   }
+
+  /* Pagination */
+  .pagination-row { flex-wrap: wrap; gap: 8px; }
+  .page-btn { min-width: 34px; height: 34px; font-size: 12px; }
 }
 
+/* =============================================
+   MOBILE  ≤ 768px
+   ============================================= */
 @media (max-width: 768px) {
 
-  /* CONTAINER */
   .purchase-container {
-    margin-left: 0 !important;
-    width: 100% !important;
-    padding: 65px 8px 15px !important;
+    padding: 72px 12px 24px !important;
   }
 
-  /* TITLE */
-  .purchase-title-section h1 {
-    font-size: 20px;
-  }
+  /* Title */
+  .purchase-title-section h1 { font-size: 22px; }
+  .description-text { font-size: 12px; margin-bottom: 10px; }
 
-  .description-text {
-    font-size: 11px;
-    margin-bottom: 12px;
-  }
-
-  /* CONTROLS */
-  .controls-row {
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .search-bar-container {
-    width: 100%;
-    padding: 5px 10px;
-  }
-
-  .search-bar-container input {
-    font-size: 11px;
-  }
-
-  /* 🔥 EXPORT BUTTON FULL WIDTH */
+  /* Controls: stacked */
+  .controls-row { flex-direction: column; gap: 8px; }
+  .search-bar-container { width: 100%; padding: 8px 14px; }
   .export-btn {
     width: 100%;
-    padding: 8px;
-    font-size: 11px;
     text-align: center;
+    padding: 10px;
+    font-size: 12px;
     box-shadow: 0 2px 0 var(--dark-border);
   }
 
-  /* 🔥 FILTER FIX (SMALL + INLINE) */
+  /* Filters: side by side */
   .table-filters {
-    display: flex;
-    flex-direction: row;     /* same as stocks */
-    gap: 6px;
-    padding: 6px 0;
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: nowrap;
   }
-
   .filter-select {
     flex: 1;
-    padding: 5px 6px;
-    font-size: 11px;
-    border-radius: 10px;
-    height: 30px;
+    font-size: 12px;
+    padding: 6px 10px;
+    height: 36px;
   }
 
-  /* TABLE */
+  /* Table card */
+  .table-card {
+    padding: 12px 10px;
+    border-radius: 16px;
+  }
+
+  /* Table: scrollable, hide No. column, compact */
   .table-wrapper {
-    overflow: hidden !important; /* remove scrollbar */
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
   }
-
   .purchase-table {
-    width: 100%;
-    table-layout: fixed;
+    min-width: 480px;
+    table-layout: auto;
   }
 
-   /* 🔥 FORCE COLUMN WIDTH DISTRIBUTION */
-  .purchase-table col.col-no       { width: 6%; }
-  .purchase-table col.col-id       { width: 20%; }
-  .purchase-table col.col-date     { width: 16%; }
-  .purchase-table col.col-qty      { width: 12%; }
-  .purchase-table col.col-amount   { width: 18%; }
-  .purchase-table col.col-details  { width: 14%; }
+  /* Hide the No. column on mobile to save space */
+  .purchase-table col.col-no,
+  .purchase-table thead th:first-child,
+  .purchase-table tbody td:first-child {
+    display: none;
+  }
 
-  /* 🔥 ULTRA COMPACT TABLE */
   .purchase-table th,
   .purchase-table td {
-    font-size: 9px;
-    padding: 4px 2px;
-    line-height: 1.1;
-  }
-
-  /* HEADER */
-  .purchase-table thead th {
-    font-size: 9px;
-    padding: 6px 2px;
-  }
-
-  /* 🔥 TEXT HANDLING (IMPORTANT) */
-  .purchase-table th,
-  .purchase-table td {
+    font-size: 12px;
+    padding: 10px 6px;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
+  .purchase-table thead th { font-size: 11px; padding: 10px 6px; }
 
-  /* DETAILS LINK */
-  .view-details-link {
-    font-size: 8px;
-    gap: 2px;
+  /* Details link */
+  .view-details-link { font-size: 11px; gap: 3px; }
+  .view-details-link i { font-size: 14px; }
+
+  /* Details modal: full width */
+  .details-modal {
+    width: 95% !important;
+    padding: 20px 16px !important;
+    border-radius: 18px !important;
   }
-
-  .view-details-link i {
-    font-size: 10px;
+  .details-row {
+    grid-template-columns: 120px 1fr;
+    margin-bottom: 10px;
   }
+  .details-row label { font-size: 12px; }
+  .details-row input { padding: 6px 10px; font-size: 12px; }
 
-  /* PAGINATION */
+  /* Pagination */
   .pagination-row {
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
   }
+  .pagination-info { font-size: 11px; }
+  .page-btn { min-width: 30px; height: 30px; font-size: 11px; }
+  .page-btn.nav-btn { padding: 0 8px; font-size: 16px; }
+}
 
-  .pagination-info {
-    font-size: 10px;
-  }
-
-  .page-btn {
-    min-width: 28px;
-    height: 28px;
-    font-size: 10px;
-  }
+/* =============================================
+   VERY SMALL  ≤ 400px
+   ============================================= */
+@media (max-width: 400px) {
+  .purchase-container { padding: 66px 8px 20px !important; }
+  .purchase-table { min-width: 420px; }
+  .purchase-table th,
+  .purchase-table td { font-size: 11px; padding: 8px 4px; }
 }
